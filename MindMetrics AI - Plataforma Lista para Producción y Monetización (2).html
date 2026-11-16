@@ -1,0 +1,2202 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindMetrics AI | Test de IQ, Hiperfoco, Tribu Mental y Match de Actores</title>
+    <meta name="description" content="Descubre tu IQ estimado, tu radar de hiperfoco de 5 ejes, tu estilo de resolución y a qué actores famosos te pareces en tu forma de pensar.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .cyber-grid {
+            background-size: 36px 36px;
+            background-image:
+                linear-gradient(to right, rgba(34, 211, 238, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+        }
+        .neon-border-cyan {
+            box-shadow: 0 0 28px -6px rgba(6, 182, 212, 0.35);
+        }
+        @keyframes shakeError {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-7px); }
+            40%, 80% { transform: translateX(7px); }
+        }
+        .input-shake {
+            animation: shakeError 0.4s ease-in-out;
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+        .svg-float {
+            animation: floatSlow 3.2s ease-in-out infinite;
+        }
+        /* Scanner Laser Animation */
+        @keyframes scanBeam {
+            0%, 100% { transform: translateY(0%); opacity: 0.35; }
+            50% { transform: translateY(100%); opacity: 0.95; }
+        }
+        .scanner-laser-line {
+            animation: scanBeam 2.1s ease-in-out infinite;
+        }
+        /* Strict sizing for actor photos so they never break the layout */
+        .actor-thumb-mini {
+            width: 28px !important;
+            height: 28px !important;
+            object-fit: cover;
+            object-position: top center;
+            border-radius: 9999px;
+            flex-shrink: 0;
+        }
+        .actor-card-avatar {
+            width: 76px !important;
+            height: 76px !important;
+            min-width: 76px !important;
+            min-height: 76px !important;
+            max-width: 76px !important;
+            max-height: 76px !important;
+            overflow: hidden;
+            position: relative;
+        }
+        .actor-card-avatar img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+        }
+        /* Ad Slot Styling */
+        .ad-container-box {
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px dashed rgba(71, 85, 105, 0.45);
+            transition: all 0.25s ease;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: #0f172a !important; color: #f8fafc !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans cyber-grid selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- SECRET ADMIN BAR (HIDDEN BY DEFAULT - OPENS ONLY AFTER 14 CLICKS ON FOOTER VERSION) -->
+    <div id="secretAdminBar" class="hidden bg-amber-500/15 border-b border-amber-500/40 px-4 py-2.5 text-xs text-amber-200 no-print">
+        <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2 font-mono font-bold">
+                <i class="ph-fill ph-shield-star text-amber-400 text-base"></i>
+                <span>MODO ADMINISTRADOR ACTIVO (Acceso Secreto 14 Clics)</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleDemoAds()" id="adminToggleAdsBtn" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 font-mono font-semibold transition">
+                    Mostrar/Ocultar Slots de Anuncios Demo
+                </button>
+                <button onclick="openLegalModal('monetize')" class="px-3 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 font-mono font-semibold transition">
+                    Guía para Pegar Código AdSense
+                </button>
+                <button onclick="closeAdminBar()" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300">
+                    ✕
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOP NAVIGATION HEADER -->
+    <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md no-print">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Brand Logo (Original Cyan Brain Icon) -->
+            <button onclick="resetToHome()" class="flex items-center gap-2.5 text-left group focus:outline-none">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-indigo-600/20 border border-cyan-500/40 flex items-center justify-center shadow-lg shadow-cyan-500/10 group-hover:scale-105 transition">
+                    <i class="ph-duotone ph-brain text-2xl text-cyan-400"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-extrabold tracking-tight text-base sm:text-lg text-white">MindMetrics<span class="text-cyan-400">.AI</span></span>
+                        <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">100% Gratis</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 hidden sm:block">Laboratorio Abierto de Perfil Cognitivo, Hiperfoco y Arquetipos</p>
+                </div>
+            </button>
+
+            <!-- Right Controls -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span id="liveTestsCount" class="font-mono font-bold text-white">148,920</span>
+                    <span class="text-slate-400">tests hoy</span>
+                </div>
+
+                <button onclick="toggleHistoryModal()" class="relative px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-xs sm:text-sm font-medium text-slate-200 flex items-center gap-1.5 transition" title="Ver mis resultados guardados">
+                    <svg class="w-4 h-4 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 7V12L15 15" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span class="hidden sm:inline">Mis Resultados</span>
+                    <span id="historyCountBadge" class="hidden px-1.5 py-0.2 text-[10px] font-mono bg-cyan-500 text-slate-950 font-extrabold rounded-full">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6 sm:py-10 flex flex-col justify-center">
+
+        <!-- ==========================================
+             VIEW 1: LANDING SCREEN (HERO + 4 PILLARS)
+             ========================================== -->
+        <section id="landingView" class="space-y-7">
+            <!-- Hero Main Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-10 relative overflow-hidden neon-border-cyan">
+                <div class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 max-w-3xl mx-auto text-center space-y-5">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">
+                        <svg class="w-4 h-4 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="none">
+                            <path d="M13 2L4 14H12L11 22L20 10H12L13 2Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                        <span>TEST INTERACTIVO 4 EN 1 • ACCESO DIRECTO Y GRATUITO</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+                        ¿Cuál es tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400">IQ, Nivel de Hiperfoco</span> y qué Actor piensa como tú?
+                    </h1>
+
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                        Responde 15 retos rápidos de lógica visual, resolución de problemas, batería social y psicología. Al terminar, nuestro <strong class="text-cyan-400 font-semibold">escáner biométrico analiza tus respuestas y abre automáticamente</strong> tu certificado completo.
+                    </p>
+
+                    <!-- User Name Input (Mandatory, WITHOUT blue Obligatorio badge) -->
+                    <div class="max-w-md mx-auto pt-2 text-left">
+                        <div class="mb-1.5">
+                            <label for="userNameInput" class="block text-xs font-mono uppercase tracking-wider text-slate-300 font-semibold">
+                                Escribe tu Nombre o Apodo para el Certificado:
+                            </label>
+                        </div>
+                        <div id="userNameInputWrapper" class="relative rounded-xl transition-all">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-cyan-400 pointer-events-none">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="8" r="4" fill="#22d3ee" fill-opacity="0.2" stroke="currentColor" stroke-width="1.8"/>
+                                    <path d="M5 20C5 16.6863 8.13401 14 12 14C15.866 14 19 16.6863 19 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <input
+                                type="text"
+                                id="userNameInput"
+                                maxlength="28"
+                                oninput="clearNameRequirementError()"
+                                onkeydown="if(event.key === 'Enter') startAssessment()"
+                                placeholder="Ej. Alex, Dani, Sam..."
+                                class="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-900/95 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-cyan-400 transition"
+                            />
+                        </div>
+                        <p id="nameErrorMsg" class="hidden text-xs text-rose-400 font-medium mt-1.5 flex items-center gap-1.5">
+                            <i class="ph-fill ph-warning-circle text-sm shrink-0"></i>
+                            <span>Por favor escribe tu nombre o apodo antes de iniciar el test.</span>
+                        </p>
+                    </div>
+
+                    <!-- Primary Action Buttons -->
+                    <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <button onclick="startAssessment()" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-400 via-cyan-500 to-indigo-600 hover:from-cyan-300 hover:to-indigo-500 text-slate-950 font-extrabold text-base shadow-xl shadow-cyan-500/20 flex items-center justify-center gap-3 transform hover:-translate-y-0.5 transition">
+                            <svg class="w-6 h-6 text-slate-950 shrink-0" viewBox="0 0 24 24" fill="none">
+                                <polygon points="6 4 20 12 6 20 6 4" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Iniciar Evaluación Completa</span>
+                        </button>
+
+                        <button onclick="runInstantDemo()" class="w-full sm:w-auto px-5 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-sm flex items-center justify-center gap-2.5 transition">
+                            <svg class="w-5 h-5 text-amber-400 shrink-0" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L14.8 8.5L22 9.3L16.5 14L18.2 21L12 17.3L5.8 21L7.5 14L2 9.3L9.2 8.5L12 2Z" fill="#fbbf24" fill-opacity="0.25" stroke="#fbbf24" stroke-width="1.8" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Ver Ejemplo de Certificado</span>
+                        </button>
+                    </div>
+
+                    <div class="pt-1 flex flex-wrap items-center justify-center gap-4 text-xs text-slate-400">
+                        <span class="flex items-center gap-1.5">
+                            <i class="ph-fill ph-timer text-cyan-400"></i> Duración: ~2 min
+                        </span>
+                        <span class="flex items-center gap-1.5">
+                            <i class="ph-fill ph-check-circle text-emerald-400"></i> Confirmación por pregunta
+                        </span>
+                        <span class="flex items-center gap-1.5">
+                            <i class="ph-fill ph-sparkle text-amber-400"></i> Resultados automáticos al 100%
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AD SLOT #1: TOP NON-INVASIVE BANNER (728x90 / 320x50) -->
+            <div class="ad-slot-wrapper hidden no-print" id="adSlotHero">
+                <div class="ad-container-box rounded-2xl p-3 text-center max-w-3xl mx-auto">
+                    <span class="block text-[9px] font-mono uppercase tracking-widest text-slate-500 mb-1">Publicidad Patrocinada (Slot #1 - 728x90 / 320x50)</span>
+                    <div class="h-16 sm:h-20 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center px-4 text-xs text-slate-400 font-mono">
+                        [ Pega aquí tu bloque de Google AdSense Horizontal ]
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 FEATURE PILLARS (All with bespoke multi-color SVGs & real actor strip) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Pillar 1: IQ & Speed -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800/80 hover:border-cyan-500/40 transition group">
+                    <div class="flex items-center justify-between mb-3.5">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/15 border border-cyan-500/35 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
+                            <svg class="w-7 h-7 svg-float" viewBox="0 0 32 32" fill="none">
+                                <path d="M5 24C8 24 10 10 16 10C22 10 24 24 27 24" stroke="#22d3ee" stroke-width="2.2" stroke-linecap="round"/>
+                                <path d="M5 24H27" stroke="#475569" stroke-width="1.5" stroke-linecap="round"/>
+                                <line x1="16" y1="7" x2="16" y2="24" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="2 2"/>
+                                <circle cx="16" cy="10" r="3" fill="#22d3ee"/>
+                                <circle cx="21" cy="15" r="2.2" fill="#a855f7"/>
+                            </svg>
+                        </div>
+                        <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/25">Campana Gauss</span>
+                    </div>
+                    <h3 class="font-bold text-white text-sm sm:text-base mb-1">1. IQ y Agilidad Visual</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Retos visuales rápidos y acertijos capciosos con bono de velocidad mental en tiempo real.</p>
+                </div>
+
+                <!-- Pillar 2: 5-Axis Hyperfocus Radar -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800/80 hover:border-purple-500/40 transition group">
+                    <div class="flex items-center justify-between mb-3.5">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-fuchsia-600/15 border border-purple-500/35 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
+                            <svg class="w-7 h-7 svg-float" viewBox="0 0 32 32" fill="none">
+                                <polygon points="16,4 28,13 23,27 9,27 4,13" stroke="#a855f7" stroke-width="1.6" fill="#a855f7" fill-opacity="0.12"/>
+                                <polygon points="16,8 24,14 20,24 12,24 8,14" stroke="#22d3ee" stroke-width="1.5" fill="#22d3ee" fill-opacity="0.22"/>
+                                <circle cx="16" cy="8" r="2" fill="#22d3ee"/>
+                                <circle cx="24" cy="14" r="2" fill="#e879f9"/>
+                                <circle cx="20" cy="24" r="2" fill="#22d3ee"/>
+                                <circle cx="12" cy="24" r="2" fill="#e879f9"/>
+                                <circle cx="8" cy="14" r="2" fill="#22d3ee"/>
+                            </svg>
+                        </div>
+                        <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/25">Radar 5 Ejes</span>
+                    </div>
+                    <h3 class="font-bold text-white text-sm sm:text-base mb-1">2. Radar de Hiperfoco</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Analiza tus desvelos de investigación a las 3 AM, detección de detalles, batería social y enfoque.</p>
+                </div>
+
+                <!-- Pillar 3: Problem Solving Tribe -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800/80 hover:border-emerald-500/40 transition group">
+                    <div class="flex items-center justify-between mb-3.5">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-600/15 border border-emerald-500/35 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
+                            <svg class="w-7 h-7 svg-float" viewBox="0 0 32 32" fill="none">
+                                <rect x="11" y="11" width="10" height="10" rx="2.5" fill="#10b981" fill-opacity="0.25" stroke="#34d399" stroke-width="1.8"/>
+                                <circle cx="7" cy="7" r="2.5" fill="#22d3ee"/>
+                                <circle cx="25" cy="7" r="2.5" fill="#a855f7"/>
+                                <circle cx="7" cy="25" r="2.5" fill="#f59e0b"/>
+                                <circle cx="25" cy="25" r="2.5" fill="#22d3ee"/>
+                                <path d="M9 9L12 12M23 9L20 12M9 23L12 20M23 23L20 20" stroke="#34d399" stroke-width="1.6" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/25">Tribu Mental</span>
+                    </div>
+                    <h3 class="font-bold text-white text-sm sm:text-base mb-1">3. Ingeniería y Tribu</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Descubre a qué tribu perteneces cuando resuelves problemas en juegos, proyectos o emergencias.</p>
+                </div>
+
+                <!-- Pillar 4: 18 Actors Match -->
+                <div class="glass-card rounded-2xl p-5 border border-slate-800/80 hover:border-amber-500/40 transition group">
+                    <div class="flex items-center justify-between mb-3.5">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-rose-500/15 border border-amber-500/35 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
+                            <svg class="w-7 h-7 svg-float" viewBox="0 0 32 32" fill="none">
+                                <rect x="4" y="6" width="24" height="20" rx="4" fill="#f59e0b" fill-opacity="0.18" stroke="#fbbf24" stroke-width="1.8"/>
+                                <path d="M4 11H28" stroke="#fbbf24" stroke-width="1.6"/>
+                                <circle cx="12" cy="18" r="3" fill="#22d3ee" fill-opacity="0.4" stroke="#22d3ee" stroke-width="1.5"/>
+                                <circle cx="20" cy="18" r="3" fill="#f43f5e" fill-opacity="0.4" stroke="#fb7185" stroke-width="1.5"/>
+                                <path d="M16 14L17 16L19 16.3L17.5 17.7L17.9 19.7L16 18.7L14.1 19.7L14.5 17.7L13 16.3L15 16L16 14Z" fill="#fde047"/>
+                            </svg>
+                        </div>
+                        <!-- Mini Strip of Real Actor Photos (Strictly sized to 28x28px) -->
+                        <div class="flex items-center -space-x-2 overflow-hidden py-1 pl-1">
+                            <img data-actor-img="cillian" src="https://commons.wikimedia.org/wiki/Special:FilePath/Cillian_Murphy_at_Berlinale_2024,_Ausschnitt.jpg?width=160" alt="Cillian Murphy" class="actor-thumb-mini ring-2 ring-slate-900 bg-slate-800" onerror="handleMiniThumbError(this)">
+                            <img data-actor-img="jenna" src="https://commons.wikimedia.org/wiki/Special:FilePath/Jenna_Ortega_2022.jpg?width=160" alt="Jenna Ortega" class="actor-thumb-mini ring-2 ring-slate-900 bg-slate-800" onerror="handleMiniThumbError(this)">
+                            <img data-actor-img="rdj" src="https://commons.wikimedia.org/wiki/Special:FilePath/Robert_Downey_Jr_2014_Comic_Con_(cropped).jpg?width=160" alt="RDJ" class="actor-thumb-mini ring-2 ring-slate-900 bg-slate-800" onerror="handleMiniThumbError(this)">
+                            <img data-actor-img="anya" src="https://commons.wikimedia.org/wiki/Special:FilePath/Anya_Taylor-Joy_by_Gage_Skidmore.jpg?width=160" alt="Anya Taylor-Joy" class="actor-thumb-mini ring-2 ring-slate-900 bg-slate-800" onerror="handleMiniThumbError(this)">
+                            <span class="w-7 h-7 rounded-full bg-slate-800 ring-2 ring-slate-900 flex items-center justify-center text-[9px] font-mono font-bold text-amber-300 shrink-0">+14</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-white text-sm sm:text-base mb-1">4. Match con 18 Actores</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Compara tu mente con Cillian Murphy, Jenna Ortega, Zendaya, Anya Taylor-Joy, RDJ, Henry Cavill y más.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             VIEW 2: INTERACTIVE 15-QUESTION QUIZ VIEW
+             ========================================== -->
+        <section id="quizView" class="hidden max-w-3xl w-full mx-auto space-y-5">
+            <!-- Top Quiz Status & Progress Bar -->
+            <div class="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800/90 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <!-- Stage Badge -->
+                    <div id="stageBadge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-semibold">
+                        <span>Etapa 1: Agilidad Visual y Lógica</span>
+                    </div>
+
+                    <!-- Right Status: Speed Timer + Question Counter -->
+                    <div class="flex items-center gap-2.5">
+                        <div id="speedTimerBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold">
+                            <i class="ph-fill ph-timer text-amber-400"></i>
+                            <span id="questionTimerText">0.0s</span>
+                        </div>
+                        <span id="questionCounterText" class="text-xs font-mono font-bold text-slate-300 bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
+                            Pregunta 1 / 15
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Smooth Progress Bar -->
+                <div class="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800 p-0.5">
+                    <div id="progressBarFill" class="h-full bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500 rounded-full transition-all duration-300" style="width: 6.6%"></div>
+                </div>
+            </div>
+
+            <!-- Main Question Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800/90 space-y-6 neon-border-cyan">
+                <div class="space-y-2">
+                    <span id="questionSubtitle" class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold block">
+                        Secuencia en Movimiento
+                    </span>
+                    <h2 id="questionTitle" class="text-lg sm:text-2xl font-extrabold text-white leading-snug">
+                        Cargando pregunta...
+                    </h2>
+                </div>
+
+                <!-- Visual SVG Container (For Questions 1, 2, 5) -->
+                <div id="questionVisualContainer" class="hidden w-full rounded-2xl bg-slate-950/90 border border-slate-800/90 p-4 flex items-center justify-center overflow-hidden"></div>
+
+                <!-- 4 Options List (Two-step confirmation) -->
+                <div id="optionsContainer" class="space-y-3"></div>
+
+                <!-- Navigation Footer: Previous & Next/Confirm Button -->
+                <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-3">
+                    <button
+                        type="button"
+                        id="prevQuestionBtn"
+                        onclick="goBackQuestion()"
+                        disabled
+                        class="px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:opacity-40 disabled:pointer-events-none border border-slate-700 text-slate-200 font-semibold text-xs sm:text-sm flex items-center gap-2 transition"
+                    >
+                        <i class="ph-bold ph-arrow-left text-cyan-400"></i>
+                        <span>Anterior</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        id="nextQuestionBtn"
+                        onclick="confirmAndAdvanceQuestion()"
+                        disabled
+                        class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 via-cyan-500 to-indigo-600 hover:from-cyan-300 hover:to-indigo-500 disabled:opacity-40 disabled:pointer-events-none text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-cyan-500/20 transition"
+                    >
+                        <span id="nextQuestionBtnText">Siguiente Pregunta</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- AD SLOT #2: QUIZ FOOTER BANNER (Separated to prevent accidental clicks) -->
+            <div class="ad-slot-wrapper hidden pt-3 no-print" id="adSlotQuizFooter">
+                <div class="ad-container-box rounded-2xl p-3 text-center">
+                    <span class="block text-[9px] font-mono uppercase tracking-widest text-slate-500 mb-1">Publicidad (Slot #2 - Pie de Cuestionario 728x90 / 320x50)</span>
+                    <div class="h-16 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center px-4 text-xs text-slate-400 font-mono">
+                        [ Espacio Publicitario No Invasivo - Separado de los Botones ]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             VIEW 3: BIOMETRIC NEURAL SCANNER (AUTO-OPENS RESULTS)
+             ========================================== -->
+        <section id="paywallDestroyerView" class="hidden max-w-2xl w-full mx-auto space-y-6">
+            <div id="paywallCardContainer" class="glass-card rounded-3xl p-6 sm:p-8 border border-cyan-500/40 neon-border-cyan relative overflow-hidden space-y-6">
+                <!-- Animated Scanner Radar Header -->
+                <div class="flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/15 border border-cyan-500/40 flex items-center justify-center relative overflow-hidden shrink-0">
+                            <div class="absolute inset-x-0 top-0 h-1 bg-cyan-400 shadow-[0_0_12px_#22d3ee] scanner-laser-line"></div>
+                            <i id="scannerStatusIcon" class="ph-duotone ph-brain text-3xl text-cyan-400 animate-pulse"></i>
+                        </div>
+                        <div>
+                            <span id="paywallPhaseTag" class="text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-semibold block">ESCÁNER NEURO-PSICOMÉTRICO EN VIVO</span>
+                            <h2 id="paywallMainHeading" class="text-lg sm:text-xl font-black text-white">Analizando tu Perfil Cognitivo...</h2>
+                        </div>
+                    </div>
+
+                    <div class="text-right shrink-0">
+                        <span id="scannerPercentText" class="text-2xl sm:text-3xl font-mono font-black text-cyan-400">0%</span>
+                        <span class="block text-[10px] font-mono uppercase text-slate-400">Procesado</span>
+                    </div>
+                </div>
+
+                <!-- Smooth Scanner Progress Bar -->
+                <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden border border-slate-800 p-0.5">
+                    <div id="scannerProgressBar" class="h-full bg-gradient-to-r from-cyan-400 via-indigo-500 to-emerald-400 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <!-- Live Biometric Console Log ([OK] steps) -->
+                <div id="terminalLogBox" class="rounded-2xl bg-slate-950/95 border border-slate-800/90 p-4 sm:p-5 font-mono text-xs sm:text-sm space-y-2.5 min-h-[195px] text-slate-300 shadow-inner"></div>
+
+                <!-- Auto-Redirect Status Pill -->
+                <div class="flex items-center justify-center gap-2 text-xs font-mono text-slate-400 pt-1">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span id="scannerBottomHint">Abriendo resultados automáticamente al completar el escaneo...</span>
+                </div>
+
+                <!-- AD SLOT #3: HIGH-RPM 300x250 LOADING SCREEN SLOT -->
+                <div class="ad-slot-wrapper hidden pt-2 no-print" id="adSlotLoading">
+                    <div class="ad-container-box rounded-2xl p-3 text-center">
+                        <span class="block text-[9px] font-mono uppercase tracking-widest text-slate-500 mb-1">Publicidad (Slot #3 - Alto RPM 300x250 durante escaneo)</span>
+                        <div class="h-36 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center px-4 text-xs text-slate-400 font-mono">
+                            [ Bloque AdSense 300x250 de Alta Visibilidad ]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             VIEW 4: COMPLETE RESULTS DASHBOARD
+             ========================================== -->
+        <section id="resultsView" class="hidden space-y-6">
+            <!-- Top Certificate Banner -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-cyan-500/40 neon-border-cyan relative overflow-hidden">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
+                    <div class="space-y-1">
+                        <div class="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full">
+                            <i class="ph-fill ph-seal-check"></i>
+                            <span>CERTIFICADO NEURO-COGNITIVO VERIFICADO • ID #<span id="certIdSpan">MM-9042</span></span>
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl font-black text-white pt-1">
+                            Reporte Cognitivo de <span id="resultUserName" class="text-cyan-400">Explorador</span>
+                        </h1>
+                        <p id="resultTimestamp" class="text-xs font-mono text-slate-400"></p>
+                    </div>
+
+                    <!-- Quick Share & Action Buttons -->
+                    <div class="flex flex-wrap items-center gap-2.5 no-print">
+                        <button onclick="shareOnWhatsApp()" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition">
+                            <i class="ph-fill ph-whatsapp-logo text-lg"></i>
+                            <span>Retar Amigos en WhatsApp</span>
+                        </button>
+                        <button onclick="copySummaryToClipboard()" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition">
+                            <i class="ph-duotone ph-copy text-cyan-400 text-base"></i>
+                            <span id="copyBtnLabel">Copiar Resumen</span>
+                        </button>
+                        <button onclick="window.print()" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition">
+                            <i class="ph-duotone ph-printer text-purple-400 text-base"></i>
+                            <span>Guardar PDF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4 Key KPI Summary Row -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-5">
+                    <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4">
+                        <span class="text-[11px] font-mono uppercase text-slate-400 block">IQ Estimado</span>
+                        <div class="flex items-baseline gap-2 mt-1">
+                            <span id="kpiIqScore" class="text-3xl sm:text-4xl font-black text-cyan-400 font-mono">124</span>
+                            <span id="kpiIqPercentile" class="text-xs font-mono text-emerald-400">Top 6%</span>
+                        </div>
+                        <p id="kpiSpeedNote" class="text-[11px] text-slate-400 mt-1"></p>
+                    </div>
+
+                    <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4">
+                        <span class="text-[11px] font-mono uppercase text-slate-400 block">Índice Hiperfoco / ND</span>
+                        <div class="flex items-baseline gap-2 mt-1">
+                            <span id="kpiNdScore" class="text-3xl sm:text-4xl font-black text-purple-400 font-mono">78%</span>
+                            <span id="kpiNdLabel" class="text-xs font-mono text-purple-300">Alto</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-1">Detección de patrones y foco</p>
+                    </div>
+
+                    <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4">
+                        <span class="text-[11px] font-mono uppercase text-slate-400 block">Tribu Mental</span>
+                        <div id="kpiTribeName" class="text-base sm:text-lg font-extrabold text-emerald-400 mt-1 leading-tight">
+                            Arquitecto de Sistemas
+                        </div>
+                        <p id="kpiTribeSub" class="text-[11px] text-slate-400 mt-1">Lógica y estructura</p>
+                    </div>
+
+                    <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4">
+                        <span class="text-[11px] font-mono uppercase text-slate-400 block">Match #1 de Actor</span>
+                        <div id="kpiTopActorName" class="text-base sm:text-lg font-extrabold text-amber-400 mt-1 leading-tight">
+                            Cillian Murphy
+                        </div>
+                        <p id="kpiTopActorRole" class="text-[11px] text-slate-400 mt-1">96% compatibilidad mental</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Grid: Gaussian IQ Curve + 5-Axis Hyperfocus Radar -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Card 1: Gaussian IQ Bell Curve -->
+                <div class="glass-card rounded-3xl p-6 border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-mono uppercase text-cyan-400 font-semibold">1. Distribución Psicométrica</span>
+                            <h3 class="text-lg font-extrabold text-white">Campana de Gauss de tu IQ</h3>
+                        </div>
+                        <span id="gaussBadge" class="px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 font-mono font-bold text-xs">
+                            IQ 124
+                        </span>
+                    </div>
+
+                    <!-- Dynamic SVG Bell Curve -->
+                    <div id="gaussianSvgContainer" class="w-full rounded-2xl bg-slate-950/90 border border-slate-800/90 p-3"></div>
+
+                    <p id="iqDetailedExplanation" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                </div>
+
+                <!-- Card 2: 5-Axis Neuro-Atypical & Hyperfocus Radar -->
+                <div class="glass-card rounded-3xl p-6 border border-slate-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-mono uppercase text-purple-400 font-semibold">2. Espectro de Procesamiento</span>
+                            <h3 class="text-lg font-extrabold text-white">Radar de Hiperfoco (5 Ejes)</h3>
+                        </div>
+                        <span id="radarBadge" class="px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 font-mono font-bold text-xs">
+                            78% Índice
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
+                        <!-- Dynamic SVG Radar Polygon -->
+                        <div id="radarSvgContainer" class="w-full flex items-center justify-center bg-slate-950/90 border border-slate-800/90 rounded-2xl p-3"></div>
+                        <!-- 5 Axis Bars -->
+                        <div id="radarAxesList" class="space-y-2.5"></div>
+                    </div>
+
+                    <p id="ndDetailedExplanation" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+                </div>
+            </div>
+
+            <!-- AD SLOT #4: IN-FEED RESULTS BANNER -->
+            <div class="ad-slot-wrapper hidden no-print" id="adSlotResults">
+                <div class="ad-container-box rounded-2xl p-3 text-center">
+                    <span class="block text-[9px] font-mono uppercase tracking-widest text-slate-500 mb-1">Publicidad (Slot #4 - In-Feed Resultados)</span>
+                    <div class="h-20 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center px-4 text-xs text-slate-400 font-mono">
+                        [ Banner Nativo In-Feed / AdSense 728x90 ]
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Top 4 Celebrity / Actor Mindset Matches (With Real Photos + SVG Fallback) -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-5">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                        <span class="text-xs font-mono uppercase text-amber-400 font-semibold">3. Arquetipos de Pensamiento (18 Perfiles)</span>
+                        <h3 class="text-xl sm:text-2xl font-extrabold text-white">Actores y Personajes que piensan como tú</h3>
+                    </div>
+                    <span class="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
+                        Top 4 Compatibilidades
+                    </span>
+                </div>
+
+                <div id="celebrityMatchesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+
+            <!-- Card 4: Mental Engineering & Problem Solving Tribe -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                        <span class="text-xs font-mono uppercase text-emerald-400 font-semibold">4. Ingeniería Mental y Resolución</span>
+                        <h3 id="tribeFullTitle" class="text-xl sm:text-2xl font-extrabold text-white"></h3>
+                    </div>
+                    <span id="tribeTagPill" class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold"></span>
+                </div>
+
+                <p id="tribeFullDescription" class="text-sm sm:text-base text-slate-300 leading-relaxed"></p>
+
+                <div id="tribeStrengthsGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2"></div>
+            </div>
+
+            <!-- Bottom Retake & Share Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-2 no-print">
+                <button onclick="resetToHome()" class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs sm:text-sm flex items-center gap-2 transition">
+                    <i class="ph-bold ph-arrow-counter-clockwise text-cyan-400"></i>
+                    <span>Hacer el Test con Otro Nombre</span>
+                </button>
+
+                <button onclick="shareOnWhatsApp()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-300 hover:to-teal-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition">
+                    <i class="ph-fill ph-whatsapp-logo text-lg"></i>
+                    <span>Compartir mi Resultado en WhatsApp</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER (With 14-Click Secret Admin Trigger on v2.5 Pro) -->
+    <footer class="border-t border-slate-900 bg-slate-950/90 py-6 px-4 mt-12 no-print">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+            <div class="flex items-center gap-2.5">
+                <div class="w-7 h-7 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center">
+                    <i class="ph-duotone ph-brain text-base text-cyan-400"></i>
+                </div>
+                <span class="font-bold text-slate-200">MindMetrics.AI</span>
+                <span>• Entretenimiento Psicométrico Interactivo</span>
+                <!-- SECRET 14-CLICK TRIGGER -->
+                <span id="versionSecretTrigger" onclick="registerSecretAdminClick()" class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 select-none cursor-default">
+                    v2.5 Pro
+                </span>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <button onclick="openLegalModal('privacy')" class="hover:text-cyan-400 transition">Privacidad</button>
+                <button onclick="openLegalModal('terms')" class="hover:text-cyan-400 transition">Términos de Uso</button>
+                <button onclick="openLegalModal('disclaimer')" class="hover:text-cyan-400 transition">Aviso No-Médico</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- COOKIE CONSENT BANNER (For AdSense Compliance) -->
+    <div id="cookieConsentBanner" class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-md z-40 glass-card rounded-2xl p-4 border border-slate-700 shadow-2xl no-print">
+        <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                <i class="ph-duotone ph-cookie text-xl text-cyan-400"></i>
+            </div>
+            <div class="space-y-2 text-xs text-slate-300">
+                <p class="font-semibold text-white">Aviso de Uso de Cookies</p>
+                <p class="text-slate-400 leading-relaxed">
+                    Utilizamos cookies propias y de terceros para mejorar tu experiencia de navegación, analizar el tráfico y mostrar anuncios relevantes. Al continuar, aceptas nuestro uso de cookies.
+                </p>
+                <div class="flex items-center gap-2 pt-1">
+                    <button onclick="acceptCookies()" class="px-4 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition">
+                        Aceptar Cookies
+                    </button>
+                    <button onclick="openLegalModal('privacy')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+                        Ver Política
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAVED HISTORY MODAL -->
+    <div id="historyModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+        <div class="glass-card rounded-3xl max-w-lg w-full p-6 border border-slate-700 space-y-4 max-h-[85vh] flex flex-col">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <i class="ph-duotone ph-clock-counter-clockwise text-xl text-cyan-400"></i>
+                    <h3 class="font-extrabold text-white text-base">Historial de Resultados en este Dispositivo</h3>
+                </div>
+                <button onclick="toggleHistoryModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">✕</button>
+            </div>
+            <div id="historyListContainer" class="flex-1 overflow-y-auto space-y-2.5 pr-1"></div>
+            <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
+                <button onclick="clearSavedHistory()" class="text-xs text-rose-400 hover:underline">Borrar historial local</button>
+                <button onclick="toggleHistoryModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEGAL & MONETIZATION MODAL -->
+    <div id="legalModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 no-print">
+        <div class="glass-card rounded-3xl max-w-xl w-full p-6 border border-slate-700 space-y-4 max-h-[85vh] flex flex-col">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 id="legalModalTitle" class="font-extrabold text-white text-base">Información Legal</h3>
+                <button onclick="closeLegalModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">✕</button>
+            </div>
+            <div id="legalModalBody" class="flex-1 overflow-y-auto text-xs sm:text-sm text-slate-300 space-y-3 leading-relaxed pr-1"></div>
+            <div class="pt-2 border-t border-slate-800 text-right">
+                <button onclick="closeLegalModal()" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toastNotification" class="hidden fixed top-20 right-4 z-50 px-4 py-3 rounded-2xl bg-slate-900/95 border border-cyan-500/50 text-white text-xs font-medium shadow-2xl flex items-center gap-2.5 no-print">
+        <i class="ph-fill ph-check-circle text-emerald-400 text-lg"></i>
+        <span id="toastMessageText">Copiado al portapapeles</span>
+    </div>
+
+    <!-- ==========================================================================
+         APPLICATION JAVASCRIPT ENGINE
+         ========================================================================== -->
+    <script>
+        /* ==========================================================================
+           0. STAGE & OPTION SVG ICONS
+           ========================================================================== */
+        const STAGE_SVGS = {
+            1: `<svg class="w-4 h-4 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14H12L11 22L20 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+            2: `<svg class="w-4 h-4 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="2"/><path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+            3: `<svg class="w-4 h-4 text-purple-400 shrink-0" viewBox="0 0 24 24" fill="none"><polygon points="12,2 21,9 17,20 7,20 3,9" stroke="currentColor" stroke-width="2"/></svg>`,
+            4: `<svg class="w-4 h-4 text-amber-400 shrink-0" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.8 8.5L22 9.3L16.5 14L18.2 21L12 17.3L5.8 21L7.5 14L2 9.3L9.2 8.5L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`
+        };
+
+        /* ==========================================================================
+           1. 15 VIRAL, DYNAMIC QUESTIONS FOR AGES 12-30
+           ========================================================================== */
+        const QUESTIONS = [
+            // ---------------- ETAPA 1: IQ Y AGILIDAD VISUAL (5 PREGUNTAS CON CRONÓMETRO) ----------------
+            {
+                id: 1,
+                stage: 1,
+                stageName: "Etapa 1: Agilidad Visual y Lógica",
+                subtitle: "Secuencia en Movimiento • Bono de Velocidad Activo",
+                question: "Mira cómo el punto brillante gira esquina por esquina en sentido del reloj (Arriba-Izq → Arriba-Der → Abajo-Der). ¿En qué esquina debe estar en la Caja 4?",
+                visualSvg: `
+                    <svg class="w-full max-w-md h-28" viewBox="0 0 380 96" fill="none">
+                        <rect x="10" y="13" width="68" height="68" rx="12" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                        <circle cx="28" cy="31" r="9" fill="#22d3ee"/>
+                        <text x="44" y="92" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">Caja 1</text>
+
+                        <rect x="104" y="13" width="68" height="68" rx="12" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                        <circle cx="154" cy="31" r="9" fill="#22d3ee"/>
+                        <text x="138" y="92" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">Caja 2</text>
+
+                        <rect x="198" y="13" width="68" height="68" rx="12" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+                        <circle cx="248" cy="63" r="9" fill="#22d3ee"/>
+                        <text x="232" y="92" text-anchor="middle" fill="#64748b" font-size="10" font-family="monospace">Caja 3</text>
+
+                        <rect x="292" y="13" width="68" height="68" rx="12" fill="#0f172a" stroke="#22d3ee" stroke-width="2" stroke-dasharray="4 4"/>
+                        <text x="326" y="55" text-anchor="middle" fill="#22d3ee" font-size="24" font-weight="bold" font-family="monospace">?</text>
+                        <text x="326" y="92" text-anchor="middle" fill="#22d3ee" font-size="10" font-family="monospace">Caja 4</text>
+                    </svg>
+                `,
+                options: [
+                    { text: "Esquina Inferior Izquierda (Abajo a la izquierda)", iqPoints: 18, tribe: { architect: 2, detective: 2 }, actors: { anya: 2, cillian: 1 } },
+                    { text: "Regresa a la Esquina Superior Izquierda", iqPoints: 4, tribe: { hacker: 1 }, actors: { tom: 1 } },
+                    { text: "Se queda en el centro del cuadrado", iqPoints: 2, tribe: { creative: 1 }, actors: { margot: 1 } },
+                    { text: "Esquina Superior Derecha", iqPoints: 0, tribe: { strategist: 1 }, actors: { pedro: 1 } }
+                ]
+            },
+            {
+                id: 2,
+                stage: 1,
+                stageName: "Etapa 1: Agilidad Visual y Lógica",
+                subtitle: "Patrón Numérico Rápido • Bono de Velocidad Activo",
+                question: "Cada número se va duplicando: 3 → 6 → 12 → 24 → 48... ¿Qué número sigue?",
+                visualSvg: `
+                    <svg class="w-full max-w-md h-20" viewBox="0 0 380 68" fill="none">
+                        <rect x="8" y="12" width="364" height="44" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.8"/>
+                        <text x="190" y="40" text-anchor="middle" fill="#f8fafc" font-size="20" font-weight="bold" font-family="monospace">3  •  6  •  12  •  24  •  48  •  [ ? ]</text>
+                    </svg>
+                `,
+                options: [
+                    { text: "96", iqPoints: 18, tribe: { architect: 2, strategist: 2 }, actors: { bryan: 2, rdj: 2, anya: 1 } },
+                    { text: "90", iqPoints: 5, tribe: { hacker: 1 }, actors: { tom: 1 } },
+                    { text: "84", iqPoints: 2, tribe: { creative: 1 }, actors: { emma: 1 } },
+                    { text: "102", iqPoints: 0, tribe: { detective: 1 }, actors: { rami: 1 } }
+                ]
+            },
+            {
+                id: 3,
+                stage: 1,
+                stageName: "Etapa 1: Agilidad Visual y Lógica",
+                subtitle: "Acertijo Capcioso Viral • Control de Impulso",
+                question: "Vas corriendo en una carrera o torneo y justo antes de la meta adelantas a la persona que va en 2° lugar. ¿En qué posición quedas tú?",
+                options: [
+                    { text: "En 2° lugar (le quitaste su puesto al segundo, no al primero)", iqPoints: 19, tribe: { detective: 3, strategist: 2 }, actors: { cillian: 2, jenna: 2, zendaya: 2 } },
+                    { text: "En 1° lugar (ganaste la carrera)", iqPoints: 4, tribe: { hacker: 1 }, actors: { tom: 2, margot: 1 } },
+                    { text: "En 3° lugar", iqPoints: 0, tribe: { creative: 1 }, actors: { ryan: 1 } },
+                    { text: "Empatado en el 1° lugar", iqPoints: 2, tribe: { architect: 1 }, actors: { pedro: 1 } }
+                ]
+            },
+            {
+                id: 4,
+                stage: 1,
+                stageName: "Etapa 1: Agilidad Visual y Lógica",
+                subtitle: "Trampa de Intuición Rápida • Bono de Velocidad Activo",
+                question: "Si 5 impresoras 3D tardan exactamente 5 minutos en fabricar 5 figuras... ¿Cuánto tiempo tardarán 100 impresoras 3D trabajando al mismo tiempo en hacer 100 figuras?",
+                options: [
+                    { text: "5 minutos (cada impresora hace su propia figura en 5 minutos)", iqPoints: 20, tribe: { architect: 3, hacker: 2 }, actors: { rdj: 3, bryan: 2, scarlett: 2 } },
+                    { text: "100 minutos", iqPoints: 4, tribe: { creative: 1 }, actors: { millie: 1 } },
+                    { text: "1 minuto", iqPoints: 2, tribe: { strategist: 1 }, actors: { tom: 1 } },
+                    { text: "50 minutos", iqPoints: 0, tribe: { detective: 1 }, actors: { sadie: 1 } }
+                ]
+            },
+            {
+                id: 5,
+                stage: 1,
+                stageName: "Etapa 1: Agilidad Visual y Lógica",
+                subtitle: " Percepción Geométrica • Bono de Velocidad Activo",
+                question: "Observa con cuidado esta ventana. Contando los cuadros pequeños y el marco exterior completo, ¿cuántos cuadrados hay en total?",
+                visualSvg: `
+                    <svg class="w-40 h-40" viewBox="0 0 120 120" fill="none">
+                        <rect x="16" y="16" width="88" height="88" rx="6" fill="#0f172a" stroke="#22d3ee" stroke-width="3.5"/>
+                        <line x1="60" y1="16" x2="60" y2="104" stroke="#a855f7" stroke-width="3"/>
+                        <line x1="16" y1="60" x2="104" y2="60" stroke="#a855f7" stroke-width="3"/>
+                    </svg>
+                `,
+                options: [
+                    { text: "5 cuadrados en total (los 4 pequeños + 1 grande que los rodea)", iqPoints: 19, tribe: { detective: 2, architect: 2 }, actors: { anya: 3, rami: 2, henry: 2 } },
+                    { text: "4 cuadrados", iqPoints: 5, tribe: { hacker: 1 }, actors: { ryan: 1 } },
+                    { text: "6 cuadrados", iqPoints: 3, tribe: { creative: 1 }, actors: { emma: 1 } },
+                    { text: "8 cuadrados", iqPoints: 0, tribe: { strategist: 1 }, actors: { keanu: 1 } }
+                ]
+            },
+
+            // ---------------- ETAPA 2: INGENIERÍA MENTAL Y RESOLUCIÓN (3 PREGUNTAS) ----------------
+            {
+                id: 6,
+                stage: 2,
+                stageName: "Etapa 2: Ingeniería Mental y Resolución",
+                subtitle: "Estrategia de Aprendizaje",
+                question: "Cuando descargas un videojuego nuevo, entras a una app compleja o compras un gadget nuevo, ¿qué es lo primero que haces?",
+                options: [
+                    { text: "Me salto el tutorial y empiezo a tocar todos los botones para descubrir trucos a prueba y error", iqPoints: 3, tribe: { hacker: 4, creative: 2 }, ndAxes: { hyperfocus: 10, lateral: 18 }, actors: { rdj: 3, tom: 3, margot: 2 } },
+                    { text: "Abro primero los ajustes (sensibilidad, gráficos, controles) para dejar todo optimizado antes de empezar", iqPoints: 4, tribe: { architect: 4, strategist: 2 }, ndAxes: { systems: 20, patterns: 15 }, actors: { henry: 3, bryan: 3, cillian: 2 } },
+                    { text: "Busco videos o guías de los mejores jugadores para entender el 'meta' y no cometer errores de novato", iqPoints: 4, tribe: { detective: 3, strategist: 3 }, ndAxes: { patterns: 18, hyperfocus: 15 }, actors: { anya: 3, scarlett: 2, zendaya: 2 } },
+                    { text: "Juego a mi propio ritmo explorando los detalles ocultos del mapa que casi nadie mira", iqPoints: 3, tribe: { creative: 4, detective: 2 }, ndAxes: { sensory: 15, lateral: 20 }, actors: { keanu: 2, emma: 3, sadie: 2 } }
+                ]
+            },
+            {
+                id: 7,
+                stage: 2,
+                stageName: "Etapa 2: Ingeniería Mental y Resolución",
+                subtitle: "Respuesta Bajo Presión",
+                question: "Faltan 2 horas para entregar un proyecto importante en equipo (escuela o trabajo) y nadie se pone de acuerdo. ¿Qué rol tomas automáticamente?",
+                options: [
+                    { text: "Tomo el control, divido el trabajo en tareas exactas de 20 minutos y organizo a cada uno", iqPoints: 4, tribe: { strategist: 4, architect: 3 }, ndAxes: { systems: 18 }, actors: { cillian: 3, scarlett: 3, pedro: 2 } },
+                    { text: "Les digo 'déjenmelo a mí', me pongo audífonos y armo la parte más difícil yo solo en modo turbo", iqPoints: 4, tribe: { hacker: 3, architect: 3 }, ndAxes: { hyperfocus: 22, social: 18 }, actors: { rami: 3, jenna: 3, bryan: 2 } },
+                    { text: "Encuentro un atajo inteligente o herramienta con IA para resolver en 15 minutos lo que iba a tardar horas", iqPoints: 4, tribe: { hacker: 4, creative: 2 }, ndAxes: { lateral: 22, patterns: 14 }, actors: { rdj: 3, zendaya: 2, tom: 2 } },
+                    { text: "Me encargo del diseño visual y de presentar el tema con tanta seguridad que parezca planeado hace semanas", iqPoints: 3, tribe: { creative: 4, strategist: 2 }, ndAxes: { lateral: 18 }, actors: { margot: 3, emma: 3, millie: 2 } }
+                ]
+            },
+            {
+                id: 8,
+                stage: 2,
+                stageName: "Etapa 2: Ingeniería Mental y Resolución",
+                subtitle: "Diagnóstico de Fallos",
+                question: "Estás en medio de una partida o viendo algo importante y de pronto se va el internet en tu casa. ¿Cuál es tu reacción en los primeros 30 segundos?",
+                options: [
+                    { text: "Reviso si es solo mi dispositivo, hago ping al módem o reinicio el router buscando la causa técnica exacta", iqPoints: 4, tribe: { detective: 4, architect: 3 }, ndAxes: { systems: 20, patterns: 16 }, actors: { rami: 3, henry: 2, bryan: 2 } },
+                    { text: "Activo al instante los datos del celular (hotspot) en 5 segundos para no perder la conexión y sigo en lo mío", iqPoints: 4, tribe: { hacker: 4, strategist: 2 }, ndAxes: { lateral: 16 }, actors: { scarlett: 3, pedro: 2, keanu: 2 } },
+                    { text: "Aprovecho el silencio para desconectarme un rato, escuchar música descargada o pensar en mis cosas", iqPoints: 3, tribe: { creative: 3 }, ndAxes: { social: 16, sensory: 14 }, actors: { ryan: 3, sadie: 3, elizabeth: 2 } },
+                    { text: "Pregunto en el grupo si se cayó en toda la zona mientras pruebo cambiar la red Wi-Fi", iqPoints: 3, tribe: { strategist: 2, detective: 2 }, ndAxes: { patterns: 12 }, actors: { zendaya: 2, millie: 2, tom: 2 } }
+                ]
+            },
+
+            // ---------------- ETAPA 3: RADAR DE HIPERFOCO Y ESPECTRO NEURO-ATÍPICO (4 PREGUNTAS) ----------------
+            {
+                id: 9,
+                stage: 3,
+                stageName: "Etapa 3: Radar de Hiperfoco (5 Ejes)",
+                subtitle: "Agujeros de Conejo a las 3:00 AM",
+                question: "¿Con qué frecuencia te pasa que un tema nuevo te da curiosidad (un juego, misterio, historia o ciencia) y terminas a las 3 AM con 20 pestañas abiertas volviéndote experto?",
+                options: [
+                    { text: "Casi siempre: cuando algo atrapa mi cerebro pierdo la noción del tiempo y hasta se me olvida comer o dormir", iqPoints: 3, tribe: { detective: 2, hacker: 2 }, ndAxes: { hyperfocus: 28, systems: 18 }, actors: { anya: 3, rami: 3, henry: 3 } },
+                    { text: "Seguido: me encanta investigar a fondo el 'lore' o cómo funcionan las cosas detrás de cámaras", iqPoints: 3, tribe: { architect: 2, creative: 2 }, ndAxes: { hyperfocus: 20, patterns: 16 }, actors: { jenna: 2, emma: 2, bryan: 2 } },
+                    { text: "A veces, pero solo si el tema me sirve para algo práctico que estoy armando en ese momento", iqPoints: 3, tribe: { strategist: 2 }, ndAxes: { hyperfocus: 12, systems: 14 }, actors: { cillian: 2, rdj: 2, scarlett: 2 } },
+                    { text: "Rara vez: prefiero cambiar rápido de actividad y no clavarme horas en un solo tema", iqPoints: 2, tribe: { hacker: 1 }, ndAxes: { hyperfocus: 5, lateral: 12 }, actors: { tom: 2, margot: 2, pedro: 2 } }
+                ]
+            },
+            {
+                id: 10,
+                stage: 3,
+                stageName: "Etapa 3: Radar de Hiperfoco (5 Ejes)",
+                subtitle: "Detector de Patrones y Anomalías",
+                question: "Cuando ves una película o serie con amigos, o entras a un lugar nuevo, ¿qué suele hacer tu mente sin que te lo propongas?",
+                options: [
+                    { text: "Adivino el final o quién es el traidor a los 15 minutos porque noto pequeños detalles en el guion", iqPoints: 4, tribe: { detective: 4, strategist: 2 }, ndAxes: { patterns: 28, systems: 16 }, actors: { cillian: 3, jenna: 3, anya: 2 } },
+                    { text: "Noto errores de continuidad, sonidos de fondo, luces raras o cuadros chuecos que nadie más vio", iqPoints: 3, tribe: { architect: 2, detective: 2 }, ndAxes: { sensory: 26, patterns: 20 }, actors: { rami: 3, ryan: 2, elizabeth: 2 } },
+                    { text: "Me fijo en las expresiones de la gente para saber qué están pensando realmente aunque digan otra cosa", iqPoints: 3, tribe: { strategist: 3 }, ndAxes: { patterns: 18, social: 14 }, actors: { zendaya: 3, scarlett: 3, pedro: 2 } },
+                    { text: "Me dejo llevar por la historia, la música y el humor del momento sin sobreanalizar", iqPoints: 2, tribe: { creative: 2 }, ndAxes: { lateral: 14, patterns: 6 }, actors: { tom: 3, millie: 2, margot: 2 } }
+                ]
+            },
+            {
+                id: 11,
+                stage: 3,
+                stageName: "Etapa 3: Radar de Hiperfoco (5 Ejes)",
+                subtitle: "Batería Social y Recarga Mental",
+                question: "Imagina que tenías un compromiso o fiesta con mucha gente hoy en la noche, pero a última hora te avisan que se canceló. ¿Qué sientes de verdad?",
+                options: [
+                    { text: "Una paz indescriptible: festejo en silencio porque puedo quedarme en mi cuarto en mis proyectos o juegos", iqPoints: 3, tribe: { architect: 2, hacker: 2 }, ndAxes: { social: 28, hyperfocus: 16 }, actors: { cillian: 3, jenna: 3, rami: 3, sadie: 3 } },
+                    { text: "Alivio: me caen bien mis amigos, pero las charlas superficiales con desconocidos me agotan la batería", iqPoints: 3, tribe: { detective: 2 }, ndAxes: { social: 22, sensory: 16 }, actors: { keanu: 3, ryan: 3, zendaya: 2, henry: 2 } },
+                    { text: "Aprovecho para armar un plan más tranquilo solo con mis 2 personas de mayor confianza", iqPoints: 3, tribe: { strategist: 2 }, ndAxes: { social: 14 }, actors: { pedro: 3, elizabeth: 2, millie: 2 } },
+                    { text: "Me da bajón: ya estaba listo para salir y busco de inmediato otro plan para no quedarme encerrado", iqPoints: 2, tribe: { creative: 2 }, ndAxes: { social: 5, lateral: 14 }, actors: { margot: 3, tom: 3, rdj: 2 } }
+                ]
+            },
+            {
+                id: 12,
+                stage: 3,
+                stageName: "Etapa 3: Radar de Hiperfoco (5 Ejes)",
+                subtitle: "Entorno Sensorial y Comunicación",
+                question: "¿Qué es lo que más rápido te desespera o te saca de quicio en la vida diaria?",
+                options: [
+                    { text: "La gente que da mil rodeos para pedir algo en vez de ir directo al grano con datos claros", iqPoints: 4, tribe: { architect: 3, strategist: 3 }, ndAxes: { systems: 22, social: 16 }, actors: { cillian: 3, bryan: 3, jenna: 2 } },
+                    { text: "Muchos ruidos encimados al mismo tiempo (gente masticando fuerte, tele alta y alguien hablándome)", iqPoints: 3, tribe: { detective: 2 }, ndAxes: { sensory: 28, social: 18 }, actors: { rami: 3, sadie: 3, anya: 2 } },
+                    { text: "Tener que seguir reglas absurdas solo porque 'así se ha hecho siempre' aunque haya una forma mejor", iqPoints: 4, tribe: { hacker: 4, creative: 3 }, ndAxes: { lateral: 26, systems: 14 }, actors: { rdj: 3, emma: 3, margot: 3 } },
+                    { text: "La gente falsa o que finge ser quien no es para quedar bien con el grupo", iqPoints: 3, tribe: { detective: 2, strategist: 2 }, ndAxes: { patterns: 16, social: 16 }, actors: { keanu: 3, zendaya: 3, pedro: 2 } }
+                ]
+            },
+
+            // ---------------- ETAPA 4: PSICOLOGÍA Y MATCH DE ACTORES (3 PREGUNTAS) ----------------
+            {
+                id: 13,
+                stage: 4,
+                stageName: "Etapa 4: Psicología y Match de Actores",
+                subtitle: "Arquitectura de tu Monólogo Interno",
+                question: "Cuando vas viajando con audífonos mirando por la ventana del carro o transporte, ¿cómo funciona tu mente por dentro?",
+                options: [
+                    { text: "Simulo escenarios futuros o debates completos en mi cabeza, adelantándome a lo que podría pasar", iqPoints: 3, tribe: { strategist: 3, detective: 2 }, ndAxes: { patterns: 14, systems: 14 }, actors: { cillian: 3, anya: 3, scarlett: 3, bryan: 2 } },
+                    { text: "Veo todo como si fuera el director de una película, imaginando historias, ideas o mundos con la música", iqPoints: 3, tribe: { creative: 4 }, ndAxes: { lateral: 20, sensory: 14 }, actors: { ryan: 3, sadie: 3, elizabeth: 3, emma: 3 } },
+                    { text: "Voy desarmando algún proyecto, código, estrategia de juego o idea que quiero construir llegando a casa", iqPoints: 3, tribe: { architect: 3, hacker: 3 }, ndAxes: { hyperfocus: 18, systems: 18 }, actors: { rdj: 3, rami: 3, henry: 3 } },
+                    { text: "Voy tranquilo en modo zen observando a la gente y los detalles de la calle sin estrés", iqPoints: 3, tribe: { detective: 2 }, ndAxes: { social: 12 }, actors: { keanu: 3, pedro: 3, zendaya: 2, millie: 2 } }
+                ]
+            },
+            {
+                id: 14,
+                stage: 4,
+                stageName: "Etapa 4: Psicología y Match de Actores",
+                subtitle: "Estilo de Humor y Defensa Mental",
+                question: "¿Qué tipo de humor describe mejor tu personalidad cuando estás en confianza?",
+                options: [
+                    { text: "Sarcasmo seco e ironía quirúrgica: lo digo tan serio que algunos tardan 3 segundos en captarlo", iqPoints: 3, tribe: { detective: 2, strategist: 2 }, ndAxes: { lateral: 14, social: 14 }, actors: { jenna: 4, cillian: 3, zendaya: 3, ryan: 2 } },
+                    { text: "Ingenio veloz y respuestas brillantes al vuelo para reírme hasta del caos más grande", iqPoints: 3, tribe: { hacker: 3, creative: 2 }, ndAxes: { lateral: 18 }, actors: { rdj: 4, margot: 3, emma: 3, tom: 3 } },
+                    { text: "Humor absurdo, referencias ultra específicas de internet/cultura geek que solo mi círculo entiende", iqPoints: 3, tribe: { architect: 2, hacker: 2 }, ndAxes: { hyperfocus: 14, patterns: 14 }, actors: { henry: 3, rami: 2, sadie: 2, millie: 3 } },
+                    { text: "Carisma relajado y protector: hago reír a mis amigos para bajar la tensión cuando alguien está nervioso", iqPoints: 3, tribe: { strategist: 2 }, ndAxes: { social: 8 }, actors: { pedro: 4, keanu: 3, elizabeth: 3, scarlett: 2 } }
+                ]
+            },
+            {
+                id: 15,
+                stage: 4,
+                stageName: "Etapa 4: Psicología y Match de Actores",
+                subtitle: "Filosofía Operativa Final",
+                question: "Para cerrar tu perfil: ¿Cuál de estas 4 frases representa mejor tu forma de moverte en el mundo?",
+                options: [
+                    { text: "«Trabaja en silencio, analiza el tablero completo y deja que el resultado hable por ti.»", iqPoints: 3, tribe: { strategist: 3, architect: 3 }, ndAxes: { systems: 14, social: 14 }, actors: { cillian: 4, anya: 4, bryan: 3, scarlett: 3 } },
+                    { text: "«Si las reglas no tienen sentido, reinventa el sistema a tu manera.»", iqPoints: 3, tribe: { hacker: 4, creative: 3 }, ndAxes: { lateral: 18, hyperfocus: 12 }, actors: { rdj: 4, jenna: 3, margot: 3, emma: 3 } },
+                    { text: "«Prefiero la verdad incómoda y pocos amigos reales antes que encajar en una mentira bonita.»", iqPoints: 3, tribe: { detective: 4 }, ndAxes: { patterns: 16, social: 16 }, actors: { rami: 4, keanu: 4, ryan: 3, sadie: 3, zendaya: 3 } },
+                    { text: "«Domina tus pasiones al 100% y protege siempre a las personas que importan.»", iqPoints: 3, tribe: { strategist: 2, architect: 2 }, ndAxes: { hyperfocus: 14 }, actors: { henry: 4, pedro: 4, tom: 3, millie: 3, elizabeth: 3 } }
+                ]
+            }
+        ];
+
+        /* ==========================================================================
+           2. 18 CELEBRITY / ACTOR PROFILES (9 MEN & 9 WOMEN WITH WIKIPEDIA PHOTOS)
+           ========================================================================== */
+        const ACTOR_PROFILES = {
+            // ---------------- 9 HOMBRES ----------------
+            cillian: {
+                id: "cillian",
+                name: "Cillian Murphy",
+                wikiSlug: "Cillian_Murphy",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Cillian_Murphy_at_Berlinale_2024,_Ausschnitt.jpg?width=320",
+                iconicRoles: "Thomas Shelby (Peaky Blinders) / Oppenheimer",
+                tag: "Introspección Táctica y Cero Charla Vacía",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#06b6d4" fill-opacity="0.2"/><path d="M8 15H28L25 9H11L8 15Z" fill="#22d3ee"/><circle cx="14" cy="20" r="2" fill="#38bdf8"/><circle cx="22" cy="20" r="2" fill="#38bdf8"/><path d="M13 26H23" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/></svg>`,
+                whyMatch: "Compartes su famosa capacidad de desconectar de las charlas superficiales. Tienes una mente estratégica y calculadora: observas todo en silencio, procesas rápido y cuando hablas vas directo al núcleo del problema."
+            },
+            rdj: {
+                id: "rdj",
+                name: "Robert Downey Jr.",
+                wikiSlug: "Robert_Downey_Jr.",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Robert_Downey_Jr_2014_Comic_Con_(cropped).jpg?width=320",
+                iconicRoles: "Tony Stark (Iron Man) / Sherlock Holmes",
+                tag: "Velocidad Mental Lateral e Ingenio Ácido",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#f59e0b" fill-opacity="0.2"/><polygon points="18,7 28,13 24,26 12,26 8,13" stroke="#fbbf24" stroke-width="1.8"/><circle cx="18" cy="17" r="4.5" fill="#22d3ee"/></svg>`,
+                whyMatch: "Tu pensamiento va tres jugadas adelante a máxima velocidad. Usas el sarcasmo inteligente como herramienta de diagnóstico, te aburren los procesos lentos y brillas improvisando soluciones bajo presión."
+            },
+            rami: {
+                id: "rami",
+                name: "Rami Malek",
+                wikiSlug: "Rami_Malek",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Rami_Malek_in_2015_(2)_(cropped).jpg?width=320",
+                iconicRoles: "Elliot Alderson (Mr. Robot)",
+                tag: "Hiperfoco Profundo y Detector de Anomalías",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#10b981" fill-opacity="0.2"/><path d="M9 26C9 17 11 10 18 10C25 10 27 17 27 26" stroke="#34d399" stroke-width="2"/><rect x="12" y="15" width="12" height="8" rx="2" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/></svg>`,
+                whyMatch: "Analizas la realidad como si vieras su código fuente. Notas inconsistencias, detalles sensoriales y patrones que el 95% de la gente ignora. Tu batería social es selectiva, pero tu hiperfoco es extraordinario."
+            },
+            bryan: {
+                id: "bryan",
+                name: "Bryan Cranston",
+                wikiSlug: "Bryan_Cranston",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Bryan_Cranston_by_Gage_Skidmore_3.jpg?width=320",
+                iconicRoles: "Walter White (Breaking Bad)",
+                tag: "Ingeniería Metódica y Precisión Absoluta",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#10b981" fill-opacity="0.2"/><path d="M15 9H21M16 9V14L10 25H26L20 14V9" stroke="#34d399" stroke-width="1.8" stroke-linejoin="round"/></svg>`,
+                whyMatch: "Respetas la causa-efecto, la exactitud técnica y el trabajo bien hecho. Te frustra la gente que improvisa sin entender las bases. Cuando enfrentas un reto, diseñas un método paso a paso hasta dominarlo."
+            },
+            keanu: {
+                id: "keanu",
+                name: "Keanu Reeves",
+                wikiSlug: "Keanu_Reeves",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Keanu_Reeves_2019.jpg?width=320",
+                iconicRoles: "John Wick / Neo (Matrix)",
+                tag: "Estoicismo Lúcido y Enfoque Implacable",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#6366f1" fill-opacity="0.2"/><rect x="8" y="14" width="8.5" height="5.5" rx="2" stroke="#22d3ee" stroke-width="1.8"/><rect x="19.5" y="14" width="8.5" height="5.5" rx="2" stroke="#22d3ee" stroke-width="1.8"/></svg>`,
+                whyMatch: "No sientes necesidad de aparentar ni competir por atención superficial. Tienes una calma filosófica poco común, pero cuando te comprometes con una meta o defiendes tus principios, tu determinación es total."
+            },
+            pedro: {
+                id: "pedro",
+                name: "Pedro Pascal",
+                wikiSlug: "Pedro_Pascal",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Pedro_Pascal_by_Gage_Skidmore.jpg?width=320",
+                iconicRoles: "Joel Miller (The Last of Us) / Mandalorian",
+                tag: "Pragmatismo Protector e Inteligencia Social",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#f43f5e" fill-opacity="0.2"/><path d="M18 7L27 11V18C27 23.5 23.2 27.8 18 29.5C12.8 27.8 9 23.5 9 18V11L18 7Z" stroke="#fb7185" stroke-width="1.8"/></svg>`,
+                whyMatch: "Combinas agudeza práctica con un radar humano infalible. Sabes usar el carisma y el humor para desactivar tensiones, pero en momentos de crisis eres la mente resolutiva que protege a su equipo."
+            },
+            ryan: {
+                id: "ryan",
+                name: "Ryan Gosling",
+                wikiSlug: "Ryan_Gosling",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Ryan_Gosling_in_2018.jpg?width=320",
+                iconicRoles: "Officer K (Blade Runner 2049) / Driver",
+                tag: "Frialdad Operativa y Observación Nocturna",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#ec4899" fill-opacity="0.2"/><path d="M9 22L12 13H24L27 22H9Z" stroke="#22d3ee" stroke-width="1.8"/></svg>`,
+                whyMatch: "Eres el arquetipo del observador silencioso. No malgastas palabras ni finges entusiasmo falso: procesas todo hacia adentro con una calma imperturbable y ejecutas con precisión cuando llega el momento."
+            },
+            tom: {
+                id: "tom",
+                name: "Tom Holland",
+                wikiSlug: "Tom_Holland",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Tom_Holland_by_Gage_Skidmore.jpg?width=320",
+                iconicRoles: "Peter Parker (Spider-Man) / Nathan Drake",
+                tag: "Agilidad Improvisadora e Ingenio Rápido",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#ef4444" fill-opacity="0.2"/><circle cx="18" cy="18" r="9" stroke="#f87171" stroke-width="1.6"/></svg>`,
+                whyMatch: "Tu cerebro tiene reflejos ultrarrápidos: conectas ideas al vuelo, aprendes haciendo y sales de problemas complejos con una mezcla única de inteligencia práctica, energía y carisma natural."
+            },
+            henry: {
+                id: "henry",
+                name: "Henry Cavill",
+                wikiSlug: "Henry_Cavill",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Henry_Cavill_by_Gage_Skidmore_2.jpg?width=320",
+                iconicRoles: "Geralt de Rivia (The Witcher) / Superman",
+                tag: "Hiperfoco Geek, Disciplina y Código de Honor",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#6366f1" fill-opacity="0.2"/><polygon points="18,6 28,13 18,29 8,13" stroke="#a5b4fc" stroke-width="1.8"/></svg>`,
+                whyMatch: "Combinas una presencia serena y reservada con un nivel de hiperfoco legendario en tus pasiones (como armar PCs, dominar estrategias o conocer el lore completo de tus universos favoritos)."
+            },
+
+            // ---------------- 9 MUJERES ----------------
+            anya: {
+                id: "anya",
+                name: "Anya Taylor-Joy",
+                wikiSlug: "Anya_Taylor-Joy",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Anya_Taylor-Joy_by_Gage_Skidmore.jpg?width=320",
+                iconicRoles: "Beth Harmon (Gambito de Dama) / Furiosa",
+                tag: "Visualización de Patrones y Dominio Técnico",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#a855f7" fill-opacity="0.2"/><path d="M12 28H24L22 16L25 12L20 13L18 8L16 13L11 12L14 16L12 28Z" stroke="#c084fc" stroke-width="1.8"/></svg>`,
+                whyMatch: "Tu cerebro procesa la realidad proyectando escenarios futuros como en un tablero de ajedrez. Cuando un reto te atrapa, no descansas hasta dominarlo por completo con frialdad analítica e intuición."
+            },
+            jenna: {
+                id: "jenna",
+                name: "Jenna Ortega",
+                wikiSlug: "Jenna_Ortega",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Jenna_Ortega_2022.jpg?width=320",
+                iconicRoles: "Merlina Addams (Wednesday) / Astrid",
+                tag: "Agudeza Analítica, Humor Negro y Filtro Cero",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#8b5cf6" fill-opacity="0.2"/><path d="M12 10L18 17L24 10" stroke="#e2e8f0" stroke-width="2"/><circle cx="18" cy="23" r="2.5" fill="#c084fc"/></svg>`,
+                whyMatch: "Tienes un detector de hipocresía infalible y una mente independiente que no sigue modas. Prefieres el sarcasmo inteligente antes que fingir sonrisas y cuando investigas algo vas hasta el fondo."
+            },
+            zendaya: {
+                id: "zendaya",
+                name: "Zendaya",
+                wikiSlug: "Zendaya",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Zendaya_-_2019_by_Glenn_Francis.jpg?width=320",
+                iconicRoles: "MJ (Spider-Man) / Chani (Dune)",
+                tag: "Observación Lúcida, Ironía Fina y Pies en la Tierra",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#f59e0b" fill-opacity="0.2"/><circle cx="18" cy="18" r="8" stroke="#fbbf24" stroke-width="1.8"/><circle cx="18" cy="18" r="3" fill="#22d3ee"/></svg>`,
+                whyMatch: "Posees una inteligencia observadora muy serena: lees el ambiente al instante, lanzas comentarios irónicos en el momento exacto y mantienes la cabeza fría sin dejarte engañar por apariencias."
+            },
+            margot: {
+                id: "margot",
+                name: "Margot Robbie",
+                wikiSlug: "Margot_Robbie",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Margot_Robbie_at_the_2024_AACTA_Awards_(cropped).jpg?width=320",
+                iconicRoles: "Harley Quinn / Barbie",
+                tag: "Creatividad Caótica, Carisma y Pensamiento Lateral",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#ec4899" fill-opacity="0.2"/><polygon points="18,7 26,18 18,29 10,18" stroke="#f472b6" stroke-width="1.8"/></svg>`,
+                whyMatch: "Detrás de tu carisma social hay una mente brillante e impredecible. Encuentras soluciones súper creativas donde todos ven límites y tienes la valentía de romper las reglas tradicionales."
+            },
+            emma: {
+                id: "emma",
+                name: "Emma Stone",
+                wikiSlug: "Emma_Stone",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Emma_Stone_at_the_2024_New_York_Film_Festival_1_(cropped).jpg?width=320",
+                iconicRoles: "Cruella / Bella Baxter (Poor Things)",
+                tag: "Curiosidad Voraz, Ingenio Rebelde y Visión Única",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#10b981" fill-opacity="0.2"/><circle cx="18" cy="17" r="7" stroke="#34d399" stroke-width="1.8"/></svg>`,
+                whyMatch: "Tu mente cuestiona el 'porqué' de todo con una mezcla genial de curiosidad científica, rebeldía creativa y humor rápido. No temes pensar diferente con tal de crear algo original."
+            },
+            millie: {
+                id: "millie",
+                name: "Millie Bobby Brown",
+                wikiSlug: "Millie_Bobby_Brown",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Millie_Bobby_Brown_by_Gage_Skidmore.jpg?width=320",
+                iconicRoles: "Eleven (Stranger Things) / Enola Holmes",
+                tag: "Deducción Intuitiva, Determinación y Lealtad",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#06b6d4" fill-opacity="0.2"/><circle cx="16" cy="16" r="7" stroke="#22d3ee" stroke-width="1.8"/></svg>`,
+                whyMatch: "Combinas la agudeza deductiva de una detective con una fuerza interior enorme. Cuando te propones resolver un misterio o ayudar a tus amigos, nada logra detenerte."
+            },
+            sadie: {
+                id: "sadie",
+                name: "Sadie Sink",
+                wikiSlug: "Sadie_Sink",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sadie_Sink_by_Gage_Skidmore.jpg?width=320",
+                iconicRoles: "Max Mayfield (Stranger Things)",
+                tag: "Autonomía Feroz, Escudo Musical y Mente Realista",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#f97316" fill-opacity="0.2"/><path d="M10 19V16C10 11.6 13.6 8 18 8C22.4 8 26 11.6 26 16V19" stroke="#fb923c" stroke-width="2"/></svg>`,
+                whyMatch: "Eres realista, directa y valoras tu espacio personal por encima de todo. Tus audífonos y tu música son tu refugio mental para procesar el mundo, y eres la aliada más leal para quienes ganan tu confianza."
+            },
+            scarlett: {
+                id: "scarlett",
+                name: "Scarlett Johansson",
+                wikiSlug: "Scarlett_Johansson",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Scarlett_Johansson_by_Gage_Skidmore_2_(cropped,_2).jpg?width=320",
+                iconicRoles: "Black Widow (Natasha) / Lucy",
+                tag: "Cálculo Táctico, Sangre Fría y Lectura Humana",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#ef4444" fill-opacity="0.2"/><polygon points="12,9 24,9 18,18 24,27 12,27 18,18" stroke="#f87171" stroke-width="1.8"/></svg>`,
+                whyMatch: "Operas con una mente táctica de alto nivel: lees las intenciones de los demás antes de que terminen de hablar, mantienes el control bajo presión y siempre tienes un plan B calculado."
+            },
+            elizabeth: {
+                id: "elizabeth",
+                name: "Elizabeth Olsen",
+                wikiSlug: "Elizabeth_Olsen",
+                photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Elizabeth_Olsen_by_Gage_Skidmore_2.jpg?width=320",
+                iconicRoles: "Wanda Maximoff (Bruja Escarlata)",
+                tag: "Profundidad Emocional, Intuición y Poder Interno",
+                avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#e11d48" fill-opacity="0.2"/><path d="M10 24L13 11L18 17L23 11L26 24H10Z" stroke="#f43f5e" stroke-width="1.8"/></svg>`,
+                whyMatch: "Posees un mundo interior sumamente rico e intuitivo. Percibes cambios sutiles en la energía de las personas que otros pasan por alto y cuando enfocas tu mente en un objetivo tu capacidad es imparable."
+            }
+        };
+
+        /* ==========================================================================
+           2.1 CLEAN WIKIPEDIA PHOTO FETCHER & SAFE IMAGE ERROR HANDLERS
+           ========================================================================== */
+        const ACTOR_PHOTO_CACHE_KEY = 'mm_actor_photos_v2';
+
+        function handleMiniThumbError(imgEl) {
+            if (imgEl) imgEl.style.display = 'none';
+        }
+
+        function handleActorCardImgError(imgEl) {
+            if (!imgEl) return;
+            imgEl.style.display = 'none';
+            const fallbackEl = imgEl.nextElementSibling;
+            if (fallbackEl) {
+                fallbackEl.classList.remove('hidden');
+            }
+        }
+
+        async function initActorRealPhotos() {
+            let cachedPhotos = {};
+            try {
+                const raw = localStorage.getItem(ACTOR_PHOTO_CACHE_KEY);
+                if (raw) cachedPhotos = JSON.parse(raw) || {};
+            } catch (e) {
+                cachedPhotos = {};
+            }
+
+            Object.keys(ACTOR_PROFILES).forEach(actorKey => {
+                if (cachedPhotos[actorKey]) {
+                    ACTOR_PROFILES[actorKey].photoUrl = cachedPhotos[actorKey];
+                }
+            });
+            refreshDOMActorPhotos();
+
+            const keysToFetch = Object.keys(ACTOR_PROFILES).filter(k => !cachedPhotos[k] && ACTOR_PROFILES[k].wikiSlug);
+            if (keysToFetch.length === 0) return;
+
+            await Promise.allSettled(keysToFetch.map(async (actorKey) => {
+                const slug = ACTOR_PROFILES[actorKey].wikiSlug;
+                try {
+                    const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(slug)}`);
+                    if (!res.ok) return;
+                    const info = await res.json();
+                    if (info && info.thumbnail && info.thumbnail.source) {
+                        ACTOR_PROFILES[actorKey].photoUrl = info.thumbnail.source;
+                        cachedPhotos[actorKey] = info.thumbnail.source;
+                    }
+                } catch (err) {
+                    // Uses default Wikimedia Special:FilePath or clean SVG fallback
+                }
+            }));
+
+            try {
+                localStorage.setItem(ACTOR_PHOTO_CACHE_KEY, JSON.stringify(cachedPhotos));
+            } catch (e) {}
+
+            refreshDOMActorPhotos();
+        }
+
+        function refreshDOMActorPhotos() {
+            document.querySelectorAll('img[data-actor-img]').forEach(imgEl => {
+                const key = imgEl.getAttribute('data-actor-img');
+                if (key && ACTOR_PROFILES[key] && ACTOR_PROFILES[key].photoUrl) {
+                    if (imgEl.src !== ACTOR_PROFILES[key].photoUrl) {
+                        imgEl.src = ACTOR_PROFILES[key].photoUrl;
+                    }
+                }
+            });
+        }
+
+        /* ==========================================================================
+           3. PROBLEM-SOLVING TRIBES DATABASE
+           ========================================================================== */
+        const TRIBES_DB = {
+            architect: {
+                name: "Arquitecto de Sistemas",
+                shortSub: "Orden, estructura y eficiencia",
+                tag: "Mente Estructural • Top 9%",
+                description: "No te conformas con parches temporales: cuando ves un problema en un juego, estudio o proyecto, tu mente busca entender cómo funcionan todas las piezas para crear un sistema ordenado y definitivo.",
+                strengths: [
+                    "Optimización rápida de procesos y recursos",
+                    "Paciencia para dominar herramientas difíciles",
+                    "Visión de largo plazo sin perder el control"
+                ]
+            },
+            hacker: {
+                name: "Hacker de Pensamiento Lateral",
+                shortSub: "Atajos geniales e improvisación",
+                tag: "Ingenio Rápido • Top 7%",
+                description: "Donde los demás ven una puerta cerrada, tú encuentras una ventana abierta o inventas una llave en 30 segundos. Aprendes tocando botones, probando caminos nuevos y rompiendo la rutina.",
+                strengths: [
+                    "Velocidad brutal para improvisar bajo presión",
+                    "Capacidad de encontrar atajos inteligentes",
+                    "Cero miedo a experimentar con tecnología nueva"
+                ]
+            },
+            detective: {
+                name: "Detective de Patrones Ocultos",
+                shortSub: "Deducción, verdad y detalle",
+                tag: "Radar Analítico • Top 6%",
+                description: "Tu cerebro es un escáner natural de anomalías. Captas incongruencias en historias, personas o sistemas en cuestión de segundos y no descansas hasta descubrir la verdad detrás de cualquier misterio.",
+                strengths: [
+                    "Detección instantánea de mentiras o errores",
+                    "Hiperfoco profundo cuando investigas un tema",
+                    "Pensamiento crítico inmune a manipulaciones"
+                ]
+            },
+            strategist: {
+                name: "Estratega de Sangre Fría",
+                shortSub: "Liderazgo táctico y control",
+                tag: "Mente Táctica • Top 8%",
+                description: "Mientras otros entran en pánico cuando falta poco tiempo, tu mente se enfría y calcula el camino más directo a la meta. Sabes organizar equipos, leer intenciones y tomar decisiones difíciles.",
+                strengths: [
+                    "Calma total en momentos de caos o urgencia",
+                    "Habilidad para coordinar personas y tiempos",
+                    "Lectura estratégica de tres jugadas adelante"
+                ]
+            },
+            creative: {
+                name: "Visionario Creativo Rebelde",
+                shortSub: "Originalidad e intuición pura",
+                tag: "Mente Divergente • Top 10%",
+                description: "Tu mente conecta ideas que parecen no tener relación para crear cosas únicas. Tienes una sensibilidad especial para la música, la estética, el humor y las soluciones fuera de la caja.",
+                strengths: [
+                    "Imaginación cinematográfica y originalidad",
+                    "Autenticidad total sin seguir al rebaño",
+                    "Conexión intuitiva con el arte y las ideas"
+                ]
+            }
+        };
+
+        /* ==========================================================================
+           4. QUIZ STATE & TIMERS
+           ========================================================================== */
+        let currentUserName = "";
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(QUESTIONS.length).fill(null);
+        let questionStartTime = 0;
+        let questionTimerInterval = null;
+        let lockedQuestionTimeSec = null;
+        let lastComputedReport = null;
+
+        function clearNameRequirementError() {
+            const wrapper = document.getElementById('userNameInputWrapper');
+            const errEl = document.getElementById('nameErrorMsg');
+            if (wrapper) wrapper.classList.remove('ring-2', 'ring-rose-500', 'input-shake');
+            if (errEl) errEl.classList.add('hidden');
+        }
+
+        function validateMandatoryName() {
+            const inputEl = document.getElementById('userNameInput');
+            const wrapper = document.getElementById('userNameInputWrapper');
+            const errEl = document.getElementById('nameErrorMsg');
+            const val = (inputEl ? inputEl.value : "").trim();
+            if (!val) {
+                if (wrapper) {
+                    wrapper.classList.remove('input-shake');
+                    void wrapper.offsetWidth;
+                    wrapper.classList.add('ring-2', 'ring-rose-500', 'input-shake');
+                }
+                if (errEl) errEl.classList.remove('hidden');
+                if (inputEl) inputEl.focus();
+                return null;
+            }
+            return val;
+        }
+
+        function startAssessment() {
+            const validName = validateMandatoryName();
+            if (!validName) return;
+
+            currentUserName = validName;
+            currentQuestionIndex = 0;
+            userAnswers = new Array(QUESTIONS.length).fill(null);
+
+            document.getElementById('landingView').classList.add('hidden');
+            document.getElementById('resultsView').classList.add('hidden');
+            document.getElementById('paywallDestroyerView').classList.add('hidden');
+            document.getElementById('quizView').classList.remove('hidden');
+
+            renderCurrentQuestion();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderCurrentQuestion() {
+            const q = QUESTIONS[currentQuestionIndex];
+            const prevSaved = userAnswers[currentQuestionIndex];
+
+            // Stage Badge
+            const stageBadge = document.getElementById('stageBadge');
+            stageBadge.innerHTML = `${STAGE_SVGS[q.stage] || ''}<span>${q.stageName}</span>`;
+
+            // Counter & Progress
+            document.getElementById('questionCounterText').textContent = `Pregunta ${currentQuestionIndex + 1} / ${QUESTIONS.length}`;
+            const pct = ((currentQuestionIndex + 1) / QUESTIONS.length) * 100;
+            document.getElementById('progressBarFill').style.width = `${pct}%`;
+
+            // Titles
+            document.getElementById('questionSubtitle').textContent = q.subtitle;
+            document.getElementById('questionTitle').textContent = q.question;
+
+            // Visual SVG Puzzle Box
+            const visualBox = document.getElementById('questionVisualContainer');
+            if (q.visualSvg) {
+                visualBox.innerHTML = q.visualSvg;
+                visualBox.classList.remove('hidden');
+            } else {
+                visualBox.innerHTML = '';
+                visualBox.classList.add('hidden');
+            }
+
+            // Speed Timer (Stage 1 only)
+            stopQuestionTimer();
+            const timerBadge = document.getElementById('speedTimerBadge');
+            if (q.stage === 1) {
+                timerBadge.classList.remove('hidden');
+                timerBadge.classList.add('inline-flex');
+                if (prevSaved !== null && typeof prevSaved.timeSpent === 'number') {
+                    lockedQuestionTimeSec = prevSaved.timeSpent;
+                    document.getElementById('questionTimerText').textContent = `${lockedQuestionTimeSec.toFixed(1)}s`;
+                } else {
+                    lockedQuestionTimeSec = null;
+                    questionStartTime = performance.now();
+                    questionTimerInterval = setInterval(() => {
+                        const elapsed = (performance.now() - questionStartTime) / 1000;
+                        document.getElementById('questionTimerText').textContent = `${elapsed.toFixed(1)}s`;
+                    }, 100);
+                }
+            } else {
+                timerBadge.classList.add('hidden');
+                timerBadge.classList.remove('inline-flex');
+                lockedQuestionTimeSec = 2.5;
+            }
+
+            // Render Options (Two-Step Selection)
+            const letters = ['A', 'B', 'C', 'D'];
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = q.options.map((opt, idx) => {
+                const isSelected = prevSaved && prevSaved.optionIndex === idx;
+                const cardClasses = isSelected
+                    ? 'border-cyan-400 bg-cyan-500/15 shadow-lg shadow-cyan-500/10'
+                    : 'border-slate-800 bg-slate-900/80 hover:border-slate-600 hover:bg-slate-900';
+                const badgeClasses = isSelected
+                    ? 'bg-cyan-400 text-slate-950 border-cyan-300'
+                    : 'bg-slate-950 text-cyan-400 border-slate-700';
+
+                return `
+                    <button
+                        type="button"
+                        onclick="selectOptionChoice(${idx})"
+                        class="w-full text-left p-4 rounded-2xl border-2 ${cardClasses} transition-all flex items-center justify-between gap-3 group"
+                    >
+                        <div class="flex items-center gap-3.5 min-w-0">
+                            <span class="w-9 h-9 rounded-xl border ${badgeClasses} font-mono font-extrabold text-sm flex items-center justify-center shrink-0 transition">
+                                ${letters[idx]}
+                            </span>
+                            <span class="text-sm sm:text-base font-medium text-slate-100 leading-snug">
+                                ${opt.text}
+                            </span>
+                        </div>
+                        <div class="w-6 h-6 rounded-full border ${isSelected ? 'border-emerald-400 bg-emerald-500/20 text-emerald-400' : 'border-slate-700 text-transparent'} flex items-center justify-center shrink-0 transition">
+                            <i class="ph-bold ph-check text-xs"></i>
+                        </div>
+                    </button>
+                `;
+            }).join('');
+
+            // Update Prev & Next Buttons
+            document.getElementById('prevQuestionBtn').disabled = (currentQuestionIndex === 0);
+            const nextBtn = document.getElementById('nextQuestionBtn');
+            const nextBtnText = document.getElementById('nextQuestionBtnText');
+            nextBtn.disabled = !prevSaved;
+            nextBtnText.textContent = (currentQuestionIndex === QUESTIONS.length - 1)
+                ? 'Finalizar y Analizar'
+                : 'Siguiente Pregunta';
+        }
+
+        function stopQuestionTimer() {
+            if (questionTimerInterval) {
+                clearInterval(questionTimerInterval);
+                questionTimerInterval = null;
+            }
+        }
+
+        function selectOptionChoice(optionIdx) {
+            // Lock speed timer on first selection so user isn't penalized while confirming
+            if (lockedQuestionTimeSec === null) {
+                lockedQuestionTimeSec = Math.max(0.5, (performance.now() - questionStartTime) / 1000);
+                stopQuestionTimer();
+            }
+
+            userAnswers[currentQuestionIndex] = {
+                optionIndex: optionIdx,
+                timeSpent: lockedQuestionTimeSec || 2.5
+            };
+
+            // Re-render options to highlight selection and enable Next button
+            renderCurrentQuestion();
+        }
+
+        function confirmAndAdvanceQuestion() {
+            if (!userAnswers[currentQuestionIndex]) return;
+            stopQuestionTimer();
+
+            if (currentQuestionIndex < QUESTIONS.length - 1) {
+                currentQuestionIndex++;
+                renderCurrentQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const reportData = computePsychometricReport();
+                lastComputedReport = reportData;
+                saveResultToLocalHistory(reportData);
+                runPaywallDestroyerSequence();
+            }
+        }
+
+        function goBackQuestion() {
+            if (currentQuestionIndex > 0) {
+                stopQuestionTimer();
+                currentQuestionIndex--;
+                renderCurrentQuestion();
+            }
+        }
+
+        /* ==========================================================================
+           5. PSYCHOMETRIC SCORING ENGINE (IQ + 5-AXIS RADAR + TRIBE + 18 ACTORS)
+           ========================================================================== */
+        function computePsychometricReport() {
+            let rawIqPoints = 0;
+            let totalStage1Time = 0;
+
+            const tribeScores = { architect: 0, hacker: 0, detective: 0, strategist: 0, creative: 0 };
+            const ndRaw = { hyperfocus: 18, patterns: 18, systems: 18, social: 15, sensory: 15, lateral: 18 };
+            const actorScores = {};
+            Object.keys(ACTOR_PROFILES).forEach(k => { actorScores[k] = 10; });
+
+            userAnswers.forEach((ans, qIdx) => {
+                if (!ans) return;
+                const q = QUESTIONS[qIdx];
+                const chosen = q.options[ans.optionIndex];
+                if (!chosen) return;
+
+                rawIqPoints += (chosen.iqPoints || 0);
+
+                if (q.stage === 1) {
+                    const t = Math.min(20, Math.max(0.6, ans.timeSpent || 4));
+                    totalStage1Time += t;
+                    // Speed bonus if answered correctly and fast
+                    if ((chosen.iqPoints || 0) >= 15) {
+                        if (t <= 4.5) rawIqPoints += 4;
+                        else if (t <= 8.0) rawIqPoints += 2;
+                    }
+                }
+
+                if (chosen.tribe) {
+                    Object.keys(chosen.tribe).forEach(tKey => {
+                        if (tribeScores[tKey] !== undefined) tribeScores[tKey] += chosen.tribe[tKey];
+                    });
+                }
+
+                if (chosen.ndAxes) {
+                    Object.keys(chosen.ndAxes).forEach(aKey => {
+                        if (ndRaw[aKey] !== undefined) ndRaw[aKey] += chosen.ndAxes[aKey];
+                    });
+                }
+
+                if (chosen.actors) {
+                    Object.keys(chosen.actors).forEach(actKey => {
+                        if (actorScores[actKey] !== undefined) actorScores[actKey] += chosen.actors[actKey] * 7;
+                    });
+                }
+            });
+
+            // Calculate final IQ (Range 92 to 146)
+            const estimatedIQ = Math.min(146, Math.max(92, Math.round(84 + rawIqPoints * 0.42)));
+            const avgSpeedSec = (totalStage1Time / 5).toFixed(1);
+
+            // Percentile estimation
+            let percentileText = "Top 25%";
+            if (estimatedIQ >= 138) percentileText = "Top 1% Superior";
+            else if (estimatedIQ >= 130) percentileText = "Top 2% Muy Alto";
+            else if (estimatedIQ >= 122) percentileText = "Top 6% Destacado";
+            else if (estimatedIQ >= 115) percentileText = "Top 14% Arriba de la Media";
+            else if (estimatedIQ >= 108) percentileText = "Top 25% Ágil";
+            else percentileText = "Media Sólida";
+
+            // Normalize 5-Axis Hyperfocus Radar (25% - 98%)
+            const clampPct = (v) => Math.min(98, Math.max(26, Math.round(v)));
+            const axes5 = [
+                { key: 'hyperfocus', label: 'Hiperfoco Profundo (3 AM)', value: clampPct(ndRaw.hyperfocus * 1.15), color: '#22d3ee' },
+                { key: 'patterns', label: 'Detección de Patrones', value: clampPct(ndRaw.patterns * 1.15), color: '#a855f7' },
+                { key: 'systems', label: 'Sistematización Lógica', value: clampPct(ndRaw.systems * 1.15), color: '#10b981' },
+                { key: 'social', label: 'Selectividad Social', value: clampPct(ndRaw.social * 1.2), color: '#f59e0b' },
+                { key: 'sensory', label: 'Sensibilidad al Detalle', value: clampPct((ndRaw.sensory + ndRaw.lateral * 0.4) * 1.1), color: '#f43f5e' }
+            ];
+
+            const overallNdPct = Math.round(axes5.reduce((acc, item) => acc + item.value, 0) / axes5.length);
+            let ndCategory = "Mente Equilibrada";
+            if (overallNdPct >= 78) ndCategory = "Hiperfoco Neuro-Atípico Alto";
+            else if (overallNdPct >= 62) ndCategory = "Rasgos de Hiperfoco Marcados";
+            else ndCategory = "Procesamiento Neuro-Típico Ágil";
+
+            // Dominant Problem Solving Tribe
+            let topTribeKey = 'architect';
+            let maxTribeScore = -1;
+            Object.keys(tribeScores).forEach(k => {
+                if (tribeScores[k] > maxTribeScore) {
+                    maxTribeScore = tribeScores[k];
+                    topTribeKey = k;
+                }
+            });
+
+            // Top 4 Celebrity Matches
+            const sortedActors = Object.keys(actorScores)
+                .map(k => ({
+                    id: k,
+                    raw: actorScores[k],
+                    ...ACTOR_PROFILES[k]
+                }))
+                .sort((a, b) => b.raw - a.raw)
+                .slice(0, 4)
+                .map((act, idx) => {
+                    const matchPct = Math.min(99, Math.max(82, 97 - idx * 3 - (act.raw % 2)));
+                    return { ...act, matchPct };
+                });
+
+            return {
+                certId: `MM-${Math.floor(1000 + Math.random() * 9000)}`,
+                userName: currentUserName || "Explorador",
+                timestamp: new Date().toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' }),
+                iq: estimatedIQ,
+                percentile: percentileText,
+                avgSpeedSec,
+                overallNdPct,
+                ndCategory,
+                axes5,
+                tribeKey: topTribeKey,
+                tribe: TRIBES_DB[topTribeKey],
+                top4Actors: sortedActors
+            };
+        }
+
+        /* ==========================================================================
+           6. BIOMETRIC SCANNER SEQUENCE ([OK] STEPS + AUTO-JUMP TO RESULTS)
+           ========================================================================== */
+        let scannerTimeouts = [];
+
+        function clearScannerTimeouts() {
+            scannerTimeouts.forEach(t => clearTimeout(t));
+            scannerTimeouts = [];
+        }
+
+        function runPaywallDestroyerSequence() {
+            clearScannerTimeouts();
+
+            document.getElementById('landingView').classList.add('hidden');
+            document.getElementById('quizView').classList.add('hidden');
+            document.getElementById('resultsView').classList.add('hidden');
+            document.getElementById('paywallDestroyerView').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const logBox = document.getElementById('terminalLogBox');
+            const pctText = document.getElementById('scannerPercentText');
+            const progBar = document.getElementById('scannerProgressBar');
+            const heading = document.getElementById('paywallMainHeading');
+            const hint = document.getElementById('scannerBottomHint');
+            const icon = document.getElementById('scannerStatusIcon');
+
+            logBox.innerHTML = '';
+            pctText.textContent = '0%';
+            progBar.style.width = '0%';
+            heading.textContent = `Escaneando respuestas de ${lastComputedReport.userName}...`;
+            hint.textContent = 'Abriendo resultados automáticamente al completar el escaneo...';
+            icon.className = 'ph-duotone ph-brain text-3xl text-cyan-400 animate-pulse';
+
+            const scanSteps = [
+                {
+                    pct: 18,
+                    delay: 250,
+                    text: `[OK] Compilando matriz de respuestas y tiempos de reacción (15/15)...`
+                },
+                {
+                    pct: 38,
+                    delay: 800,
+                    text: `[OK] Calculando percentil de IQ y velocidad de procesamiento (${lastComputedReport.avgSpeedSec}s)...`
+                },
+                {
+                    pct: 60,
+                    delay: 1350,
+                    text: `[OK] Trazando radar neuro-cognitivo de 5 ejes e hiperfoco (${lastComputedReport.overallNdPct}%)...`
+                },
+                {
+                    pct: 82,
+                    delay: 1900,
+                    text: `[OK] Cruzando perfil psicológico con base de 18 actores y actrices...`
+                },
+                {
+                    pct: 95,
+                    delay: 2450,
+                    text: `[OK] Generando certificado neuro-psicométrico verificado (#${lastComputedReport.certId})...`
+                },
+                {
+                    pct: 100,
+                    delay: 2950,
+                    text: `[OK] Análisis completado al 100%. Abriendo resultados...`,
+                    highlight: true
+                }
+            ];
+
+            scanSteps.forEach((step) => {
+                const tId = setTimeout(() => {
+                    pctText.textContent = `${step.pct}%`;
+                    progBar.style.width = `${step.pct}%`;
+
+                    const row = document.createElement('div');
+                    row.className = 'flex items-start gap-2.5';
+                    row.innerHTML = `
+                        <i class="ph-fill ph-check-circle ${step.highlight ? 'text-emerald-400' : 'text-cyan-400'} text-base shrink-0 mt-0.5"></i>
+                        <span class="${step.highlight ? 'text-emerald-300 font-bold' : 'text-slate-200'}">${step.text}</span>
+                    `;
+                    logBox.appendChild(row);
+
+                    if (step.highlight) {
+                        heading.textContent = '¡Escaneo Completado al 100%!';
+                        hint.textContent = 'Mostrando tu reporte completo ahora mismo...';
+                        icon.className = 'ph-fill ph-seal-check text-3xl text-emerald-400';
+                    }
+                }, step.delay);
+                scannerTimeouts.push(tId);
+            });
+
+            // Automatically jump straight into the Results view without clicking any button
+            const finalJumpTimer = setTimeout(() => {
+                renderResultsAndShow();
+            }, 3450);
+            scannerTimeouts.push(finalJumpTimer);
+        }
+
+        function renderResultsAndShow() {
+            if (!lastComputedReport) return;
+            clearScannerTimeouts();
+            document.getElementById('paywallDestroyerView').classList.add('hidden');
+            document.getElementById('resultsView').classList.remove('hidden');
+            renderResultsDashboard(lastComputedReport);
+            refreshDOMActorPhotos();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openFinalResultsScreen() {
+            renderResultsAndShow();
+        }
+
+        /* ==========================================================================
+           7. RENDER COMPLETE RESULTS DASHBOARD (GAUSSIAN SVG + RADAR SVG + ACTORS)
+           ========================================================================== */
+        function renderResultsDashboard(data) {
+            document.getElementById('certIdSpan').textContent = data.certId;
+            document.getElementById('resultUserName').textContent = data.userName;
+            document.getElementById('resultTimestamp').textContent = `Emitido el ${data.timestamp} • Verificación psicométrica interactiva`;
+
+            // Top 4 KPIs
+            document.getElementById('kpiIqScore').textContent = data.iq;
+            document.getElementById('kpiIqPercentile').textContent = data.percentile;
+            document.getElementById('kpiSpeedNote').textContent = `Velocidad lógica: ${data.avgSpeedSec}s/reto`;
+
+            document.getElementById('kpiNdScore').textContent = `${data.overallNdPct}%`;
+            document.getElementById('kpiNdLabel').textContent = data.overallNdPct >= 75 ? 'Alto' : (data.overallNdPct >= 60 ? 'Moderado-Alto' : 'Equilibrado');
+
+            document.getElementById('kpiTribeName').textContent = data.tribe.name;
+            document.getElementById('kpiTribeSub').textContent = data.tribe.shortSub;
+
+            const topActor = data.top4Actors[0];
+            document.getElementById('kpiTopActorName').textContent = topActor.name;
+            document.getElementById('kpiTopActorRole').textContent = `${topActor.matchPct}% afinidad • ${topActor.iconicRoles.split('/')[0]}`;
+
+            // Card 1: Gaussian IQ Curve SVG
+            document.getElementById('gaussBadge').textContent = `IQ ${data.iq} (${data.percentile})`;
+            renderGaussianCurveSVG(data.iq);
+            document.getElementById('iqDetailedExplanation').innerHTML =
+                `Con un puntaje estimado de <strong class="text-cyan-300 font-mono">${data.iq} puntos</strong> y un tiempo de respuesta de <strong class="text-white font-mono">${data.avgSpeedSec}s</strong> en la etapa de agilidad lógica, tu mente destaca detectando secuencias visuales, filtrando trampas capciosas y conectando patrones sin caer en respuestas impulsivas.`;
+
+            // Card 2: 5-Axis Radar SVG & Bars
+            document.getElementById('radarBadge').textContent = `${data.overallNdPct}% Índice`;
+            renderRadarPolygonSVG(data.axes5);
+            const axesListEl = document.getElementById('radarAxesList');
+            axesListEl.innerHTML = data.axes5.map(ax => `
+                <div class="space-y-1">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-300 font-medium">${ax.label}</span>
+                        <span class="font-mono font-bold text-white">${ax.value}%</span>
+                    </div>
+                    <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                        <div class="h-full rounded-full" style="width: ${ax.value}%; background-color: ${ax.color}"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('ndDetailedExplanation').innerHTML =
+                `Clasificación del espectro: <strong class="text-purple-300">${data.ndCategory}</strong>. Este gráfico mide qué tanto tu cerebro entra en estados de hiperfoco intenso (investigando temas a las 3 AM), tu sensibilidad para notar detalles que otros pasan por alto y cómo administras tu batería social.`;
+
+            // Card 3: Top 4 Celebrity Matches (Strictly sized avatars + clean fallback)
+            const celebGrid = document.getElementById('celebrityMatchesGrid');
+            celebGrid.innerHTML = data.top4Actors.map((actor, index) => {
+                const rankBadge = index === 0 ? "★ MATCH #1 PRINCIPAL" : `MATCH #${index + 1} COMPATIBILIDAD`;
+                const borderClass = index === 0 ? "border-cyan-500/60 bg-slate-900/95 shadow-lg shadow-cyan-500/10" : "border-slate-800 bg-slate-950/75";
+                const profileObj = ACTOR_PROFILES[actor.id] || ACTOR_PROFILES.cillian;
+
+                return `
+                    <div class="rounded-2xl p-5 border ${borderClass} flex flex-col justify-between space-y-4 relative overflow-hidden group">
+                        <div class="space-y-3.5">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full ${index === 0 ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/40' : 'bg-slate-800 text-slate-300 border border-slate-700'}">
+                                    ${rankBadge}
+                                </span>
+                                <span class="text-xs font-mono font-black px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                                    ${actor.matchPct}% Afinidad
+                                </span>
+                            </div>
+
+                            <div class="flex items-center gap-4 pt-1">
+                                <div class="actor-card-avatar rounded-2xl bg-slate-950 border-2 ${index === 0 ? 'border-cyan-400' : 'border-indigo-500/40'} shadow-lg flex items-center justify-center">
+                                    <img
+                                        data-actor-img="${profileObj.id}"
+                                        src="${profileObj.photoUrl}"
+                                        alt="${profileObj.name}"
+                                        loading="lazy"
+                                        onerror="handleActorCardImgError(this)"
+                                    />
+                                    <div class="hidden w-full h-full flex items-center justify-center bg-slate-950 p-2">
+                                        ${profileObj.avatarSvg}
+                                    </div>
+                                    <span class="absolute bottom-1 right-1 text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-slate-950/90 text-cyan-300 border border-cyan-500/40">
+                                        #${index + 1}
+                                    </span>
+                                </div>
+
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="text-lg font-extrabold text-white leading-tight truncate">${profileObj.name}</h4>
+                                    <p class="text-xs text-amber-400 font-medium mt-0.5">${profileObj.iconicRoles}</p>
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-mono text-slate-400 mt-1">
+                                        <i class="ph-fill ph-camera text-cyan-400"></i> Arquetipo verificado
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="text-xs font-mono text-indigo-300 bg-indigo-950/40 border border-indigo-500/20 px-2.5 py-1.5 rounded-lg">
+                                ${profileObj.tag}
+                            </div>
+
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                                ${profileObj.whyMatch}
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Card 4: Problem Solving Tribe
+            document.getElementById('tribeFullTitle').textContent = data.tribe.name;
+            document.getElementById('tribeTagPill').textContent = data.tribe.tag;
+            document.getElementById('tribeFullDescription').textContent = data.tribe.description;
+            document.getElementById('tribeStrengthsGrid').innerHTML = data.tribe.strengths.map(st => `
+                <div class="rounded-xl bg-slate-900/90 border border-slate-800 p-3.5 flex items-start gap-2.5">
+                    <i class="ph-fill ph-check-circle text-emerald-400 text-base shrink-0 mt-0.5"></i>
+                    <span class="text-xs sm:text-sm text-slate-200 font-medium">${st}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderGaussianCurveSVG(iqScore) {
+            const clamped = Math.min(145, Math.max(70, iqScore));
+            const markerX = 30 + ((clamped - 70) / 75) * 300;
+            const norm = (clamped - 100) / 15;
+            const markerY = 115 - Math.exp(-0.5 * norm * norm) * 82;
+
+            document.getElementById('gaussianSvgContainer').innerHTML = `
+                <svg class="w-full h-36" viewBox="0 0 360 140" fill="none">
+                    <defs>
+                        <linearGradient id="bellGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.1"/>
+                            <stop offset="50%" stop-color="#22d3ee" stop-opacity="0.35"/>
+                            <stop offset="100%" stop-color="#a855f7" stop-opacity="0.45"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M 20 115 C 80 115, 125 33, 180 33 C 235 33, 280 115, 340 115 Z" fill="url(#bellGrad)"/>
+                    <path d="M 20 115 C 80 115, 125 33, 180 33 C 235 33, 280 115, 340 115" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="20" y1="115" x2="340" y2="115" stroke="#334155" stroke-width="1.5"/>
+                    <line x1="180" y1="33" x2="180" y2="115" stroke="#475569" stroke-width="1" stroke-dasharray="3 3"/>
+
+                    <!-- User IQ Marker -->
+                    <line x1="${markerX}" y1="18" x2="${markerX}" y2="115" stroke="#fbbf24" stroke-width="2" stroke-dasharray="3 2"/>
+                    <circle cx="${markerX}" cy="${markerY}" r="5.5" fill="#fbbf24" stroke="#0f172a" stroke-width="2"/>
+                    <rect x="${Math.min(295, Math.max(25, markerX - 28))}" y="4" width="56" height="18" rx="5" fill="#fbbf24"/>
+                    <text x="${Math.min(323, Math.max(53, markerX))}" y="16" text-anchor="middle" fill="#0f172a" font-size="10" font-weight="bold" font-family="monospace">IQ ${iqScore}</text>
+
+                    <!-- Scale Labels -->
+                    <text x="60" y="130" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">85</text>
+                    <text x="180" y="130" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="monospace">100 (Media)</text>
+                    <text x="240" y="130" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">115</text>
+                    <text x="300" y="130" text-anchor="middle" fill="#22d3ee" font-size="9" font-family="monospace">130+</text>
+                </svg>
+            `;
+        }
+
+        function renderRadarPolygonSVG(axes5) {
+            const cx = 100, cy = 100, maxR = 72;
+            const angles = [-90, -18, 54, 126, 198].map(deg => (deg * Math.PI) / 180);
+
+            const ringPolygons = [0.35, 0.68, 1].map(scale => {
+                const pts = angles.map(a => `${(cx + Math.cos(a) * maxR * scale).toFixed(1)},${(cy + Math.sin(a) * maxR * scale).toFixed(1)}`).join(' ');
+                return `<polygon points="${pts}" fill="none" stroke="#334155" stroke-width="1"/>`;
+            }).join('');
+
+            const axisLines = angles.map(a => {
+                const x2 = (cx + Math.cos(a) * maxR).toFixed(1);
+                const y2 = (cy + Math.sin(a) * maxR).toFixed(1);
+                return `<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="#334155" stroke-width="1"/>`;
+            }).join('');
+
+            const dataPts = axes5.map((ax, i) => {
+                const r = (ax.value / 100) * maxR;
+                const x = (cx + Math.cos(angles[i]) * r).toFixed(1);
+                const y = (cy + Math.sin(angles[i]) * r).toFixed(1);
+                return `${x},${y}`;
+            }).join(' ');
+
+            const dataDots = axes5.map((ax, i) => {
+                const r = (ax.value / 100) * maxR;
+                const x = (cx + Math.cos(angles[i]) * r).toFixed(1);
+                const y = (cy + Math.sin(angles[i]) * r).toFixed(1);
+                return `<circle cx="${x}" cy="${y}" r="4" fill="${ax.color}" stroke="#0f172a" stroke-width="1.5"/>`;
+            }).join('');
+
+            document.getElementById('radarSvgContainer').innerHTML = `
+                <svg class="w-44 h-44" viewBox="0 0 200 200" fill="none">
+                    ${ringPolygons}
+                    ${axisLines}
+                    <polygon points="${dataPts}" fill="#a855f7" fill-opacity="0.28" stroke="#22d3ee" stroke-width="2.2"/>
+                    ${dataDots}
+                </svg>
+            `;
+        }
+
+        /* ==========================================================================
+           8. DEMO GENERATOR, WHATSAPP VIRAL SHARE & CLIPBOARD
+           ========================================================================== */
+        function runInstantDemo() {
+            const validName = validateMandatoryName();
+            if (!validName) return;
+
+            currentUserName = validName;
+            userAnswers = QUESTIONS.map((q, idx) => ({
+                optionIndex: idx % 2 === 0 ? 0 : 1,
+                timeSpent: 2.8
+            }));
+            lastComputedReport = computePsychometricReport();
+            saveResultToLocalHistory(lastComputedReport);
+            runPaywallDestroyerSequence();
+        }
+
+        function buildViralShareText() {
+            if (!lastComputedReport) return "";
+            const topAct = lastComputedReport.top4Actors[0];
+            return `🧠 *Mi Certificado en MindMetrics AI*\n` +
+                   `👤 Nombre: *${lastComputedReport.userName}*\n` +
+                   `⚡ IQ Estimado: *${lastComputedReport.iq}* (${lastComputedReport.percentile})\n` +
+                   `🎯 Radar Hiperfoco: *${lastComputedReport.overallNdPct}%*\n` +
+                   `🛠️ Tribu Mental: *${lastComputedReport.tribe.name}*\n` +
+                   `🎬 Actor Compatible #1: *${topAct.name}* (${topAct.matchPct}%)\n\n` +
+                   `¿Cuánto sacas tú? Haz el test gratis aquí: ${window.location.href}`;
+        }
+
+        function shareOnWhatsApp() {
+            const text = buildViralShareText();
+            const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank', 'noopener,noreferrer');
+        }
+
+        function copySummaryToClipboard() {
+            const text = buildViralShareText();
+            const tempArea = document.createElement('textarea');
+            tempArea.value = text;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("¡Resumen copiado para WhatsApp o Discord!");
+            } catch (e) {
+                showToast("No se pudo copiar automáticamente");
+            }
+            document.body.removeChild(tempArea);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessageText').textContent = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2800);
+        }
+
+        function resetToHome() {
+            stopQuestionTimer();
+            clearScannerTimeouts();
+            document.getElementById('quizView').classList.add('hidden');
+            document.getElementById('paywallDestroyerView').classList.add('hidden');
+            document.getElementById('resultsView').classList.add('hidden');
+            document.getElementById('landingView').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ==========================================================================
+           9. LOCALSTORAGE HISTORY & SECRET 14-CLICK ADMIN MODE
+           ========================================================================== */
+        const HISTORY_STORAGE_KEY = 'mindmetrics_saved_history_v2';
+        let secretClickCount = 0;
+        let secretClickResetTimer = null;
+        let demoAdsVisible = false;
+
+        function registerSecretAdminClick() {
+            secretClickCount++;
+            if (secretClickResetTimer) clearTimeout(secretClickResetTimer);
+            secretClickResetTimer = setTimeout(() => {
+                secretClickCount = 0;
+            }, 3500);
+
+            if (secretClickCount >= 14) {
+                secretClickCount = 0;
+                const adminBar = document.getElementById('secretAdminBar');
+                adminBar.classList.remove('hidden');
+                if (!demoAdsVisible) toggleDemoAds();
+                showToast("Modo Administrador Desbloqueado (14 clics)");
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function closeAdminBar() {
+            document.getElementById('secretAdminBar').classList.add('hidden');
+        }
+
+        function toggleDemoAds() {
+            demoAdsVisible = !demoAdsVisible;
+            document.querySelectorAll('.ad-slot-wrapper').forEach(el => {
+                if (demoAdsVisible) el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
+            showToast(demoAdsVisible ? "Slots de anuncios visibles" : "Slots de anuncios ocultos");
+        }
+
+        function saveResultToLocalHistory(report) {
+            try {
+                const raw = localStorage.getItem(HISTORY_STORAGE_KEY);
+                const list = raw ? JSON.parse(raw) : [];
+                list.unshift({
+                    certId: report.certId,
+                    userName: report.userName,
+                    timestamp: report.timestamp,
+                    iq: report.iq,
+                    overallNdPct: report.overallNdPct,
+                    tribeName: report.tribe.name,
+                    topActor: report.top4Actors[0].name
+                });
+                localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(list.slice(0, 10)));
+                updateHistoryBadge();
+            } catch (e) {}
+        }
+
+        function updateHistoryBadge() {
+            try {
+                const raw = localStorage.getItem(HISTORY_STORAGE_KEY);
+                const list = raw ? JSON.parse(raw) : [];
+                const badge = document.getElementById('historyCountBadge');
+                if (list.length > 0) {
+                    badge.textContent = list.length;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            } catch (e) {}
+        }
+
+        function toggleHistoryModal() {
+            const modal = document.getElementById('historyModal');
+            const isHidden = modal.classList.contains('hidden');
+            if (isHidden) {
+                renderHistoryList();
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function renderHistoryList() {
+            const container = document.getElementById('historyListContainer');
+            let list = [];
+            try {
+                const raw = localStorage.getItem(HISTORY_STORAGE_KEY);
+                if (raw) list = JSON.parse(raw);
+            } catch (e) {}
+
+            if (list.length === 0) {
+                container.innerHTML = `<div class="text-center py-8 text-xs text-slate-400">Aún no tienes certificados guardados en este navegador.</div>`;
+                return;
+            }
+
+            container.innerHTML = list.map(item => `
+                <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-3.5 flex items-center justify-between gap-3">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-white text-sm">${item.userName}</span>
+                            <span class="text-[10px] font-mono text-slate-400">${item.timestamp}</span>
+                        </div>
+                        <p class="text-xs text-slate-300 mt-0.5">
+                            Tribu: <span class="text-emerald-400 font-medium">${item.tribeName}</span> • Match: <span class="text-amber-400 font-medium">${item.topActor}</span>
+                        </p>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <span class="text-sm font-mono font-black text-cyan-400 block">IQ ${item.iq}</span>
+                        <span class="text-[10px] font-mono text-purple-300">ND ${item.overallNdPct}%</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function clearSavedHistory() {
+            try {
+                localStorage.removeItem(HISTORY_STORAGE_KEY);
+            } catch (e) {}
+            updateHistoryBadge();
+            renderHistoryList();
+        }
+
+        /* ==========================================================================
+           10. COOKIE CONSENT & LEGAL MODALS FOR ADSENSE APPROVAL
+           ========================================================================== */
+        const COOKIE_KEY = 'mindmetrics_cookie_accepted_v1';
+
+        function initCookieState() {
+            try {
+                if (!localStorage.getItem(COOKIE_KEY)) {
+                    document.getElementById('cookieConsentBanner').classList.remove('hidden');
+                }
+            } catch (e) {}
+        }
+
+        function acceptCookies() {
+            try {
+                localStorage.setItem(COOKIE_KEY, '1');
+            } catch (e) {}
+            document.getElementById('cookieConsentBanner').classList.add('hidden');
+        }
+
+        function openLegalModal(type) {
+            const modal = document.getElementById('legalModal');
+            const title = document.getElementById('legalModalTitle');
+            const body = document.getElementById('legalModalBody');
+
+            if (type === 'privacy') {
+                title.textContent = "Política de Privacidad y Uso de Cookies";
+                body.innerHTML = `
+                    <p><strong>1. Uso de Cookies:</strong> Utilizamos cookies propias y de terceros para mejorar tu experiencia de navegación, recordar tus preferencias, analizar estadísticas de tráfico y mostrar anuncios relevantes.</p>
+                    <p><strong>2. Publicidad de Terceros:</strong> Este sitio web puede mostrar anuncios proporcionados por redes publicitarias certificadas (como Google AdSense o similares), las cuales emplean cookies estándar para ofrecer anuncios acordes a tus intereses.</p>
+                    <p><strong>3. Privacidad de tus Respuestas:</strong> Las respuestas seleccionadas durante el test se procesan únicamente para generar tu certificado interactivo en pantalla.</p>
+                `;
+            } else if (type === 'terms') {
+                title.textContent = "Términos y Condiciones de Uso";
+                body.innerHTML = `
+                    <p><strong>1. Acceso Gratuito:</strong> MindMetrics AI es una aplicación interactiva de acceso público y gratuito con resultados automáticos al finalizar el cuestionario.</p>
+                    <p><strong>2. Propiedad Intelectual:</strong> Las fotografías de actores se cargan en tiempo real desde el repositorio público Wikimedia Commons / Wikipedia REST API bajo sus respectivas licencias abiertas.</p>
+                `;
+            } else if (type === 'disclaimer') {
+                title.textContent = "Aviso Importante: Entretenimiento Psicométrico";
+                body.innerHTML = `
+                    <p><strong>No es un diagnóstico médico ni clínico:</strong> Este test está diseñado exclusivamente con fines de entretenimiento, autoconocimiento recreativo y comparación de arquetipos de personajes.</p>
+                    <p>Los indicadores de IQ estimado y el radar de 5 ejes de hiperfoco no sustituyen ninguna evaluación psicológica, neuropsicológica ni médica profesional.</p>
+                `;
+            } else if (type === 'monetize') {
+                title.textContent = "Guía Rápida de Monetización (Solo Administrador)";
+                body.innerHTML = `
+                    <p>Tu página cuenta con <strong>4 espacios publicitarios estratégicos</strong> listos para monetizar tráfico de TikTok, Reels, Facebook Ads o WhatsApp:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Slot #1 (adSlotHero):</strong> Debajo de la tarjeta de bienvenida.</li>
+                        <li><strong>Slot #2 (adSlotQuizFooter):</strong> Pie del cuestionario (separado de las opciones para evitar clics accidentales).</li>
+                        <li><strong>Slot #3 (adSlotLoading):</strong> En la pantalla de análisis de 3.4 segundos (el espacio con mayor atención visual).</li>
+                        <li><strong>Slot #4 (adSlotResults):</strong> Entre las gráficas y los actores compatibles.</li>
+                    </ul>
+                    <p>Para activarlos en producción con tus anuncios reales, quita la clase <code>hidden</code> de los bloques <code>.ad-slot-wrapper</code> y pega dentro el código <code>&lt;ins class="adsbygoogle"&gt;</code> de Google AdSense.</p>
+                `;
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeLegalModal() {
+            document.getElementById('legalModal').classList.add('hidden');
+        }
+
+        // Initialize on DOM Load
+        window.addEventListener('DOMContentLoaded', () => {
+            updateHistoryBadge();
+            initCookieState();
+            initActorRealPhotos();
+            setInterval(() => {
+                const counterEl = document.getElementById('liveTestsCount');
+                if (counterEl) {
+                    const currentVal = parseInt(counterEl.textContent.replace(/,/g, ''), 10) || 148920;
+                    counterEl.textContent = (currentVal + Math.floor(Math.random() * 2) + 1).toLocaleString('en-US');
+                }
+            }, 6500);
+        });
+    </script>
+</body>
+</html>
