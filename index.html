@@ -1,16 +1,79 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindMetrics AI | Evaluación de IQ, Radar de Hiperfoco, Tribu Mental y Arquetipos</title>
-    <meta name="description" content="Plataforma interactiva de psicometría recreativa: calcula tu percentil en la Campana de Gauss, analiza tu radar de hiperfoco de 5 ejes, descubre tu tribu de resolución de problemas y tu compatibilidad cognitiva con 18 arquetipos.">
-    
+    <title>MindMetrics AI | Test Recreativo de Agilidad Lógica, Radar de 5 Ejes y Arquetipos</title>
+    <meta name="description" content="Explora tu índice recreativo de razonamiento lógico-visual, analiza tus 5 ejes de enfoque profundo, descubre tu estilo de resolución de problemas y tu afinidad con 18 arquetipos culturales. Incluye guía metodológica completa.">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Equipo Editorial MindMetrics AI">
+    <link rel="canonical" href="https://mindmetrics-ai.vercel.app/">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MindMetrics AI | Laboratorio Recreativo de Razonamiento Lógico y Arquetipos">
+    <meta property="og:description" content="Evalúa tu agilidad lógica en 15 retos interactivos, explora tu radar cognitivo de 5 ejes y consulta nuestra guía metodológica abierta.">
+    <meta property="og:url" content="https://mindmetrics-ai.vercel.app/">
+    <meta property="og:site_name" content="MindMetrics AI">
+
     <!-- ========================================================================================
-         PASO 1 GOOGLE ADSENSE: PEGA AQUÍ DEBAJO TU SCRIPT OFICIAL DE VERIFICACIÓN DE ADSENSE
-         Ejemplo:
-         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+         PEGA AQUÍ TU SCRIPT DE GOOGLE ADSENSE CUANDO SOLICITES LA REVISIÓN EN TU DOMINIO:
+         <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
          ======================================================================================== -->
+
+    <!-- Structured Data JSON-LD: WebApplication + FAQPage for Google Rich Results & Audit -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "name": "MindMetrics AI",
+          "url": "https://mindmetrics-ai.vercel.app/",
+          "applicationCategory": "EducationalApplication",
+          "genre": "Interactive Logic & Personality Assessment",
+          "inLanguage": "es-MX",
+          "isAccessibleForFree": true,
+          "operatingSystem": "All",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "description": "Herramienta interactiva de divulgación y entretenimiento cognitivo que evalúa agilidad lógico-visual, estilos de resolución de problemas, radar de 5 ejes de atención y afinidad con 18 arquetipos de personajes."
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿El test de MindMetrics AI tiene algún costo o requiere registro?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. MindMetrics AI es una plataforma abierta y 100% gratuita. No solicita tarjetas bancarias, correos electrónicos ni suscripciones para mostrar el reporte interactivo completo."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cuál es la diferencia entre MindMetrics AI y una prueba clínica como WAIS-IV?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Las baterías clínicas como WAIS-IV o las Matrices Progresivas de Raven requieren aplicación presencial por un neuropsicólogo colegiado bajo condiciones controladas. MindMetrics AI es una experiencia recreativa y educativa basada en 15 retos breves que ofrece un índice estimativo de agilidad lógica y estilos de pensamiento, sin validez diagnóstica médica."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cómo se calcula el puntaje en el Motor de Análisis de Respuestas?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "El algoritmo parte de una base escalar de 84 puntos, suma el puntaje ponderado de cada acierto lógico (entre 18 y 20 puntos brutos en la Etapa 1 y entre 2 y 4 puntos en las etapas situacionales), añade un bono cronométrico cuando se responde en menos de 4.5 o 8 segundos y proyecta el resultado en una escala recreativa de 92 a 146."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -69,7 +132,7 @@
         .svg-float {
             animation: floatSlow 3.2s ease-in-out infinite;
         }
-        /* Scanner Laser Animation */
+        /* Analyzer Progress Beam Animation */
         @keyframes scanBeam {
             0%, 100% { transform: translateY(0%); opacity: 0.35; }
             50% { transform: translateY(100%); opacity: 0.95; }
@@ -136,19 +199,19 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans cyber-grid selection:bg-cyan-500 selection:text-slate-950">
 
-    <!-- PANEL DE DIAGNÓSTICO DE DISEÑO (OCULTO POR DEFECTO - ACCESO CON 14 CLICS EN LA VERSIÓN DEL PIE DE PÁGINA) -->
+    <!-- PANEL DE DIAGNÓSTICO DE MAQUETACIÓN (OCULTO POR DEFECTO - ACCESO CON 14 CLICS EN LA VERSIÓN DEL PIE DE PÁGINA) -->
     <div id="secretAdminBar" class="hidden bg-amber-500/15 border-b border-amber-500/40 px-4 py-2.5 text-xs text-amber-200 no-print">
         <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center gap-2 font-mono font-bold">
                 <i class="ph-fill ph-sliders-horizontal text-amber-400 text-base"></i>
-                <span>PANEL DE DIAGNÓSTICO DE INTERFAZ Y ESPACIOS</span>
+                <span>PANEL DE DIAGNÓSTICO DE MAQUETACIÓN RESPONSIVA</span>
             </div>
             <div class="flex items-center gap-2">
                 <button onclick="toggleDemoAds()" id="adminToggleAdsBtn" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 font-mono font-semibold transition">
-                    Previsualizar Contenedores Responsivos
+                    Previsualizar Espacios Adaptables
                 </button>
-                <button onclick="openLegalModal('editorial')" class="px-3 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 font-mono font-semibold transition">
-                    Ficha Técnica Editorial
+                <button onclick="navigateToSection('marco-legal')" class="px-3 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 font-mono font-semibold transition">
+                    Ir a Marco Legal Estático
                 </button>
                 <button onclick="closeAdminBar()" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300">
                     ✕
@@ -157,37 +220,36 @@
         </div>
     </div>
 
-    <!-- TOP NAVIGATION HEADER -->
-    <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md no-print">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+    <!-- TOP NAVIGATION HEADER WITH CRAWLABLE ANCHOR LINKS -->
+    <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md no-print">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
             <!-- Brand Logo (Original Cyan Brain Icon) -->
-            <button onclick="resetToHome()" class="flex items-center gap-2.5 text-left group focus:outline-none">
+            <a href="#evaluacion" onclick="navigateToSection('evaluacion'); return false;" class="flex items-center gap-2.5 text-left group focus:outline-none">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-indigo-600/20 border border-cyan-500/40 flex items-center justify-center shadow-lg shadow-cyan-500/10 group-hover:scale-105 transition">
                     <i class="ph-duotone ph-brain text-2xl text-cyan-400"></i>
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-extrabold tracking-tight text-base sm:text-lg text-white">MindMetrics<span class="text-cyan-400">.AI</span></span>
-                        <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">100% Gratis</span>
+                        <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">Acceso Libre</span>
                     </div>
-                    <p class="text-[11px] text-slate-400 hidden sm:block">Laboratorio Abierto de Perfil Cognitivo, Hiperfoco y Arquetipos</p>
+                    <p class="text-[11px] text-slate-400 hidden sm:block">Laboratorio Recreativo de Razonamiento Lógico, Enfoque y Arquetipos</p>
                 </div>
-            </button>
+            </a>
+
+            <!-- Crawlable Editorial Navigation Links -->
+            <nav aria-label="Navegación Principal" class="hidden lg:flex items-center gap-1 text-xs font-medium text-slate-300">
+                <a href="#evaluacion" onclick="navigateToSection('evaluacion'); return false;" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-900 hover:text-cyan-400 transition">Test</a>
+                <a href="#metodologia" onclick="navigateToSection('metodologia'); return false;" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-900 hover:text-cyan-400 transition">Metodología y Cálculo</a>
+                <a href="#guia-ejes" onclick="navigateToSection('guia-ejes'); return false;" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-900 hover:text-cyan-400 transition">Los 5 Ejes</a>
+                <a href="#comparativa-iq" onclick="navigateToSection('comparativa-iq'); return false;" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-900 hover:text-cyan-400 transition">Recreativo vs. Clínico</a>
+                <a href="#faq" onclick="navigateToSection('faq'); return false;" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-900 hover:text-cyan-400 transition">Preguntas Frecuentes</a>
+                <a href="#marco-legal" onclick="navigateToSection('marco-legal'); return false;" class="px-2.5 py-1.5 rounded-lg hover:bg-slate-900 hover:text-cyan-400 transition">Privacidad y Contacto</a>
+            </nav>
 
             <!-- Right Controls -->
-            <div class="flex items-center gap-2 sm:gap-3">
-                <a href="#metodologiaSection" onclick="resetToHome()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 transition">
-                    <i class="ph-duotone ph-book-open-text text-cyan-400"></i>
-                    <span>Metodología</span>
-                </a>
-
-                <div class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-slate-300">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                    <span id="liveTestsCount" class="font-mono font-bold text-white">148,920</span>
-                    <span class="text-slate-400">perfiles</span>
-                </div>
-
-                <button onclick="toggleHistoryModal()" class="relative px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-xs sm:text-sm font-medium text-slate-200 flex items-center gap-1.5 transition" title="Ver mis resultados guardados">
+            <div class="flex items-center gap-2">
+                <button onclick="toggleHistoryModal()" class="relative px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-xs font-medium text-slate-200 flex items-center gap-1.5 transition" title="Ver mis reportes recientes">
                     <svg class="w-4 h-4 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="none">
                         <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
                         <path d="M12 7V12L15 15" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/>
@@ -197,17 +259,35 @@
                 </button>
             </div>
         </div>
+
+        <!-- Mobile Sub-Navigation Strip for Crawlable Sections -->
+        <div class="lg:hidden border-t border-slate-900/90 bg-slate-950/95 px-3 py-1.5 overflow-x-auto">
+            <div class="flex items-center gap-3 text-[11px] font-mono text-slate-400 whitespace-nowrap">
+                <a href="#evaluacion" onclick="navigateToSection('evaluacion'); return false;" class="hover:text-cyan-400">1. Evaluación</a>
+                <span>•</span>
+                <a href="#metodologia" onclick="navigateToSection('metodologia'); return false;" class="hover:text-cyan-400">2. Cómo se Calcula</a>
+                <span>•</span>
+                <a href="#guia-ejes" onclick="navigateToSection('guia-ejes'); return false;" class="hover:text-cyan-400">3. Guía 5 Ejes</a>
+                <span>•</span>
+                <a href="#comparativa-iq" onclick="navigateToSection('comparativa-iq'); return false;" class="hover:text-cyan-400">4. Límites del IQ</a>
+                <span>•</span>
+                <a href="#faq" onclick="navigateToSection('faq'); return false;" class="hover:text-cyan-400">5. FAQ</a>
+                <span>•</span>
+                <a href="#marco-legal" onclick="navigateToSection('marco-legal'); return false;" class="hover:text-cyan-400">6. Privacidad</a>
+            </div>
+        </div>
     </header>
 
     <!-- MAIN CONTENT CONTAINER -->
     <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6 sm:py-10 flex flex-col justify-center">
 
         <!-- ==========================================
-             VIEW 1: LANDING SCREEN (HERO + 4 PILLARS + EDITORIAL METHODOLOGY + FAQ)
+             VIEW 1: LANDING SCREEN + COMPREHENSIVE EDITORIAL CONTENT
              ========================================== -->
-        <section id="landingView" class="space-y-8">
-            <!-- Hero Main Card -->
-            <div class="glass-card rounded-3xl p-6 sm:p-10 relative overflow-hidden neon-border-cyan">
+        <div id="landingView" class="space-y-10">
+
+            <!-- HERO ASSESSMENT CARD (#evaluacion) -->
+            <section id="evaluacion" class="glass-card rounded-3xl p-6 sm:p-10 relative overflow-hidden neon-border-cyan">
                 <div class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
                 <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -216,22 +296,22 @@
                         <svg class="w-4 h-4 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="none">
                             <path d="M13 2L4 14H12L11 22L20 10H12L13 2Z" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
                         </svg>
-                        <span>TEST INTERACTIVO 4 EN 1 • ACCESO DIRECTO Y GRATUITO</span>
+                        <span>EVALUACIÓN RECREATIVA 4 EN 1 • ACCESO DIRECTO Y GRATUITO</span>
                     </div>
 
                     <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
-                        ¿Cuál es tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400">IQ, Nivel de Hiperfoco</span> y qué Actor piensa como tú?
+                        Descubre tu <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400">Agilidad Lógica, Radar de Enfoque</span> y qué Arquetipo piensa como tú
                     </h1>
 
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                        Responde 15 retos rápidos de lógica visual, resolución de problemas, batería social y psicología. Al terminar, nuestro <strong class="text-cyan-400 font-semibold">escáner biométrico analiza tus respuestas y abre automáticamente</strong> tu certificado completo.
+                        Resuelve 15 retos interactivos de secuencias visuales, deducción lógica, gestión de batería social y resolución de problemas. Al concluir, nuestro <strong class="text-cyan-400 font-semibold">motor de análisis de respuestas procesa tu perfil y abre automáticamente</strong> tu reporte recreativo completo.
                     </p>
 
                     <!-- User Name Input (Mandatory, WITHOUT blue Obligatorio badge) -->
                     <div class="max-w-md mx-auto pt-2 text-left">
                         <div class="mb-1.5">
                             <label for="userNameInput" class="block text-xs font-mono uppercase tracking-wider text-slate-300 font-semibold">
-                                Escribe tu Nombre o Apodo para el Certificado:
+                                Escribe tu Nombre o Apodo para personalizar tu Reporte:
                             </label>
                         </div>
                         <div id="userNameInputWrapper" class="relative rounded-xl transition-all">
@@ -253,7 +333,7 @@
                         </div>
                         <p id="nameErrorMsg" class="hidden text-xs text-rose-400 font-medium mt-1.5 flex items-center gap-1.5">
                             <i class="ph-fill ph-warning-circle text-sm shrink-0"></i>
-                            <span>Por favor escribe tu nombre o apodo antes de iniciar el test.</span>
+                            <span>Por favor escribe tu nombre o apodo antes de iniciar el cuestionario.</span>
                         </p>
                     </div>
 
@@ -263,14 +343,14 @@
                             <svg class="w-6 h-6 text-slate-950 shrink-0" viewBox="0 0 24 24" fill="none">
                                 <polygon points="6 4 20 12 6 20 6 4" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                             </svg>
-                            <span>Iniciar Evaluación Completa</span>
+                            <span>Iniciar Evaluación Interactiva</span>
                         </button>
 
                         <button onclick="runInstantDemo()" class="w-full sm:w-auto px-5 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-sm flex items-center justify-center gap-2.5 transition">
                             <svg class="w-5 h-5 text-amber-400 shrink-0" viewBox="0 0 24 24" fill="none">
                                 <path d="M12 2L14.8 8.5L22 9.3L16.5 14L18.2 21L12 17.3L5.8 21L7.5 14L2 9.3L9.2 8.5L12 2Z" fill="#fbbf24" fill-opacity="0.25" stroke="#fbbf24" stroke-width="1.8" stroke-linejoin="round"/>
                             </svg>
-                            <span>Ver Ejemplo de Certificado</span>
+                            <span>Ver Ejemplo de Reporte</span>
                         </button>
                     </div>
 
@@ -282,26 +362,26 @@
                             <i class="ph-fill ph-check-circle text-emerald-400"></i> Confirmación por pregunta
                         </span>
                         <span class="flex items-center gap-1.5">
-                            <i class="ph-fill ph-sparkle text-amber-400"></i> Resultados automáticos al 100%
+                            <i class="ph-fill ph-info text-amber-400"></i> Herramienta recreativa y divulgativa
                         </span>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <!-- CONTENEDOR RESPONSIVO #1 (OCULTO POR DEFECTO SI ESTÁ VACÍO) -->
             <div class="ad-slot-wrapper hidden no-print" id="adSlotHero">
                 <div class="ad-container-box rounded-2xl p-3 text-center">
                     <span class="block text-[9px] font-mono uppercase tracking-widest text-slate-500 mb-1">Patrocinado</span>
                     <div class="ad-unit-body min-h-[60px] flex items-center justify-center text-xs text-slate-500 font-mono">
-                        <!-- Cuando Google AdSense apruebe tu sitio, pega aquí tu bloque adaptable <ins class="adsbygoogle"> -->
-                        <span class="ad-preview-label hidden">Espacio Responsivo Adaptable #1 (Portada)</span>
+                        <!-- Espacio reservado para bloque adaptable de Google AdSense -->
+                        <span class="ad-preview-label hidden">Contenedor Adaptable #1 (Portada)</span>
                     </div>
                 </div>
             </div>
 
-            <!-- 4 FEATURE PILLARS (All with bespoke multi-color SVGs & real actor strip) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Pillar 1: IQ & Speed -->
+            <!-- 4 FEATURE PILLARS -->
+            <section aria-label="Pilares de la Evaluación" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Pillar 1: Logic & Speed -->
                 <div class="glass-card rounded-2xl p-5 border border-slate-800/80 hover:border-cyan-500/40 transition group">
                     <div class="flex items-center justify-between mb-3.5">
                         <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/15 border border-cyan-500/35 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
@@ -313,13 +393,13 @@
                                 <circle cx="21" cy="15" r="2.2" fill="#a855f7"/>
                             </svg>
                         </div>
-                        <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/25">Campana Gauss</span>
+                        <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/25">Curva Normal</span>
                     </div>
-                    <h3 class="font-bold text-white text-sm sm:text-base mb-1">1. IQ y Agilidad Visual</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Retos visuales rápidos y acertijos capciosos con bono de velocidad mental en tiempo real.</p>
+                    <h2 class="font-bold text-white text-sm sm:text-base mb-1">1. Índice de Agilidad Lógica</h2>
+                    <p class="text-slate-400 text-xs leading-relaxed">Retos de secuencias visuales y acertijos de inhibición cognitiva con medición de tiempo de respuesta.</p>
                 </div>
 
-                <!-- Pillar 2: 5-Axis Hyperfocus Radar -->
+                <!-- Pillar 2: 5-Axis Focus Radar -->
                 <div class="glass-card rounded-2xl p-5 border border-slate-800/80 hover:border-purple-500/40 transition group">
                     <div class="flex items-center justify-between mb-3.5">
                         <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/20 to-fuchsia-600/15 border border-purple-500/35 flex items-center justify-center shadow-inner group-hover:scale-105 transition">
@@ -335,8 +415,8 @@
                         </div>
                         <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/25">Radar 5 Ejes</span>
                     </div>
-                    <h3 class="font-bold text-white text-sm sm:text-base mb-1">2. Radar de Hiperfoco</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Analiza tus desvelos de investigación a las 3 AM, detección de detalles, batería social y enfoque.</p>
+                    <h2 class="font-bold text-white text-sm sm:text-base mb-1">2. Radar de Enfoque Profundo</h2>
+                    <p class="text-slate-400 text-xs leading-relaxed">Explora tus hábitos de investigación intensa, detección de patrones, sistematización y batería social.</p>
                 </div>
 
                 <!-- Pillar 3: Problem Solving Tribe -->
@@ -354,8 +434,8 @@
                         </div>
                         <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/25">Tribu Mental</span>
                     </div>
-                    <h3 class="font-bold text-white text-sm sm:text-base mb-1">3. Ingeniería y Tribu</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Descubre a qué tribu perteneces cuando resuelves problemas en juegos, proyectos o emergencias.</p>
+                    <h2 class="font-bold text-white text-sm sm:text-base mb-1">3. Estilo de Resolución</h2>
+                    <p class="text-slate-400 text-xs leading-relaxed">Identifica tu perfil operativo cuando resuelves fallos técnicos, proyectos urgentes o juegos de estrategia.</p>
                 </div>
 
                 <!-- Pillar 4: 18 Actors Match -->
@@ -379,132 +459,327 @@
                             <span class="w-7 h-7 rounded-full bg-slate-800 ring-2 ring-slate-900 flex items-center justify-center text-[9px] font-mono font-bold text-amber-300 shrink-0">+14</span>
                         </div>
                     </div>
-                    <h3 class="font-bold text-white text-sm sm:text-base mb-1">4. Match con 18 Actores</h3>
-                    <p class="text-slate-400 text-xs leading-relaxed">Compara tu mente con Cillian Murphy, Jenna Ortega, Zendaya, Anya Taylor-Joy, RDJ, Henry Cavill y más.</p>
+                    <h2 class="font-bold text-white text-sm sm:text-base mb-1">4. Afinidad con 18 Arquetipos</h2>
+                    <p class="text-slate-400 text-xs leading-relaxed">Compara tu estilo mental con los personajes y temperamentos de Cillian Murphy, Jenna Ortega, Anya Taylor-Joy y más.</p>
                 </div>
-            </div>
+            </section>
 
             <!-- =====================================================================
-                 GUÍA METODOLÓGICA Y FUNDAMENTOS COGNITIVOS (ALTO VALOR EDITORIAL SEO)
+                 BLOQUE EDITORIAL 1 Y 5 (#metodologia): CÓMO FUNCIONA EL RAZONAMIENTO LÓGICO
+                 Y METODOLOGÍA VERIFICABLE CON EJEMPLO MATEMÁTICO PASO A PASO
                  ===================================================================== -->
-            <div id="metodologiaSection" class="glass-card rounded-3xl p-6 sm:p-9 border border-slate-800/90 space-y-6">
+            <section id="metodologia" class="glass-card rounded-3xl p-6 sm:p-9 border border-slate-800/90 space-y-7">
                 <div class="border-b border-slate-800/80 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
-                        <span class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold block">Documentación Abierta y Metodología</span>
-                        <h2 class="text-xl sm:text-2xl font-black text-white mt-0.5">Fundamentos de Psicometría Cognitiva, Hiperfoco y Arquetipos</h2>
+                        <span class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold block">Guía Editorial Abierta • Parte 1</span>
+                        <h2 class="text-xl sm:text-2xl font-black text-white mt-0.5">Cómo Funciona el Razonamiento Lógico-Visual y Cómo Calculamos tu Perfil</h2>
                     </div>
                     <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 self-start sm:self-center">
-                        Lectura técnica • 4 Pilares
+                        Metodología Transparente
+                    </span>
+                </div>
+
+                <!-- Article 1: How logical reasoning works and is evaluated -->
+                <article class="space-y-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <h3 class="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-mono text-xs">01</span>
+                        <span>¿Cómo funciona el razonamiento lógico y cómo se evalúa en entornos interactivos?</span>
+                    </h3>
+                    <p>
+                        En la ciencia cognitiva contemporánea, resolver un problema inédito sin apoyarse en conocimientos escolares previos depende de lo que el psicólogo Raymond Cattell definió como <strong>razonamiento fluido</strong>. A diferencia de la memoria semántica (recordar fechas o definiciones), el razonamiento fluido opera identificando reglas implícitas entre estímulos visuales, numéricos y condicionales.
+                    </p>
+                    <p>
+                        Dentro de <strong>MindMetrics AI</strong>, las primeras cinco preguntas evalúan tres mecanismos específicos del pensamiento analítico:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+                        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-4 space-y-1.5">
+                            <h4 class="font-bold text-cyan-300 text-xs sm:text-sm">1. Inducción Espacial y Geométrica</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Analiza tu capacidad para rastrear el movimiento rotacional de elementos en una matriz (Pregunta 1) y descomponer figuras superpuestas sin omitir el marco global (Pregunta 5).
+                            </p>
+                        </div>
+                        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-4 space-y-1.5">
+                            <h4 class="font-bold text-indigo-300 text-xs sm:text-sm">2. Progresión Algorítmica</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Evalúa la rapidez con la que detectas operadores multiplicativos constantes (<code class="text-slate-200">×2</code>) sobre series numéricas cortas (Pregunta 2), descartando distractores cercanos.
+                            </p>
+                        </div>
+                        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-4 space-y-1.5">
+                            <h4 class="font-bold text-purple-300 text-xs sm:text-sm">3. Inhibición Cognitiva (Sistema 2)</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Basado en las investigaciones de Daniel Kahneman y Shane Frederick (<em>Cognitive Reflection Test</em>), las Preguntas 3 y 4 miden si logras frenar la respuesta impulsiva e incorrecta del «Sistema 1» para activar el análisis lógico del «Sistema 2».
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 5: Verifiable Methodology & Real Numerical Calculation Example -->
+                <article class="space-y-4 pt-3 border-t border-slate-800/80 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <h3 class="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono text-xs">02</span>
+                        <span>Fórmula Verificable: ¿Cómo calcula MindMetrics AI tus resultados con ejemplos reales?</span>
+                    </h3>
+                    <p>
+                        Para garantizar total transparencia frente a nuestros usuarios, nuestro motor de cálculo se ejecuta directamente en el navegador utilizando una fórmula determinista (sin números aleatorios ocultos en el puntaje). Así se calcula cada indicador:
+                    </p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <!-- Formula Breakdown Box -->
+                        <div class="rounded-2xl bg-slate-950/90 border border-slate-800 p-5 space-y-3">
+                            <span class="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-bold block">A. Fórmula del Índice Recreativo de Agilidad Lógica</span>
+                            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 font-mono text-xs text-cyan-300">
+                                Índice = Redondear( 84 + (Puntos_Brutos × 0.42) )
+                            </div>
+                            <ul class="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
+                                <li><strong class="text-slate-200">Base de Escala:</strong> Todo participante inicia en una base de <strong>84 puntos</strong> (límite superior acotado en 146 y mínimo en 92).</li>
+                                <li><strong class="text-slate-200">Etapa 1 (Retos 1 al 5):</strong> Cada respuesta correcta aporta entre <strong>18 y 20 puntos brutos</strong> (máximo 94 puntos por exactitud).</li>
+                                <li><strong class="text-slate-200">Bono de Velocidad Verificado:</strong> El cronómetro se congela en cuanto seleccionas tu opción. Si la respuesta es correcta y tardaste <strong>4.5 segundos o menos</strong>, sumas <strong>+4 puntos brutos</strong>; si tardaste entre <strong>4.6 y 8.0 segundos</strong>, sumas <strong>+2 puntos brutos</strong>.</li>
+                                <li><strong class="text-slate-200">Etapas 2, 3 y 4 (Retos 6 al 15):</strong> Evalúan consistencia analítica y aportan entre <strong>2 y 4 puntos brutos</strong> por pregunta según la complejidad sistémica de la decisión elegida.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Real Worked Example Box -->
+                        <div class="rounded-2xl bg-slate-950/90 border border-slate-800 p-5 space-y-3">
+                            <span class="text-[11px] font-mono uppercase tracking-wider text-amber-400 font-bold block">B. Ejemplo Numérico Real Paso a Paso</span>
+                            <p class="text-xs text-slate-300">
+                                Supongamos que una usuaria llamada <strong>«Dani»</strong> completa las 15 preguntas con el siguiente desempeño:
+                            </p>
+                            <ol class="text-xs text-slate-400 space-y-1.5 list-decimal pl-4 font-mono">
+                                <li>Acierta 4 de los 5 retos de la Etapa 1: <span class="text-white">18 + 18 + 19 + 20 = 75 pts</span> (y falla uno obteniendo <span class="text-white">+5 pts</span>) → Subtotal Etapa 1 = <strong class="text-cyan-300">80 pts</strong>.</li>
+                                <li>Responde 3 de esos aciertos en 3.8 segundos (<span class="text-emerald-400">+4 pts c/u = +12</span>) y 1 acierto en 6.2 segundos (<span class="text-emerald-400">+2 pts</span>) → Bono de velocidad = <strong class="text-emerald-400">+14 pts</strong>.</li>
+                                <li>En las preguntas 6 a 15 elige opciones analíticas que suman <strong class="text-purple-300">+34 pts</strong>.</li>
+                                <li>Suma total de <code class="text-slate-200">Puntos_Brutos</code> = <span class="text-white">80 + 14 + 34 = 128 puntos</span>.</li>
+                                <li>Aplicación de la fórmula: <span class="text-amber-300">84 + (128 × 0.42) = 84 + 53.76 = 137.76</span> → Resultado final redondeado: <strong class="text-white">Índice 138 (Percentil Top 1% Recreativo)</strong>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- =====================================================================
+                 BLOQUE EDITORIAL 4 (#guia-ejes): CÓMO INTERPRETAR CADA UNO DE LOS 5 EJES DEL RADAR
+                 ===================================================================== -->
+            <section id="guia-ejes" class="glass-card rounded-3xl p-6 sm:p-9 border border-slate-800/90 space-y-6">
+                <div class="border-b border-slate-800/80 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <span class="text-xs font-mono uppercase tracking-wider text-purple-400 font-semibold block">Guía Editorial Abierta • Parte 2</span>
+                        <h2 class="text-xl sm:text-2xl font-black text-white mt-0.5">Cómo Interpretar los 5 Ejes del Radar Cognitivo y las Tribus de Resolución</h2>
+                    </div>
+                    <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 self-start sm:self-center">
+                        5 Vectores de Atención
                     </span>
                 </div>
 
                 <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    <strong>MindMetrics AI</strong> integra principios de razonamiento fluido, cronometría mental (velocidad de procesamiento bajo estímulos visuales), perfilado de estilos de resolución de problemas y análisis de rasgos de enfoque profundo. A continuación explicamos de manera transparente cómo se estructura cada dimensión del reporte interactivo.
+                    Más allá de la rapidez para resolver acertijos geométricos, cada persona organiza su atención y su energía social de manera distinta. Nuestro gráfico poligonal de 5 ejes traduce tus respuestas de las Etapas 2 y 3 en porcentajes normalizados (del 26% al 98%). Así debes interpretar cada eje en tu reporte:
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <!-- Article 1 -->
-                    <article class="rounded-2xl bg-slate-900/75 border border-slate-800/90 p-5 space-y-2.5">
-                        <div class="flex items-center gap-2.5">
-                            <span class="w-8 h-8 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-mono font-bold text-xs">01</span>
-                            <h3 class="font-extrabold text-white text-sm sm:text-base">Distribución de IQ y la Campana de Gauss</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <article class="rounded-2xl bg-slate-900/75 border border-slate-800 p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-cyan-400">EJE 01 • HIPERFOCO</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
                         </div>
-                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                            En la psicometría moderna, las pruebas de agilidad lógica miden la <strong>inteligencia fluida</strong>: la capacidad de encontrar relaciones espaciales, secuencias numéricas y patrones abstractos sin depender de conocimientos memorizados. También evalúan la <em>inhibición cognitiva</em> (resistir respuestas intuitivas pero incorrectas ante acertijos capciosos).
-                        </p>
+                        <h3 class="font-extrabold text-white text-sm sm:text-base">Enfoque Profundo (Inmersión Temática)</h3>
                         <p class="text-xs text-slate-400 leading-relaxed">
-                            El puntaje obtenido se proyecta sobre una curva de distribución normal (Campana de Gauss) donde el promedio poblacional se ubica en <strong>100 puntos</strong> con una desviación estándar de <strong>15 puntos</strong>. Así, un resultado de 115 supera aproximadamente al 84% de la muestra, mientras que 130 puntos o más ubica al perfil dentro del 2% superior en velocidad deductiva.
+                            Mide tu tendencia a entrar en estados de flujo intenso (<em>flow state</em>) cuando un tema despierta tu curiosidad intelectual. Un puntaje alto (&gt;75%) indica facilidad para investigar a fondo de madrugada hasta dominar la arquitectura completa de un proyecto o disciplina.
                         </p>
                     </article>
 
-                    <!-- Article 2 -->
-                    <article class="rounded-2xl bg-slate-900/75 border border-slate-800/90 p-5 space-y-2.5">
-                        <div class="flex items-center gap-2.5">
-                            <span class="w-8 h-8 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 font-mono font-bold text-xs">02</span>
-                            <h3 class="font-extrabold text-white text-sm sm:text-base">El Modelo Poligonal de 5 Ejes de Hiperfoco</h3>
+                    <article class="rounded-2xl bg-slate-900/75 border border-slate-800 p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-purple-400">EJE 02 • PATRONES</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
                         </div>
-                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                            La atención humana no es lineal. Muchas mentes altamente analíticas o creativas experimentan lo que la psicología cognitiva denomina <strong>estados de flujo o hiperfoco profundo</strong>: periodos de concentración intensa donde el cerebro bloquea distracciones externas para dominar un tema complejo (los famosos desvelos de investigación a las 3:00 AM).
-                        </p>
+                        <h3 class="font-extrabold text-white text-sm sm:text-base">Detección de Patrones y Anomalías</h3>
                         <p class="text-xs text-slate-400 leading-relaxed">
-                            Nuestro radar desglosa este espectro en cinco vectores: <strong>Hiperfoco Profundo</strong>, <strong>Detección de Patrones Ocultos</strong> (reconocimiento anticipado de tramas o anomalías), <strong>Sistematización Lógica</strong>, <strong>Selectividad Social</strong> (cómo administras tu energía en grupos grandes) y <strong>Sensibilidad Sensorial al Detalle</strong>.
+                            Refleja la velocidad con la que tu mente conecta pistas sutiles para anticipar desenlaces en tramas narrativas, detectar inconsistencias lógicas en argumentos o prever fallos antes de que ocurran.
                         </p>
                     </article>
 
-                    <!-- Article 3 -->
-                    <article class="rounded-2xl bg-slate-900/75 border border-slate-800/90 p-5 space-y-2.5">
-                        <div class="flex items-center gap-2.5">
-                            <span class="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono font-bold text-xs">03</span>
-                            <h3 class="font-extrabold text-white text-sm sm:text-base">Las 5 Tribus de Ingeniería Mental y Resolución</h3>
+                    <article class="rounded-2xl bg-slate-900/75 border border-slate-800 p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-emerald-400">EJE 03 • SISTEMAS</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
                         </div>
-                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                            Dos personas con el mismo coeficiente intelectual pueden abordar una emergencia o un reto técnico desde ángulos opuestos. Evaluamos tus decisiones operativas bajo presión para identificar tu tribu dominante:
+                        <h3 class="font-extrabold text-white text-sm sm:text-base">Sistematización Lógica y Estructural</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Evalúa tu preferencia por estructurar reglas claras, optimizar configuraciones técnicas y buscar la causa raíz de cualquier desperfecto en lugar de aplicar soluciones improvisadas.
                         </p>
-                        <ul class="text-xs text-slate-400 space-y-1 list-disc pl-4">
-                            <li><strong class="text-slate-200">Arquitecto de Sistemas:</strong> Prioriza el orden estructural, la configuración óptima y la eficiencia a largo plazo.</li>
-                            <li><strong class="text-slate-200">Hacker de Pensamiento Lateral:</strong> Descubre atajos creativos, aprende a prueba y error y rompe reglas obsoletas.</li>
-                            <li><strong class="text-slate-200">Detective de Patrones:</strong> Diagnostica la causa raíz de cualquier fallo y detecta inconsistencias al instante.</li>
-                            <li><strong class="text-slate-200">Estratega de Sangre Fría:</strong> Lidera bajo presión, coordina recursos y mantiene la calma en el caos.</li>
-                            <li><strong class="text-slate-200">Visionario Creativo:</strong> Conecta disciplinas distintas con intuición artística y originalidad.</li>
+                    </article>
+
+                    <article class="rounded-2xl bg-slate-900/75 border border-slate-800 p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-amber-400">EJE 04 • BATERÍA SOCIAL</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                        </div>
+                        <h3 class="font-extrabold text-white text-sm sm:text-base">Selectividad y Recarga Social</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Indica cómo administras tu energía interpersonal. Un porcentaje elevado señala que recargas energía en momentos de autonomía, silencio y proyectos propios, prefiriendo charlas profundas con pocos amigos frente a eventos multitudinarios.
+                        </p>
+                    </article>
+
+                    <article class="rounded-2xl bg-slate-900/75 border border-slate-800 p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-rose-400">EJE 05 • DETALLE SENSORIAL</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+                        </div>
+                        <h3 class="font-extrabold text-white text-sm sm:text-base">Sensibilidad al Detalle y Pensamiento Lateral</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Cuantifica cuánto percibes estímulos auditivos o visuales simultáneos en el entorno (como errores de continuidad o ruidos superpuestos) y tu capacidad para proponer soluciones creativas fuera de lo convencional.
+                        </p>
+                    </article>
+
+                    <article class="rounded-2xl bg-slate-900/75 border border-slate-800 p-5 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono font-bold text-indigo-400">SÍNTESIS • 5 TRIBUS</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span>
+                        </div>
+                        <h3 class="font-extrabold text-white text-sm sm:text-base">Cruce con Arquetipos y Tribus</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            La combinación de estos 5 ejes determina tu <strong>Tribu de Resolución</strong> (<em>Arquitecto de Sistemas, Hacker Lateral, Detective de Patrones, Estratega Táctico o Visionario Creativo</em>) y calcula la distancia vectorial con nuestros 18 perfiles de actores y personajes.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- =====================================================================
+                 BLOQUE EDITORIAL 2 Y 3 (#comparativa-iq): QUÉ SIGNIFICA EL IQ, SUS LIMITACIONES
+                 Y DIFERENCIAS ENTRE PRUEBAS RECREATIVAS Y PRUEBAS CLÍNICAS PROFESIONALES
+                 ===================================================================== -->
+            <section id="comparativa-iq" class="glass-card rounded-3xl p-6 sm:p-9 border border-slate-800/90 space-y-6">
+                <div class="border-b border-slate-800/80 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <span class="text-xs font-mono uppercase tracking-wider text-amber-400 font-semibold block">Guía Editorial Abierta • Parte 3</span>
+                        <h2 class="text-xl sm:text-2xl font-black text-white mt-0.5">Qué Significa Realmente el IQ, sus Limitaciones y Diferencias con Pruebas Clínicas</h2>
+                    </div>
+                    <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 self-start sm:self-center">
+                        Transparencia Psicométrica
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <article class="space-y-3">
+                        <h3 class="text-base font-extrabold text-white">1. ¿Qué mide la Campana de Gauss y cuáles son las limitaciones del IQ?</h3>
+                        <p>
+                            Históricamente, el Coeficiente Intelectual (IQ) fue diseñado como una escala estadística relativa basada en la distribución normal o <strong>Campana de Gauss</strong>, fijando la media poblacional en <strong>100 puntos</strong> y una desviación estándar (DE) de <strong>15 puntos</strong>. Bajo este modelo estadístico, cerca del 68% de las personas se sitúan entre 85 y 115 puntos, y solo alrededor del 2.2% supera el umbral de 130 puntos.
+                        </p>
+                        <p>
+                            Sin embargo, la psicología cognitiva moderna subraya que <strong>un puntaje lógico aislado tiene importantes limitaciones</strong>:
+                        </p>
+                        <ul class="list-disc pl-5 space-y-1 text-xs text-slate-400">
+                            <li><strong class="text-slate-200">No mide la creatividad divergente:</strong> La capacidad de componer música, emprender o diseñar narrativas originales no se reduce a una matriz geométrica.</li>
+                            <li><strong class="text-slate-200">No evalúa inteligencia socioemocional ni carácter:</strong> La empatía, la resiliencia ante el fracaso y la constancia (<em>grit</em>) suelen predecir mejor el éxito profesional a largo plazo.</li>
+                            <li><strong class="text-slate-200">Depende del estado del momento:</strong> El cansancio, el estrés o las distracciones ambientales influyen directamente en los tiempos de reacción.</li>
                         </ul>
                     </article>
 
-                    <!-- Article 4 -->
-                    <article class="rounded-2xl bg-slate-900/75 border border-slate-800/90 p-5 space-y-2.5">
-                        <div class="flex items-center gap-2.5">
-                            <span class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 font-mono font-bold text-xs">04</span>
-                            <h3 class="font-extrabold text-white text-sm sm:text-base">Algoritmo de Afinidad con 18 Arquetipos</h3>
-                        </div>
-                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                            Tanto en el cine como en la vida real, ciertos actores y sus personajes más icónicos encarnan arquetipos psicológicos muy definidos: desde la introspección estratégica de <em>Thomas Shelby / Oppenheimer</em> (Cillian Murphy) o la visualización espacial de <em>Beth Harmon</em> (Anya Taylor-Joy), hasta el ingenio veloz de <em>Tony Stark</em> (Robert Downey Jr.) o el humor analítico de <em>Wednesday Addams</em> (Jenna Ortega).
+                    <article class="space-y-3">
+                        <h3 class="text-base font-extrabold text-white">2. Diferencias clave entre pruebas recreativas online y evaluaciones clínicas</h3>
+                        <p>
+                            Es fundamental distinguir entre un <strong>test interactivo de carácter recreativo y divulgativo</strong> (como el que ofrece MindMetrics AI) y una <strong>evaluación neuropsicológica estandarizada</strong> aplicada en un consultorio clínico.
                         </p>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            Al cruzar tus respuestas en las etapas de monólogo interno, estilo de humor, batería social y velocidad lógica, calculamos el porcentaje de compatibilidad con 18 perfiles para mostrarte tu Top 4 de mentes afines.
+                        <p>
+                            Instrumentos clínicos como la <strong>Escala de Inteligencia de Wechsler para Adultos (WAIS-IV)</strong> o las <strong>Matrices Progresivas de Raven</strong> constan de múltiples subpruebas presenciales (comprensión verbal, memoria de trabajo dígitos-símbolos, cubos espaciales) que toman entre 60 y 120 minutos bajo supervisión de un psicólogo con cédula profesional y baremos poblacionales certificados.
+                        </p>
+                        <p class="text-xs text-amber-300/90 bg-amber-500/10 border border-amber-500/25 rounded-xl p-3">
+                            <strong>Compromiso de claridad de MindMetrics AI:</strong> Nuestro índice recreativo (92–146) y nuestro radar de 5 ejes son una aproximación lúdica para explorar tus fortalezas de agilidad mental y compararlas con arquetipos de la cultura pop; bajo ninguna circunstancia reemplazan una valoración clínica.
                         </p>
                     </article>
                 </div>
 
-                <!-- PREGUNTAS FRECUENTES (FAQ ACCORDION) -->
-                <div class="pt-4 border-t border-slate-800/80 space-y-3">
-                    <h3 class="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
-                        <i class="ph-duotone ph-question text-cyan-400 text-xl"></i>
-                        <span>Preguntas Frecuentes sobre la Evaluación</span>
-                    </h3>
-
-                    <div class="space-y-2.5">
-                        <details class="group rounded-2xl bg-slate-900/70 border border-slate-800/90 p-4">
-                            <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-slate-100">
-                                <span>¿El test de MindMetrics AI tiene algún costo o requiere tarjeta de crédito?</span>
-                                <i class="ph-bold ph-caret-down text-cyan-400 transition-transform group-open:rotate-180"></i>
-                            </summary>
-                            <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                                No. El acceso a las 15 preguntas interactivas, el análisis del escáner biométrico y la entrega del certificado completo con tus gráficas y arquetipos es 100% gratuito y se muestra automáticamente al concluir la última pregunta.
-                            </p>
-                        </details>
-
-                        <details class="group rounded-2xl bg-slate-900/70 border border-slate-800/90 p-4">
-                            <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-slate-100">
-                                <span>¿Cómo influye el cronómetro de las primeras 5 preguntas en mi puntaje de IQ?</span>
-                                <i class="ph-bold ph-caret-down text-cyan-400 transition-transform group-open:rotate-180"></i>
-                            </summary>
-                            <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                                La Etapa 1 evalúa agilidad visual y deducción lógica. El cronómetro se detiene en el instante en que tocas una opción (antes de pulsar el botón «Siguiente Pregunta»), otorgando un bono adicional de velocidad si respondes correctamente en menos de 8 segundos sin caer en trampas de intuición.
-                            </p>
-                        </details>
-
-                        <details class="group rounded-2xl bg-slate-900/70 border border-slate-800/90 p-4">
-                            <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-slate-100">
-                                <span>¿Este reporte sustituye una prueba clínica o neuropsicológica oficial?</span>
-                                <i class="ph-bold ph-caret-down text-cyan-400 transition-transform group-open:rotate-180"></i>
-                            </summary>
-                            <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                                No. MindMetrics AI es un laboratorio digital de entretenimiento psicométrico y autoconocimiento recreativo. Los indicadores de IQ estimado y el radar de 5 ejes de hiperfoco tienen fines divulgativos y recreativos, por lo que no constituyen un diagnóstico médico, psiquiátrico ni clínico.
-                            </p>
-                        </details>
-                    </div>
+                <!-- Comparison Table -->
+                <div class="overflow-x-auto pt-2">
+                    <table class="w-full text-left border-collapse rounded-2xl overflow-hidden text-xs">
+                        <thead>
+                            <tr class="bg-slate-900/95 border-b border-slate-800 text-slate-200 font-mono uppercase">
+                                <th class="p-3.5">Criterio Comparativo</th>
+                                <th class="p-3.5 text-cyan-400">MindMetrics AI ( Evaluación Recreativa )</th>
+                                <th class="p-3.5 text-purple-300">WAIS-IV / Matrices de Raven ( Clínica )</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800/80 bg-slate-950/60 text-slate-300">
+                            <tr>
+                                <td class="p-3.5 font-semibold text-white">Propósito Principal</td>
+                                <td class="p-3.5">Entretenimiento cognitivo, autoconocimiento lúdico y divulgación</td>
+                                <td class="p-3.5">Diagnóstico clínico, educativo o neuropsicológico formal</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-semibold text-white">Duración y Formato</td>
+                                <td class="p-3.5">~2 a 3 minutos • 15 retos interactivos autoadministrados en web</td>
+                                <td class="p-3.5">60 a 120 minutos • Sesión presencial controlada con especialista</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-semibold text-white">Dimensiones Evaluadas</td>
+                                <td class="p-3.5">Agilidad lógico-visual, 5 ejes de enfoque, tribu y 18 arquetipos</td>
+                                <td class="p-3.5">Comprensión verbal, memoria de trabajo, velocidad y razonamiento perceptual</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3.5 font-semibold text-white">Validez Médica / Legal</td>
+                                <td class="p-3.5">Recreativa e informativa (Sin validez clínica ni diagnóstica)</td>
+                                <td class="p-3.5">Certificada con baremos clínicos estandarizados por edad y país</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-- =====================================================================
+                 PREGUNTAS FRECUENTES (#faq)
+                 ===================================================================== -->
+            <section id="faq" class="glass-card rounded-3xl p-6 sm:p-9 border border-slate-800/90 space-y-4">
+                <div class="border-b border-slate-800/80 pb-3 flex items-center justify-between">
+                    <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
+                        <i class="ph-duotone ph-question text-cyan-400 text-2xl"></i>
+                        <span>Preguntas Frecuentes (FAQ)</span>
+                    </h2>
+                    <span class="text-xs font-mono text-slate-400">Respuestas Rápidas</span>
+                </div>
+
+                <div class="space-y-3">
+                    <details class="group rounded-2xl bg-slate-900/75 border border-slate-800/90 p-4" open>
+                        <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-slate-100">
+                            <span>1. ¿El test de MindMetrics AI tiene algún costo, suscripción o requiere tarjeta bancaria?</span>
+                            <i class="ph-bold ph-caret-down text-cyan-400 transition-transform group-open:rotate-180"></i>
+                        </summary>
+                        <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
+                            No. El acceso a las 15 preguntas interactivas, el procesamiento en el Motor de Análisis de Respuestas y el reporte completo con tus gráficas y arquetipos es 100% gratuito. Tampoco solicitamos correo electrónico ni registro personal.
+                        </p>
+                    </details>
+
+                    <details class="group rounded-2xl bg-slate-900/75 border border-slate-800/90 p-4">
+                        <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-slate-100">
+                            <span>2. ¿Por qué debo presionar «Siguiente Pregunta» después de elegir una opción?</span>
+                            <i class="ph-bold ph-caret-down text-cyan-400 transition-transform group-open:rotate-180"></i>
+                        </summary>
+                        <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
+                            Implementamos la confirmación en dos pasos para evitar toques accidentales en pantallas táctiles móviles. Sin embargo, para no afectar tu bono de velocidad en la Etapa 1, el cronómetro se detiene en el milisegundo exacto en que tocas tu primera respuesta.
+                        </p>
+                    </details>
+
+                    <details class="group rounded-2xl bg-slate-900/75 border border-slate-800/90 p-4">
+                        <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-slate-100">
+                            <span>3. ¿Dónde se guardan mis respuestas y cómo se protege mi privacidad?</span>
+                            <i class="ph-bold ph-caret-down text-cyan-400 transition-transform group-open:rotate-180"></i>
+                        </summary>
+                        <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
+                            Todas tus respuestas y el apodo que ingresas se procesan localmente en la memoria de tu propio navegador para dibujar tu certificado en pantalla. No enviamos ni almacenamos tus respuestas individuales en bases de datos externas.
+                        </p>
+                    </details>
+
+                    <details class="group rounded-2xl bg-slate-900/75 border border-slate-800/90 p-4">
+                        <summary class="flex items-center justify-between cursor-pointer font-bold text-xs sm:text-sm text-slate-100">
+                            <span>4. ¿De dónde provienen las fotografías de los 18 actores y personajes?</span>
+                            <i class="ph-bold ph-caret-down text-cyan-400 transition-transform group-open:rotate-180"></i>
+                        </summary>
+                        <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
+                            Las imágenes se consultan dinámicamente desde el repositorio público de Wikimedia Commons y la API abierta de Wikipedia bajo sus respectivas licencias libres de atribución. Si tu conexión bloquea imágenes externas, el sistema muestra automáticamente ilustraciones vectoriales SVG propias.
+                        </p>
+                    </details>
+                </div>
+            </section>
+
+        </div>
 
         <!-- ==========================================
              VIEW 2: INTERACTIVE 15-QUESTION QUIZ VIEW
@@ -584,49 +859,49 @@
                 <div class="ad-container-box rounded-2xl p-3 text-center">
                     <span class="block text-[9px] font-mono uppercase tracking-widest text-slate-500 mb-1">Patrocinado</span>
                     <div class="ad-unit-body min-h-[60px] flex items-center justify-center text-xs text-slate-500 font-mono">
-                        <!-- Pega aquí tu bloque adaptable de AdSense si deseas mostrar un anuncio al pie del cuestionario -->
-                        <span class="ad-preview-label hidden">Espacio Responsivo Adaptable #2 (Pie de Cuestionario)</span>
+                        <!-- Espacio reservado para bloque adaptable de Google AdSense -->
+                        <span class="ad-preview-label hidden">Contenedor Adaptable #2 (Pie de Cuestionario)</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ==========================================
-             VIEW 3: BIOMETRIC NEURAL SCANNER (AUTO-OPENS RESULTS)
+             VIEW 3: LIVE ALGORITHMIC RESPONSE ANALYZER (AUTO-OPENS RESULTS AT 100%)
              ========================================== -->
-        <section id="biometricScannerView" class="hidden max-w-2xl w-full mx-auto space-y-6">
+        <section id="responseAnalyzerView" class="hidden max-w-2xl w-full mx-auto space-y-6">
             <div id="scannerCardContainer" class="glass-card rounded-3xl p-6 sm:p-8 border border-cyan-500/40 neon-border-cyan relative overflow-hidden space-y-6">
-                <!-- Animated Scanner Radar Header -->
+                <!-- Animated Analyzer Header -->
                 <div class="flex items-center justify-between gap-4">
                     <div class="flex items-center gap-3.5">
                         <div class="w-14 h-14 rounded-2xl bg-cyan-500/15 border border-cyan-500/40 flex items-center justify-center relative overflow-hidden shrink-0">
                             <div class="absolute inset-x-0 top-0 h-1 bg-cyan-400 shadow-[0_0_12px_#22d3ee] scanner-laser-line"></div>
-                            <i id="scannerStatusIcon" class="ph-duotone ph-brain text-3xl text-cyan-400 animate-pulse"></i>
+                            <i id="scannerStatusIcon" class="ph-duotone ph-cpu text-3xl text-cyan-400 animate-pulse"></i>
                         </div>
                         <div>
-                            <span id="scannerPhaseTag" class="text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-semibold block">ESCÁNER NEURO-PSICOMÉTRICO EN VIVO</span>
-                            <h2 id="scannerMainHeading" class="text-lg sm:text-xl font-black text-white">Analizando tu Perfil Cognitivo...</h2>
+                            <span id="scannerPhaseTag" class="text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-semibold block">MOTOR DE ANÁLISIS DE RESPUESTAS EN VIVO</span>
+                            <h2 id="scannerMainHeading" class="text-lg sm:text-xl font-black text-white">Calculando tu Reporte Recreativo...</h2>
                         </div>
                     </div>
 
                     <div class="text-right shrink-0">
                         <span id="scannerPercentText" class="text-2xl sm:text-3xl font-mono font-black text-cyan-400">0%</span>
-                        <span class="block text-[10px] font-mono uppercase text-slate-400">Procesado</span>
+                        <span class="block text-[10px] font-mono uppercase text-slate-400">Completado</span>
                     </div>
                 </div>
 
-                <!-- Smooth Scanner Progress Bar -->
+                <!-- Smooth Progress Bar -->
                 <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden border border-slate-800 p-0.5">
                     <div id="scannerProgressBar" class="h-full bg-gradient-to-r from-cyan-400 via-indigo-500 to-emerald-400 rounded-full transition-all duration-300" style="width: 0%"></div>
                 </div>
 
-                <!-- Live Biometric Console Log ([OK] steps) -->
+                <!-- Live Algorithmic Console Log ([OK] steps) -->
                 <div id="terminalLogBox" class="rounded-2xl bg-slate-950/95 border border-slate-800/90 p-4 sm:p-5 font-mono text-xs sm:text-sm space-y-2.5 min-h-[195px] text-slate-300 shadow-inner"></div>
 
                 <!-- Auto-Redirect Status Pill -->
                 <div class="flex items-center justify-center gap-2 text-xs font-mono text-slate-400 pt-1">
                     <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                    <span id="scannerBottomHint">Abriendo resultados automáticamente al completar el escaneo...</span>
+                    <span id="scannerBottomHint">Abriendo tu reporte de resultados automáticamente al llegar al 100%...</span>
                 </div>
 
                 <!-- CONTENEDOR RESPONSIVO #3 (OCULTO POR DEFECTO SI ESTÁ VACÍO) -->
@@ -634,8 +909,8 @@
                     <div class="ad-container-box rounded-2xl p-3 text-center">
                         <span class="block text-[9px] font-mono uppercase tracking-widest text-slate-500 mb-1">Patrocinado</span>
                         <div class="ad-unit-body min-h-[90px] flex items-center justify-center text-xs text-slate-500 font-mono">
-                            <!-- Pega aquí tu bloque adaptable de AdSense si deseas mostrar un anuncio durante el escaneo -->
-                            <span class="ad-preview-label hidden">Espacio Responsivo Adaptable #3 (Pantalla de Escaneo)</span>
+                            <!-- Espacio reservado para bloque adaptable de Google AdSense -->
+                            <span class="ad-preview-label hidden">Contenedor Adaptable #3 (Pantalla de Procesamiento)</span>
                         </div>
                     </div>
                 </div>
@@ -646,26 +921,26 @@
              VIEW 4: COMPLETE RESULTS DASHBOARD
              ========================================== -->
         <section id="resultsView" class="hidden space-y-6">
-            <!-- Top Certificate Banner -->
+            <!-- Top Report Banner -->
             <div class="glass-card rounded-3xl p-6 sm:p-8 border border-cyan-500/40 neon-border-cyan relative overflow-hidden">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
                     <div class="space-y-1">
                         <div class="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full">
-                            <i class="ph-fill ph-seal-check"></i>
-                            <span>CERTIFICADO NEURO-COGNITIVO VERIFICADO • ID #<span id="certIdSpan">MM-9042</span></span>
+                            <i class="ph-fill ph-check-circle"></i>
+                            <span>REPORTE RECREATIVO DE RAZONAMIENTO Y ARQUETIPOS • FOLIO #<span id="certIdSpan">MM-9042</span></span>
                         </div>
-                        <h1 class="text-2xl sm:text-3xl font-black text-white pt-1">
-                            Reporte Cognitivo de <span id="resultUserName" class="text-cyan-400">Explorador</span>
-                        </h1>
+                        <h2 class="text-2xl sm:text-3xl font-black text-white pt-1">
+                            Perfil Cognitivo Recreativo de <span id="resultUserName" class="text-cyan-400">Explorador</span>
+                        </h2>
                         <p id="resultTimestamp" class="text-xs font-mono text-slate-400"></p>
                     </div>
 
-                    <!-- Quick Share & Action Buttons -->
+                    <!-- Quick Share & Action Buttons (Using clean anchor link for WhatsApp) -->
                     <div class="flex flex-wrap items-center gap-2.5 no-print">
-                        <button onclick="shareOnWhatsApp()" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition">
+                        <a id="whatsappShareAnchor" href="https://api.whatsapp.com/send?text=MindMetrics" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition">
                             <i class="ph-fill ph-whatsapp-logo text-lg"></i>
-                            <span>Retar Amigos en WhatsApp</span>
-                        </button>
+                            <span>Compartir en WhatsApp</span>
+                        </a>
                         <button onclick="copySummaryToClipboard()" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition">
                             <i class="ph-duotone ph-copy text-cyan-400 text-base"></i>
                             <span id="copyBtnLabel">Copiar Resumen</span>
@@ -680,7 +955,7 @@
                 <!-- 4 Key KPI Summary Row -->
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-5">
                     <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4">
-                        <span class="text-[11px] font-mono uppercase text-slate-400 block">IQ Estimado</span>
+                        <span class="text-[11px] font-mono uppercase text-slate-400 block">Índice Agilidad Lógica</span>
                         <div class="flex items-baseline gap-2 mt-1">
                             <span id="kpiIqScore" class="text-3xl sm:text-4xl font-black text-cyan-400 font-mono">124</span>
                             <span id="kpiIqPercentile" class="text-xs font-mono text-emerald-400">Top 6%</span>
@@ -689,16 +964,16 @@
                     </div>
 
                     <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4">
-                        <span class="text-[11px] font-mono uppercase text-slate-400 block">Índice Hiperfoco / ND</span>
+                        <span class="text-[11px] font-mono uppercase text-slate-400 block">Índice de Enfoque (5 Ejes)</span>
                         <div class="flex items-baseline gap-2 mt-1">
                             <span id="kpiNdScore" class="text-3xl sm:text-4xl font-black text-purple-400 font-mono">78%</span>
                             <span id="kpiNdLabel" class="text-xs font-mono text-purple-300">Alto</span>
                         </div>
-                        <p class="text-[11px] text-slate-400 mt-1">Detección de patrones y foco</p>
+                        <p class="text-[11px] text-slate-400 mt-1">Patrones e inmersión temática</p>
                     </div>
 
                     <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4">
-                        <span class="text-[11px] font-mono uppercase text-slate-400 block">Tribu Mental</span>
+                        <span class="text-[11px] font-mono uppercase text-slate-400 block">Tribu de Resolución</span>
                         <div id="kpiTribeName" class="text-base sm:text-lg font-extrabold text-emerald-400 mt-1 leading-tight">
                             Arquitecto de Sistemas
                         </div>
@@ -706,26 +981,26 @@
                     </div>
 
                     <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4">
-                        <span class="text-[11px] font-mono uppercase text-slate-400 block">Match #1 de Actor</span>
+                        <span class="text-[11px] font-mono uppercase text-slate-400 block">Arquetipo Afín #1</span>
                         <div id="kpiTopActorName" class="text-base sm:text-lg font-extrabold text-amber-400 mt-1 leading-tight">
                             Cillian Murphy
                         </div>
-                        <p id="kpiTopActorRole" class="text-[11px] text-slate-400 mt-1">96% compatibilidad mental</p>
+                        <p id="kpiTopActorRole" class="text-[11px] text-slate-400 mt-1">96% afinidad recreativa</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Charts Grid: Gaussian IQ Curve + 5-Axis Hyperfocus Radar -->
+            <!-- Charts Grid: Gaussian Curve + 5-Axis Focus Radar -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Card 1: Gaussian IQ Bell Curve -->
+                <!-- Card 1: Gaussian Bell Curve -->
                 <div class="glass-card rounded-3xl p-6 border border-slate-800 space-y-4">
                     <div class="flex items-center justify-between">
                         <div>
-                            <span class="text-xs font-mono uppercase text-cyan-400 font-semibold">1. Distribución Psicométrica</span>
-                            <h3 class="text-lg font-extrabold text-white">Campana de Gauss de tu IQ</h3>
+                            <span class="text-xs font-mono uppercase text-cyan-400 font-semibold">1. Escala Estimada Recreativa</span>
+                            <h3 class="text-lg font-extrabold text-white">Curva de Distribución de Agilidad Lógica</h3>
                         </div>
                         <span id="gaussBadge" class="px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 font-mono font-bold text-xs">
-                            IQ 124
+                            Índice 124
                         </span>
                     </div>
 
@@ -735,12 +1010,12 @@
                     <p id="iqDetailedExplanation" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
                 </div>
 
-                <!-- Card 2: 5-Axis Neuro-Atypical & Hyperfocus Radar -->
+                <!-- Card 2: 5-Axis Focus Radar -->
                 <div class="glass-card rounded-3xl p-6 border border-slate-800 space-y-4">
                     <div class="flex items-center justify-between">
                         <div>
-                            <span class="text-xs font-mono uppercase text-purple-400 font-semibold">2. Espectro de Procesamiento</span>
-                            <h3 class="text-lg font-extrabold text-white">Radar de Hiperfoco (5 Ejes)</h3>
+                            <span class="text-xs font-mono uppercase text-purple-400 font-semibold">2. Mapa de Atención y Estilo</span>
+                            <h3 class="text-lg font-extrabold text-white">Radar Cognitivo de 5 Ejes</h3>
                         </div>
                         <span id="radarBadge" class="px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 font-mono font-bold text-xs">
                             78% Índice
@@ -763,18 +1038,18 @@
                 <div class="ad-container-box rounded-2xl p-3 text-center">
                     <span class="block text-[9px] font-mono uppercase tracking-widest text-slate-500 mb-1">Patrocinado</span>
                     <div class="ad-unit-body min-h-[70px] flex items-center justify-center text-xs text-slate-500 font-mono">
-                        <!-- Pega aquí tu bloque adaptable In-Feed de AdSense para la sección de resultados -->
-                        <span class="ad-preview-label hidden">Espacio Responsivo Adaptable #4 (Resultados In-Feed)</span>
+                        <!-- Espacio reservado para bloque adaptable In-Feed de Google AdSense -->
+                        <span class="ad-preview-label hidden">Contenedor Adaptable #4 (Resultados In-Feed)</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 3: Top 4 Celebrity / Actor Mindset Matches (With Real Photos + SVG Fallback) -->
+            <!-- Card 3: Top 4 Celebrity / Actor Mindset Matches -->
             <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-5">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <div>
-                        <span class="text-xs font-mono uppercase text-amber-400 font-semibold">3. Arquetipos de Pensamiento (18 Perfiles)</span>
-                        <h3 class="text-xl sm:text-2xl font-extrabold text-white">Actores y Personajes que piensan como tú</h3>
+                        <span class="text-xs font-mono uppercase text-amber-400 font-semibold">3. Comparativa Cultural (18 Perfiles)</span>
+                        <h3 class="text-xl sm:text-2xl font-extrabold text-white">Actores y Personajes con Arquetipos Similares al Tuyo</h3>
                     </div>
                     <span class="text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
                         Top 4 Compatibilidades
@@ -788,7 +1063,7 @@
             <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-4">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <div>
-                        <span class="text-xs font-mono uppercase text-emerald-400 font-semibold">4. Ingeniería Mental y Resolución</span>
+                        <span class="text-xs font-mono uppercase text-emerald-400 font-semibold">4. Estilo de Resolución de Problemas</span>
                         <h3 id="tribeFullTitle" class="text-xl sm:text-2xl font-extrabold text-white"></h3>
                     </div>
                     <span id="tribeTagPill" class="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold"></span>
@@ -803,59 +1078,148 @@
             <div class="flex flex-wrap items-center justify-between gap-4 pt-2 no-print">
                 <button onclick="resetToHome()" class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs sm:text-sm flex items-center gap-2 transition">
                     <i class="ph-bold ph-arrow-counter-clockwise text-cyan-400"></i>
-                    <span>Hacer el Test con Otro Nombre</span>
+                    <span>Volver al Inicio / Nuevo Nombre</span>
                 </button>
 
-                <button onclick="shareOnWhatsApp()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-300 hover:to-teal-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition">
+                <a id="whatsappShareAnchorBottom" href="https://api.whatsapp.com/send?text=MindMetrics" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-300 hover:to-teal-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition">
                     <i class="ph-fill ph-whatsapp-logo text-lg"></i>
-                    <span>Compartir mi Resultado en WhatsApp</span>
+                    <span>Compartir mi Reporte en WhatsApp</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- =====================================================================
+             SECCIÓN LEGAL Y EDITORIAL ESTÁTICA SIEMPRE RASTREABLE (#marco-legal)
+             (100% visible en el HTML fuente para auditores de Google AdSense y bots)
+             ===================================================================== -->
+        <section id="marco-legal" class="mt-12 glass-card rounded-3xl p-6 sm:p-9 border border-slate-800/90 space-y-6 no-print">
+            <div class="border-b border-slate-800/80 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                    <span class="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold block">Transparencia, Privacidad y Cumplimiento Normativo</span>
+                    <h2 class="text-xl sm:text-2xl font-black text-white mt-0.5">Marco Legal, Política de Cookies, Términos de Uso y Contacto Editorial</h2>
+                </div>
+                <button onclick="resetCookieConsent()" class="text-xs font-mono px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-cyan-300 self-start sm:self-center transition">
+                    Configurar Preferencias de Cookies
                 </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs text-slate-300 leading-relaxed">
+                <!-- Static Legal Document 1: Privacy & Cookies Policy -->
+                <article id="doc-privacidad" class="rounded-2xl bg-slate-900/80 border border-slate-800 p-5 space-y-2.5">
+                    <h3 class="text-sm sm:text-base font-extrabold text-white flex items-center gap-2">
+                        <i class="ph-duotone ph-shield-check text-cyan-400 text-lg"></i>
+                        <span>1. Política de Privacidad y Uso de Cookies</span>
+                    </h3>
+                    <p>
+                        <strong>Procesamiento Local sin Recolección de Datos Sensibles:</strong> MindMetrics AI procesa el nombre o apodo ingresado y las respuestas seleccionadas en las 15 preguntas directamente en la memoria local del navegador del usuario (<code class="text-slate-200">localStorage</code>) con el único fin de generar el reporte gráfico en pantalla. No almacenamos perfiles personales en servidores externos ni vendemos información a terceros.
+                    </p>
+                    <p>
+                        <strong>Cookies Publicitarias de Terceros y Google AdSense (DoubleClick DART):</strong> Cuando la publicidad está habilitada, proveedores terceros, incluido <strong>Google</strong>, utilizan cookies para mostrar anuncios relevantes basados en las visitas anteriores del usuario a este sitio web o a otros sitios de Internet.
+                    </p>
+                    <p>
+                        <strong>Control e Inhabilitación por el Usuario:</strong> Los visitantes pueden elegir entre «Aceptar todas las cookies» o «Rechazar no esenciales» desde nuestro banner de consentimiento, así como inhabilitar en cualquier momento el uso de cookies para publicidad personalizada visitando directamente la página oficial de <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">Configuración de Anuncios de Google (adssettings.google.com)</a> o en <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">aboutads.info</a>.
+                    </p>
+                </article>
+
+                <!-- Static Legal Document 2: Terms of Use -->
+                <article id="doc-terminos" class="rounded-2xl bg-slate-900/80 border border-slate-800 p-5 space-y-2.5">
+                    <h3 class="text-sm sm:text-base font-extrabold text-white flex items-center gap-2">
+                        <i class="ph-duotone ph-file-text text-indigo-400 text-lg"></i>
+                        <span>2. Términos y Condiciones de Uso</span>
+                    </h3>
+                    <p>
+                        <strong>Naturaleza Abierta del Servicio:</strong> MindMetrics AI es una aplicación web interactiva de acceso público y gratuito dedicada a la divulgación de conceptos de lógica visual, estilos de resolución de problemas y comparación de arquetipos culturales.
+                    </p>
+                    <p>
+                        <strong>Propiedad Intelectual y Licencias Fotográficas:</strong> El código fuente, los acertijos vectoriales SVG y los artículos metodológicos son propiedad de MindMetrics AI para uso personal y recreativo del visitante. Los retratos de actores y figuras públicas mostrados en las tarjetas de compatibilidad se consultan mediante enlaces directos a repositorios públicos de <strong>Wikimedia Commons / Wikipedia REST API</strong> bajo sus respectivas licencias Creative Commons y de dominio público.
+                    </p>
+                    <p>
+                        <strong>Uso Permitido:</strong> El usuario puede compartir libremente su resumen de resultados en redes sociales o aplicaciones de mensajería e imprimir su reporte en formato PDF para fines recreativos.
+                    </p>
+                </article>
+
+                <!-- Static Legal Document 3: Non-Medical Disclaimer -->
+                <article id="doc-aviso-no-medico" class="rounded-2xl bg-slate-900/80 border border-slate-800 p-5 space-y-2.5">
+                    <h3 class="text-sm sm:text-base font-extrabold text-white flex items-center gap-2">
+                        <i class="ph-duotone ph-warning-octagon text-amber-400 text-lg"></i>
+                        <span>3. Aviso Importante: Alcance Recreativo y No-Médico</span>
+                    </h3>
+                    <p>
+                        <strong>Exención de Diagnóstico Clínico o Psicológico:</strong> MindMetrics AI <strong>no es una prueba psicométrica clínica certificada ni un instrumento médico</strong>. El «Índice Recreativo de Agilidad Lógica», la proyección en la curva normal y el «Radar Cognitivo de 5 Ejes» son estimaciones algorítmicas recreativas basadas en una muestra breve de 15 preguntas.
+                    </p>
+                    <p>
+                        <strong>Recomendación Profesional:</strong> Ningún texto, gráfico o porcentaje mostrado en este sitio web debe interpretarse como diagnóstico de altas capacidades, déficit de atención (TDAH), condiciones del espectro neurodivergente ni trastornos psicológicos. Para una evaluación clínica formal (como WAIS-IV), acuda siempre con un psicólogo o neuropsicólogo colegiado.
+                    </p>
+                </article>
+
+                <!-- Static Legal Document 4: Editorial Contact & Transparency -->
+                <article id="doc-contacto" class="rounded-2xl bg-slate-900/80 border border-slate-800 p-5 space-y-2.5">
+                    <h3 class="text-sm sm:text-base font-extrabold text-white flex items-center gap-2">
+                        <i class="ph-duotone ph-envelope-simple-open text-emerald-400 text-lg"></i>
+                        <span>4. Contacto Editorial y Ficha de Transparencia</span>
+                    </h3>
+                    <p>
+                        <strong>Responsable del Proyecto:</strong> Laboratorio Digital Independiente MindMetrics AI • Proyecto de desarrollo web interactivo y divulgación de lógica recreativa en español.
+                    </p>
+                    <p>
+                        <strong>Canales de Contacto y Retroalimentación:</strong> Para consultas sobre nuestra metodología de cálculo, reporte de errores técnicos, solicitudes sobre privacidad o avisos de derechos de autor sobre imágenes de Wikimedia, puedes comunicarte con nuestro equipo editorial en:
+                    </p>
+                    <ul class="list-disc pl-5 text-slate-400 space-y-1 font-mono text-[11px]">
+                        <li>Correo de soporte y contacto editorial: <a href="mailto:contacto@mindmetrics-ai.vercel.app" class="text-cyan-400 underline">contacto@mindmetrics-ai.vercel.app</a></li>
+                        <li>Repositorio público y auditoría de código: GitHub / MindMetrics AI Open Web App</li>
+                        <li>Última revisión metodológica y legal: Noviembre de 2026</li>
+                    </ul>
+                </article>
             </div>
         </section>
 
     </main>
 
-    <!-- FOOTER (With 14-Click Diagnostic Trigger on v2.5 Pro) -->
-    <footer class="border-t border-slate-900 bg-slate-950/90 py-6 px-4 mt-12 no-print">
+    <!-- FOOTER (With Crawlable Anchor Links & 14-Click Diagnostic Trigger) -->
+    <footer class="border-t border-slate-900 bg-slate-950/90 py-8 px-4 mt-12 no-print">
         <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
             <div class="flex items-center gap-2.5">
                 <div class="w-7 h-7 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center">
                     <i class="ph-duotone ph-brain text-base text-cyan-400"></i>
                 </div>
                 <span class="font-bold text-slate-200">MindMetrics.AI</span>
-                <span>• Laboratorio de Psicometría Recreativa</span>
+                <span>• Plataforma de Razonamiento Recreativo</span>
+                <!-- 14-Click Diagnostic Trigger -->
                 <span id="versionSecretTrigger" onclick="registerSecretAdminClick()" class="font-mono text-[11px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 select-none cursor-default">
-                    v2.5 Pro
+                    v2.6 Pro
                 </span>
             </div>
 
             <div class="flex flex-wrap items-center justify-center gap-4">
-                <button onclick="openLegalModal('privacy')" class="hover:text-cyan-400 transition">Privacidad y Cookies</button>
-                <button onclick="openLegalModal('terms')" class="hover:text-cyan-400 transition">Términos de Uso</button>
-                <button onclick="openLegalModal('disclaimer')" class="hover:text-cyan-400 transition">Aviso No-Médico</button>
-                <button onclick="openLegalModal('editorial')" class="hover:text-cyan-400 transition">Contacto Editorial</button>
+                <a href="#doc-privacidad" onclick="openLegalModal('privacy'); return false;" class="hover:text-cyan-400 transition">Privacidad y Cookies</a>
+                <a href="#doc-terminos" onclick="openLegalModal('terms'); return false;" class="hover:text-cyan-400 transition">Términos de Uso</a>
+                <a href="#doc-aviso-no-medico" onclick="openLegalModal('disclaimer'); return false;" class="hover:text-cyan-400 transition">Alcance No-Médico</a>
+                <a href="#doc-contacto" onclick="openLegalModal('editorial'); return false;" class="hover:text-cyan-400 transition">Contacto Editorial</a>
             </div>
         </div>
     </footer>
 
-    <!-- COOKIE CONSENT BANNER (100% Google AdSense Compliant) -->
-    <div id="cookieConsentBanner" class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-md z-40 glass-card rounded-2xl p-4 border border-slate-700 shadow-2xl no-print">
-        <div class="flex items-start gap-3">
-            <div class="w-9 h-9 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0 mt-0.5">
+    <!-- COOKIE CONSENT BANNER WITH EXPLICIT ACCEPT & REJECT OPTIONS -->
+    <div id="cookieConsentBanner" class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-lg z-40 glass-card rounded-2xl p-4 sm:p-5 border border-slate-700 shadow-2xl no-print">
+        <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0 mt-0.5">
                 <i class="ph-duotone ph-cookie text-xl text-cyan-400"></i>
             </div>
-            <div class="space-y-2 text-xs text-slate-300">
-                <p class="font-semibold text-white">Aviso de Uso de Cookies</p>
+            <div class="space-y-2.5 text-xs text-slate-300">
+                <p class="font-bold text-white text-sm">Configuración y Consentimiento de Cookies</p>
                 <p class="text-slate-400 leading-relaxed">
-                    Utilizamos cookies propias y de terceros (como Google) para mejorar tu experiencia de navegación, analizar el tráfico y mostrar anuncios personalizados o no personalizados. Al continuar navegando, aceptas nuestra política de cookies.
+                    Utilizamos cookies técnicas para el funcionamiento del test y, únicamente si lo autorizas, cookies analíticas y publicitarias de terceros (como Google AdSense) para mostrar anuncios relevantes. Puedes aceptar todas las cookies o rechazar las no esenciales.
                 </p>
-                <div class="flex items-center gap-2 pt-1">
-                    <button onclick="acceptCookies()" class="px-4 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition">
-                        Aceptar Cookies
+                <div class="flex flex-wrap items-center gap-2 pt-1">
+                    <button onclick="setCookiePreference('all')" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold transition">
+                        Aceptar todas las cookies
                     </button>
-                    <button onclick="openLegalModal('privacy')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
-                        Ver Política
+                    <button onclick="setCookiePreference('essential')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 font-semibold transition">
+                        Rechazar no esenciales
                     </button>
+                    <a href="#doc-privacidad" onclick="openLegalModal('privacy'); return false;" class="px-2.5 py-2 text-cyan-400 hover:underline font-medium">
+                        Leer Política
+                    </a>
                 </div>
             </div>
         </div>
@@ -867,7 +1231,7 @@
             <div class="flex items-center justify-between border-b border-slate-800 pb-3">
                 <div class="flex items-center gap-2">
                     <i class="ph-duotone ph-clock-counter-clockwise text-xl text-cyan-400"></i>
-                    <h3 class="font-extrabold text-white text-base">Historial de Resultados Recientes</h3>
+                    <h3 class="font-extrabold text-white text-base">Historial de Reportes Recientes</h3>
                 </div>
                 <button onclick="toggleHistoryModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">✕</button>
             </div>
@@ -879,7 +1243,7 @@
         </div>
     </div>
 
-    <!-- LEGAL & EDITORIAL MODAL -->
+    <!-- LEGAL & EDITORIAL MODAL (Quick Reader synced with Static Section) -->
     <div id="legalModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 no-print">
         <div class="glass-card rounded-3xl max-w-xl w-full p-6 border border-slate-700 space-y-4 max-h-[85vh] flex flex-col">
             <div class="flex items-center justify-between border-b border-slate-800 pb-3">
@@ -887,7 +1251,8 @@
                 <button onclick="closeLegalModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center">✕</button>
             </div>
             <div id="legalModalBody" class="flex-1 overflow-y-auto text-xs sm:text-sm text-slate-300 space-y-3 leading-relaxed pr-1"></div>
-            <div class="pt-2 border-t border-slate-800 text-right">
+            <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
+                <a href="#marco-legal" onclick="closeLegalModal(); navigateToSection('marco-legal'); return false;" class="text-xs text-cyan-400 hover:underline">Ver en sección completa de la página</a>
                 <button onclick="closeLegalModal()" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs">Entendido</button>
             </div>
         </div>
@@ -914,10 +1279,10 @@
         };
 
         /* ==========================================================================
-           1. 15 VIRAL, DYNAMIC QUESTIONS FOR AGES 12-30
+           1. 15 INTERACTIVE QUESTIONS FOR AGES 12-30
            ========================================================================== */
         const QUESTIONS = [
-            // ---------------- ETAPA 1: IQ Y AGILIDAD VISUAL (5 PREGUNTAS CON CRONÓMETRO) ----------------
+            // ---------------- ETAPA 1: AGILIDAD VISUAL Y LÓGICA (5 PREGUNTAS CON CRONÓMETRO) ----------------
             {
                 id: 1,
                 stage: 1,
@@ -973,7 +1338,7 @@
                 id: 3,
                 stage: 1,
                 stageName: "Etapa 1: Agilidad Visual y Lógica",
-                subtitle: "Acertijo Capcioso Viral • Control de Impulso",
+                subtitle: "Acertijo Capcioso • Inhibición Cognitiva",
                 question: "Vas corriendo en una carrera o torneo y justo antes de la meta adelantas a la persona que va en 2° lugar. ¿En qué posición quedas tú?",
                 options: [
                     { text: "En 2° lugar (le quitaste su puesto al segundo, no al primero)", iqPoints: 19, tribe: { detective: 3, strategist: 2 }, actors: { cillian: 2, jenna: 2, zendaya: 2 } },
@@ -986,7 +1351,7 @@
                 id: 4,
                 stage: 1,
                 stageName: "Etapa 1: Agilidad Visual y Lógica",
-                subtitle: "Trampa de Intuición Rápida • Bono de Velocidad Activo",
+                subtitle: "Reflexión Cognitiva • Bono de Velocidad Activo",
                 question: "Si 5 impresoras 3D tardan exactamente 5 minutos en fabricar 5 figuras... ¿Cuánto tiempo tardarán 100 impresoras 3D trabajando al mismo tiempo en hacer 100 figuras?",
                 options: [
                     { text: "5 minutos (cada impresora hace su propia figura en 5 minutos)", iqPoints: 20, tribe: { architect: 3, hacker: 2 }, actors: { rdj: 3, bryan: 2, scarlett: 2 } },
@@ -1016,7 +1381,7 @@
                 ]
             },
 
-            // ---------------- ETAPA 2: INGENIERÍA MENTAL Y RESOLUCIÓN (3 PREGUNTAS) ----------------
+            // ---------------- ETAPA 2: ESTILO DE RESOLUCIÓN DE PROBLEMAS (3 PREGUNTAS) ----------------
             {
                 id: 6,
                 stage: 2,
@@ -1057,15 +1422,15 @@
                 ]
             },
 
-            // ---------------- ETAPA 3: RADAR DE HIPERFOCO Y ESPECTRO NEURO-ATÍPICO (4 PREGUNTAS) ----------------
+            // ---------------- ETAPA 3: RADAR DE ENFOQUE Y 5 EJES (4 PREGUNTAS) ----------------
             {
                 id: 9,
                 stage: 3,
-                stageName: "Etapa 3: Radar de Hiperfoco (5 Ejes)",
-                subtitle: "Agujeros de Conejo a las 3:00 AM",
+                stageName: "Etapa 3: Radar Cognitivo (5 Ejes)",
+                subtitle: "Inmersión Profunda a las 3:00 AM",
                 question: "¿Con qué frecuencia te pasa que un tema nuevo te da curiosidad (un juego, misterio, historia o ciencia) y terminas a las 3 AM con 20 pestañas abiertas volviéndote experto?",
                 options: [
-                    { text: "Casi siempre: cuando algo atrapa mi cerebro pierdo la noción del tiempo y hasta se me olvida comer o dormir", iqPoints: 3, tribe: { detective: 2, hacker: 2 }, ndAxes: { hyperfocus: 28, systems: 18 }, actors: { anya: 3, rami: 3, henry: 3 } },
+                    { text: "Casi siempre: cuando algo atrapa mi mente pierdo la noción del tiempo hasta entenderlo por completo", iqPoints: 3, tribe: { detective: 2, hacker: 2 }, ndAxes: { hyperfocus: 28, systems: 18 }, actors: { anya: 3, rami: 3, henry: 3 } },
                     { text: "Seguido: me encanta investigar a fondo el 'lore' o cómo funcionan las cosas detrás de cámaras", iqPoints: 3, tribe: { architect: 2, creative: 2 }, ndAxes: { hyperfocus: 20, patterns: 16 }, actors: { jenna: 2, emma: 2, bryan: 2 } },
                     { text: "A veces, pero solo si el tema me sirve para algo práctico que estoy armando en ese momento", iqPoints: 3, tribe: { strategist: 2 }, ndAxes: { hyperfocus: 12, systems: 14 }, actors: { cillian: 2, rdj: 2, scarlett: 2 } },
                     { text: "Rara vez: prefiero cambiar rápido de actividad y no clavarme horas en un solo tema", iqPoints: 2, tribe: { hacker: 1 }, ndAxes: { hyperfocus: 5, lateral: 12 }, actors: { tom: 2, margot: 2, pedro: 2 } }
@@ -1074,7 +1439,7 @@
             {
                 id: 10,
                 stage: 3,
-                stageName: "Etapa 3: Radar de Hiperfoco (5 Ejes)",
+                stageName: "Etapa 3: Radar Cognitivo (5 Ejes)",
                 subtitle: "Detector de Patrones y Anomalías",
                 question: "Cuando ves una película o serie con amigos, o entras a un lugar nuevo, ¿qué suele hacer tu mente sin que te lo propongas?",
                 options: [
@@ -1087,7 +1452,7 @@
             {
                 id: 11,
                 stage: 3,
-                stageName: "Etapa 3: Radar de Hiperfoco (5 Ejes)",
+                stageName: "Etapa 3: Radar Cognitivo (5 Ejes)",
                 subtitle: "Batería Social y Recarga Mental",
                 question: "Imagina que tenías un compromiso o fiesta con mucha gente hoy en la noche, pero a última hora te avisan que se canceló. ¿Qué sientes de verdad?",
                 options: [
@@ -1100,7 +1465,7 @@
             {
                 id: 12,
                 stage: 3,
-                stageName: "Etapa 3: Radar de Hiperfoco (5 Ejes)",
+                stageName: "Etapa 3: Radar Cognitivo (5 Ejes)",
                 subtitle: "Entorno Sensorial y Comunicación",
                 question: "¿Qué es lo que más rápido te desespera o te saca de quicio en la vida diaria?",
                 options: [
@@ -1111,11 +1476,11 @@
                 ]
             },
 
-            // ---------------- ETAPA 4: PSICOLOGÍA Y MATCH DE ACTORES (3 PREGUNTAS) ----------------
+            // ---------------- ETAPA 4: TEMPERAMENTO Y ARQUETIPOS DE ACTORES (3 PREGUNTAS) ----------------
             {
                 id: 13,
                 stage: 4,
-                stageName: "Etapa 4: Psicología y Match de Actores",
+                stageName: "Etapa 4: Temperamento y Arquetipos",
                 subtitle: "Arquitectura de tu Monólogo Interno",
                 question: "Cuando vas viajando con audífonos mirando por la ventana del carro o transporte, ¿cómo funciona tu mente por dentro?",
                 options: [
@@ -1128,7 +1493,7 @@
             {
                 id: 14,
                 stage: 4,
-                stageName: "Etapa 4: Psicología y Match de Actores",
+                stageName: "Etapa 4: Temperamento y Arquetipos",
                 subtitle: "Estilo de Humor y Defensa Mental",
                 question: "¿Qué tipo de humor describe mejor tu personalidad cuando estás en confianza?",
                 options: [
@@ -1141,7 +1506,7 @@
             {
                 id: 15,
                 stage: 4,
-                stageName: "Etapa 4: Psicología y Match de Actores",
+                stageName: "Etapa 4: Temperamento y Arquetipos",
                 subtitle: "Filosofía Operativa Final",
                 question: "Para cerrar tu perfil: ¿Cuál de estas 4 frases representa mejor tu forma de moverte en el mundo?",
                 options: [
@@ -1157,7 +1522,6 @@
            2. 18 CELEBRITY / ACTOR PROFILES (9 MEN & 9 WOMEN WITH WIKIPEDIA PHOTOS)
            ========================================================================== */
         const ACTOR_PROFILES = {
-            // ---------------- 9 HOMBRES ----------------
             cillian: {
                 id: "cillian",
                 name: "Cillian Murphy",
@@ -1184,9 +1548,9 @@
                 wikiSlug: "Rami_Malek",
                 photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Rami_Malek_in_2015_(2)_(cropped).jpg?width=320",
                 iconicRoles: "Elliot Alderson (Mr. Robot)",
-                tag: "Hiperfoco Profundo y Detector de Anomalías",
+                tag: "Enfoque Profundo y Detector de Anomalías",
                 avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#10b981" fill-opacity="0.2"/><path d="M9 26C9 17 11 10 18 10C25 10 27 17 27 26" stroke="#34d399" stroke-width="2"/><rect x="12" y="15" width="12" height="8" rx="2" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/></svg>`,
-                whyMatch: "Analizas la realidad como si vieras su código fuente. Notas inconsistencias, detalles sensoriales y patrones que el 95% de la gente ignora. Tu batería social es selectiva, pero tu hiperfoco es extraordinario."
+                whyMatch: "Analizas la realidad como si vieras su código fuente. Notas inconsistencias, detalles sensoriales y patrones que la mayoría ignora. Tu batería social es selectiva, pero tu capacidad de concentración es extraordinaria."
             },
             bryan: {
                 id: "bryan",
@@ -1236,7 +1600,7 @@
                 iconicRoles: "Peter Parker (Spider-Man) / Nathan Drake",
                 tag: "Agilidad Improvisadora e Ingenio Rápido",
                 avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#ef4444" fill-opacity="0.2"/><circle cx="18" cy="18" r="9" stroke="#f87171" stroke-width="1.6"/></svg>`,
-                whyMatch: "Tu cerebro tiene reflejos ultrarrápidos: conectas ideas al vuelo, aprendes haciendo y sales de problemas complejos con una mezcla única de inteligencia práctica, energía y carisma natural."
+                whyMatch: "Tu mente tiene reflejos ultrarrápidos: conectas ideas al vuelo, aprendes haciendo y sales de problemas complejos con una mezcla única de inteligencia práctica, energía y carisma natural."
             },
             henry: {
                 id: "henry",
@@ -1244,12 +1608,10 @@
                 wikiSlug: "Henry_Cavill",
                 photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Henry_Cavill_by_Gage_Skidmore_2.jpg?width=320",
                 iconicRoles: "Geralt de Rivia (The Witcher) / Superman",
-                tag: "Hiperfoco Geek, Disciplina y Código de Honor",
+                tag: "Inmersión Geek, Disciplina y Código de Honor",
                 avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#6366f1" fill-opacity="0.2"/><polygon points="18,6 28,13 18,29 8,13" stroke="#a5b4fc" stroke-width="1.8"/></svg>`,
-                whyMatch: "Combinas una presencia serena y reservada con un nivel de hiperfoco legendario en tus pasiones (como armar PCs, dominar estrategias o conocer el lore completo de tus universos favoritos)."
+                whyMatch: "Combinas una presencia serena y reservada con un nivel de enfoque legendario en tus pasiones (como armar PCs, dominar estrategias o conocer el lore completo de tus universos favoritos)."
             },
-
-            // ---------------- 9 MUJERES ----------------
             anya: {
                 id: "anya",
                 name: "Anya Taylor-Joy",
@@ -1258,7 +1620,7 @@
                 iconicRoles: "Beth Harmon (Gambito de Dama) / Furiosa",
                 tag: "Visualización de Patrones y Dominio Técnico",
                 avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#a855f7" fill-opacity="0.2"/><path d="M12 28H24L22 16L25 12L20 13L18 8L16 13L11 12L14 16L12 28Z" stroke="#c084fc" stroke-width="1.8"/></svg>`,
-                whyMatch: "Tu cerebro procesa la realidad proyectando escenarios futuros como en un tablero de ajedrez. Cuando un reto te atrapa, no descansas hasta dominarlo por completo con frialdad analítica e intuición."
+                whyMatch: "Procesas los problemas proyectando escenarios futuros como en un tablero de ajedrez. Cuando un reto te atrapa, no descansas hasta dominarlo por completo con frialdad analítica e intuición."
             },
             jenna: {
                 id: "jenna",
@@ -1266,7 +1628,7 @@
                 wikiSlug: "Jenna_Ortega",
                 photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Jenna_Ortega_2022.jpg?width=320",
                 iconicRoles: "Merlina Addams (Wednesday) / Astrid",
-                tag: "Agudeza Analítica, Humor Negro y Filtro Cero",
+                tag: "Agudeza Analítica, Humor Seco y Filtro Cero",
                 avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#8b5cf6" fill-opacity="0.2"/><path d="M12 10L18 17L24 10" stroke="#e2e8f0" stroke-width="2"/><circle cx="18" cy="23" r="2.5" fill="#c084fc"/></svg>`,
                 whyMatch: "Tienes un detector de hipocresía infalible y una mente independiente que no sigue modas. Prefieres el sarcasmo inteligente antes que fingir sonrisas y cuando investigas algo vas hasta el fondo."
             },
@@ -1286,7 +1648,7 @@
                 wikiSlug: "Margot_Robbie",
                 photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Margot_Robbie_at_the_2024_AACTA_Awards_(cropped).jpg?width=320",
                 iconicRoles: "Harley Quinn / Barbie",
-                tag: "Creatividad Caótica, Carisma y Pensamiento Lateral",
+                tag: "Creatividad Audaz, Carisma y Pensamiento Lateral",
                 avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#ec4899" fill-opacity="0.2"/><polygon points="18,7 26,18 18,29 10,18" stroke="#f472b6" stroke-width="1.8"/></svg>`,
                 whyMatch: "Detrás de tu carisma social hay una mente brillante e impredecible. Encuentras soluciones súper creativas donde todos ven límites y tienes la valentía de romper las reglas tradicionales."
             },
@@ -1308,7 +1670,7 @@
                 iconicRoles: "Eleven (Stranger Things) / Enola Holmes",
                 tag: "Deducción Intuitiva, Determinación y Lealtad",
                 avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#06b6d4" fill-opacity="0.2"/><circle cx="16" cy="16" r="7" stroke="#22d3ee" stroke-width="1.8"/></svg>`,
-                whyMatch: "Combinas la agudeza deductiva de una detective con una fuerza interior enorme. Cuando te propones resolver un misterio o ayudar a tus amigos, nada logra detenerte."
+                whyMatch: "Combinas la agudeza deductiva de una investigadora con una fuerza interior enorme. Cuando te propones resolver un misterio o ayudar a tus amigos, nada logra detenerte."
             },
             sadie: {
                 id: "sadie",
@@ -1336,9 +1698,9 @@
                 wikiSlug: "Elizabeth_Olsen",
                 photoUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Elizabeth_Olsen_by_Gage_Skidmore_2.jpg?width=320",
                 iconicRoles: "Wanda Maximoff (Bruja Escarlata)",
-                tag: "Profundidad Emocional, Intuición y Poder Interno",
+                tag: "Profundidad Emocional, Intuición y Enfoque Interno",
                 avatarSvg: `<svg class="w-10 h-10" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" fill="#e11d48" fill-opacity="0.2"/><path d="M10 24L13 11L18 17L23 11L26 24H10Z" stroke="#f43f5e" stroke-width="1.8"/></svg>`,
-                whyMatch: "Posees un mundo interior sumamente rico e intuitivo. Percibes cambios sutiles en la energía de las personas que otros pasan por alto y cuando enfocas tu mente en un objetivo tu capacidad es imparable."
+                whyMatch: "Posees un mundo interior sumamente rico e intuitivo. Percibes cambios sutiles en la actitud de las personas que otros pasan por alto y cuando enfocas tu mente en un objetivo tu capacidad es imparable."
             }
         };
 
@@ -1431,9 +1793,9 @@
                 name: "Hacker de Pensamiento Lateral",
                 shortSub: "Atajos geniales e improvisación",
                 tag: "Ingenio Rápido • Top 7%",
-                description: "Donde los demás ven una puerta cerrada, tú encuentras una ventana abierta o inventas una llave en 30 segundos. Aprendes tocando botones, probando caminos nuevos y rompiendo la rutina.",
+                description: "Donde los demás ven una puerta cerrada, tú encuentras una ventana abierta o inventas una solución en 30 segundos. Aprendes explorando opciones, probando caminos nuevos y rompiendo la rutina.",
                 strengths: [
-                    "Velocidad brutal para improvisar bajo presión",
+                    "Velocidad notable para improvisar bajo presión",
                     "Capacidad de encontrar atajos inteligentes",
                     "Cero miedo a experimentar con tecnología nueva"
                 ]
@@ -1442,20 +1804,20 @@
                 name: "Detective de Patrones Ocultos",
                 shortSub: "Deducción, verdad y detalle",
                 tag: "Radar Analítico • Top 6%",
-                description: "Tu cerebro es un escáner natural de anomalías. Captas incongruencias en historias, personas o sistemas en cuestión de segundos y no descansas hasta descubrir la verdad detrás de cualquier misterio.",
+                description: "Tu mente opera como un detector natural de anomalías. Captas incongruencias en historias, argumentos o sistemas en cuestión de segundos y no descansas hasta descubrir la causa raíz.",
                 strengths: [
-                    "Detección instantánea de mentiras o errores",
-                    "Hiperfoco profundo cuando investigas un tema",
-                    "Pensamiento crítico inmune a manipulaciones"
+                    "Detección rápida de inconsistencias o errores",
+                    "Enfoque profundo cuando investigas un tema",
+                    "Pensamiento crítico ante información dudosa"
                 ]
             },
             strategist: {
                 name: "Estratega de Sangre Fría",
                 shortSub: "Liderazgo táctico y control",
                 tag: "Mente Táctica • Top 8%",
-                description: "Mientras otros entran en pánico cuando falta poco tiempo, tu mente se enfría y calcula el camino más directo a la meta. Sabes organizar equipos, leer intenciones y tomar decisiones difíciles.",
+                description: "Mientras otros entran en pánico cuando falta poco tiempo, tu mente calcula el camino más directo a la meta. Sabes organizar equipos, leer intenciones y tomar decisiones difíciles.",
                 strengths: [
-                    "Calma total en momentos de caos o urgencia",
+                    "Calma operativa en momentos de urgencia",
                     "Habilidad para coordinar personas y tiempos",
                     "Lectura estratégica de tres jugadas adelante"
                 ]
@@ -1464,17 +1826,17 @@
                 name: "Visionario Creativo Rebelde",
                 shortSub: "Originalidad e intuición pura",
                 tag: "Mente Divergente • Top 10%",
-                description: "Tu mente conecta ideas que parecen no tener relación para crear cosas únicas. Tienes una sensibilidad especial para la música, la estética, el humor y las soluciones fuera de la caja.",
+                description: "Conectas ideas que parecen no tener relación para crear propuestas únicas. Tienes una sensibilidad especial para la música, la estética, el humor y las soluciones fuera de lo común.",
                 strengths: [
-                    "Imaginación cinematográfica y originalidad",
-                    "Autenticidad total sin seguir al rebaño",
-                    "Conexión intuitiva con el arte y las ideas"
+                    "Imaginación narrativa y originalidad",
+                    "Autenticidad sin seguir modas pasajeras",
+                    "Conexión intuitiva con el diseño y las ideas"
                 ]
             }
         };
 
         /* ==========================================================================
-           4. QUIZ STATE & TIMERS
+           4. QUIZ STATE, NAVIGATION & TIMERS
            ========================================================================== */
         let currentUserName = "";
         let currentQuestionIndex = 0;
@@ -1483,6 +1845,22 @@
         let questionTimerInterval = null;
         let lockedQuestionTimeSec = null;
         let lastComputedReport = null;
+
+        function navigateToSection(sectionId) {
+            stopQuestionTimer();
+            clearScannerTimeouts();
+            document.getElementById('quizView').classList.add('hidden');
+            document.getElementById('responseAnalyzerView').classList.add('hidden');
+            document.getElementById('resultsView').classList.add('hidden');
+            document.getElementById('landingView').classList.remove('hidden');
+
+            const targetEl = document.getElementById(sectionId);
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
 
         function clearNameRequirementError() {
             const wrapper = document.getElementById('userNameInputWrapper');
@@ -1519,7 +1897,7 @@
 
             document.getElementById('landingView').classList.add('hidden');
             document.getElementById('resultsView').classList.add('hidden');
-            document.getElementById('biometricScannerView').classList.add('hidden');
+            document.getElementById('responseAnalyzerView').classList.add('hidden');
             document.getElementById('quizView').classList.remove('hidden');
 
             renderCurrentQuestion();
@@ -1652,7 +2030,7 @@
                 const reportData = computePsychometricReport();
                 lastComputedReport = reportData;
                 saveResultToLocalHistory(reportData);
-                runBiometricScannerSequence();
+                runResponseAnalyzerSequence();
             }
         }
 
@@ -1665,7 +2043,7 @@
         }
 
         /* ==========================================================================
-           5. PSYCHOMETRIC SCORING ENGINE (IQ + 5-AXIS RADAR + TRIBE + 18 ACTORS)
+           5. ALGORITHMIC SCORING ENGINE (EXACT FORMULA DOCUMENTED IN #metodologia)
            ========================================================================== */
         function computePsychometricReport() {
             let rawIqPoints = 0;
@@ -1712,23 +2090,23 @@
                 }
             });
 
-            // Calculate final IQ (Range 92 to 146)
+            // Calculate final recreational index (Range 92 to 146)
             const estimatedIQ = Math.min(146, Math.max(92, Math.round(84 + rawIqPoints * 0.42)));
             const avgSpeedSec = (totalStage1Time / 5).toFixed(1);
 
             // Percentile estimation
             let percentileText = "Top 25%";
-            if (estimatedIQ >= 138) percentileText = "Top 1% Superior";
+            if (estimatedIQ >= 138) percentileText = "Top 1% Recreativo";
             else if (estimatedIQ >= 130) percentileText = "Top 2% Muy Alto";
             else if (estimatedIQ >= 122) percentileText = "Top 6% Destacado";
             else if (estimatedIQ >= 115) percentileText = "Top 14% Arriba de la Media";
             else if (estimatedIQ >= 108) percentileText = "Top 25% Ágil";
             else percentileText = "Media Sólida";
 
-            // Normalize 5-Axis Hyperfocus Radar (26% - 98%)
+            // Normalize 5-Axis Focus Radar (26% - 98%)
             const clampPct = (v) => Math.min(98, Math.max(26, Math.round(v)));
             const axes5 = [
-                { key: 'hyperfocus', label: 'Hiperfoco Profundo (3 AM)', value: clampPct(ndRaw.hyperfocus * 1.15), color: '#22d3ee' },
+                { key: 'hyperfocus', label: 'Enfoque Profundo (3 AM)', value: clampPct(ndRaw.hyperfocus * 1.15), color: '#22d3ee' },
                 { key: 'patterns', label: 'Detección de Patrones', value: clampPct(ndRaw.patterns * 1.15), color: '#a855f7' },
                 { key: 'systems', label: 'Sistematización Lógica', value: clampPct(ndRaw.systems * 1.15), color: '#10b981' },
                 { key: 'social', label: 'Selectividad Social', value: clampPct(ndRaw.social * 1.2), color: '#f59e0b' },
@@ -1736,10 +2114,10 @@
             ];
 
             const overallNdPct = Math.round(axes5.reduce((acc, item) => acc + item.value, 0) / axes5.length);
-            let ndCategory = "Mente Equilibrada";
-            if (overallNdPct >= 78) ndCategory = "Hiperfoco Neuro-Atípico Alto";
-            else if (overallNdPct >= 62) ndCategory = "Rasgos de Hiperfoco Marcados";
-            else ndCategory = "Procesamiento Neuro-Típico Ágil";
+            let ndCategory = "Atención Equilibrada";
+            if (overallNdPct >= 78) ndCategory = "Inmersión y Enfoque Profundo Alto";
+            else if (overallNdPct >= 62) ndCategory = "Rasgos de Enfoque Analítico Marcados";
+            else ndCategory = "Procesamiento Simultáneo Equilibrado";
 
             // Dominant Problem Solving Tribe
             let topTribeKey = 'architect';
@@ -1782,7 +2160,7 @@
         }
 
         /* ==========================================================================
-           6. BIOMETRIC SCANNER SEQUENCE ([OK] STEPS + AUTO-JUMP TO RESULTS)
+           6. LIVE ALGORITHMIC ANALYZER SEQUENCE ([OK] STEPS + AUTO-JUMP TO RESULTS)
            ========================================================================== */
         let scannerTimeouts = [];
 
@@ -1791,13 +2169,13 @@
             scannerTimeouts = [];
         }
 
-        function runBiometricScannerSequence() {
+        function runResponseAnalyzerSequence() {
             clearScannerTimeouts();
 
             document.getElementById('landingView').classList.add('hidden');
             document.getElementById('quizView').classList.add('hidden');
             document.getElementById('resultsView').classList.add('hidden');
-            document.getElementById('biometricScannerView').classList.remove('hidden');
+            document.getElementById('responseAnalyzerView').classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             const logBox = document.getElementById('terminalLogBox');
@@ -1810,9 +2188,9 @@
             logBox.innerHTML = '';
             pctText.textContent = '0%';
             progBar.style.width = '0%';
-            heading.textContent = `Escaneando respuestas de ${lastComputedReport.userName}...`;
-            hint.textContent = 'Abriendo resultados automáticamente al completar el escaneo...';
-            icon.className = 'ph-duotone ph-brain text-3xl text-cyan-400 animate-pulse';
+            heading.textContent = `Procesando respuestas de ${lastComputedReport.userName}...`;
+            hint.textContent = 'Abriendo tu reporte de resultados automáticamente al llegar al 100%...';
+            icon.className = 'ph-duotone ph-cpu text-3xl text-cyan-400 animate-pulse';
 
             const scanSteps = [
                 {
@@ -1823,27 +2201,27 @@
                 {
                     pct: 38,
                     delay: 800,
-                    text: `[OK] Calculando percentil de IQ y velocidad de procesamiento (${lastComputedReport.avgSpeedSec}s)...`
+                    text: `[OK] Aplicando fórmula de agilidad lógica y bono de velocidad (${lastComputedReport.avgSpeedSec}s)...`
                 },
                 {
                     pct: 60,
                     delay: 1350,
-                    text: `[OK] Trazando radar neuro-cognitivo de 5 ejes e hiperfoco (${lastComputedReport.overallNdPct}%)...`
+                    text: `[OK] Trazando polígono de 5 ejes de atención y enfoque (${lastComputedReport.overallNdPct}%)...`
                 },
                 {
                     pct: 82,
                     delay: 1900,
-                    text: `[OK] Cruzando perfil psicológico con base de 18 actores y actrices...`
+                    text: `[OK] Comparando vectores con 18 arquetipos de actores y personajes...`
                 },
                 {
                     pct: 95,
                     delay: 2450,
-                    text: `[OK] Generando certificado neuro-psicométrico verificado (#${lastComputedReport.certId})...`
+                    text: `[OK] Maquetando reporte recreativo personalizado (#${lastComputedReport.certId})...`
                 },
                 {
                     pct: 100,
                     delay: 2950,
-                    text: `[OK] Análisis completado al 100%. Abriendo resultados...`,
+                    text: `[OK] Cálculo completado al 100%. Abriendo resultados...`,
                     highlight: true
                 }
             ];
@@ -1862,9 +2240,9 @@
                     logBox.appendChild(row);
 
                     if (step.highlight) {
-                        heading.textContent = '¡Escaneo Completado al 100%!';
+                        heading.textContent = '¡Análisis Completado al 100%!';
                         hint.textContent = 'Mostrando tu reporte completo ahora mismo...';
-                        icon.className = 'ph-fill ph-seal-check text-3xl text-emerald-400';
+                        icon.className = 'ph-fill ph-check-circle text-3xl text-emerald-400';
                     }
                 }, step.delay);
                 scannerTimeouts.push(tId);
@@ -1880,7 +2258,7 @@
         function renderResultsAndShow() {
             if (!lastComputedReport) return;
             clearScannerTimeouts();
-            document.getElementById('biometricScannerView').classList.add('hidden');
+            document.getElementById('responseAnalyzerView').classList.add('hidden');
             document.getElementById('resultsView').classList.remove('hidden');
             renderResultsDashboard(lastComputedReport);
             refreshDOMActorPhotos();
@@ -1893,12 +2271,12 @@
         function renderResultsDashboard(data) {
             document.getElementById('certIdSpan').textContent = data.certId;
             document.getElementById('resultUserName').textContent = data.userName;
-            document.getElementById('resultTimestamp').textContent = `Emitido el ${data.timestamp} • Verificación psicométrica interactiva`;
+            document.getElementById('resultTimestamp').textContent = `Generado el ${data.timestamp} • Reporte recreativo basado en 15 retos interactivos`;
 
             // Top 4 KPIs
             document.getElementById('kpiIqScore').textContent = data.iq;
             document.getElementById('kpiIqPercentile').textContent = data.percentile;
-            document.getElementById('kpiSpeedNote').textContent = `Velocidad lógica: ${data.avgSpeedSec}s/reto`;
+            document.getElementById('kpiSpeedNote').textContent = `Promedio Etapa 1: ${data.avgSpeedSec}s/reto`;
 
             document.getElementById('kpiNdScore').textContent = `${data.overallNdPct}%`;
             document.getElementById('kpiNdLabel').textContent = data.overallNdPct >= 75 ? 'Alto' : (data.overallNdPct >= 60 ? 'Moderado-Alto' : 'Equilibrado');
@@ -1910,14 +2288,21 @@
             document.getElementById('kpiTopActorName').textContent = topActor.name;
             document.getElementById('kpiTopActorRole').textContent = `${topActor.matchPct}% afinidad • ${topActor.iconicRoles.split('/')[0]}`;
 
-            // Card 1: Gaussian IQ Curve SVG
-            document.getElementById('gaussBadge').textContent = `IQ ${data.iq} (${data.percentile})`;
+            // Update WhatsApp Share Links cleanly without window.open
+            const shareHref = `https://api.whatsapp.com/send?text=${encodeURIComponent(buildViralShareText())}`;
+            const waTop = document.getElementById('whatsappShareAnchor');
+            const waBot = document.getElementById('whatsappShareAnchorBottom');
+            if (waTop) waTop.href = shareHref;
+            if (waBot) waBot.href = shareHref;
+
+            // Card 1: Gaussian Curve SVG
+            document.getElementById('gaussBadge').textContent = `Índice ${data.iq} (${data.percentile})`;
             renderGaussianCurveSVG(data.iq);
             document.getElementById('iqDetailedExplanation').innerHTML =
-                `Con un puntaje estimado de <strong class="text-cyan-300 font-mono">${data.iq} puntos</strong> y un tiempo de respuesta de <strong class="text-white font-mono">${data.avgSpeedSec}s</strong> en la etapa de agilidad lógica, tu mente destaca detectando secuencias visuales, filtrando trampas capciosas y conectando patrones sin caer en respuestas impulsivas.`;
+                `Con un índice recreativo de <strong class="text-cyan-300 font-mono">${data.iq} puntos</strong> y un tiempo promedio de <strong class="text-white font-mono">${data.avgSpeedSec}s</strong> en los retos de agilidad visual, tu perfil muestra solidez identificando secuencias espaciales, filtrando acertijos capciosos y deduciendo patrones lógicos.`;
 
             // Card 2: 5-Axis Radar SVG & Bars
-            document.getElementById('radarBadge').textContent = `${data.overallNdPct}% Índice`;
+            document.getElementById('radarBadge').textContent = `${data.overallNdPct}% Promedio`;
             renderRadarPolygonSVG(data.axes5);
             const axesListEl = document.getElementById('radarAxesList');
             axesListEl.innerHTML = data.axes5.map(ax => `
@@ -1933,12 +2318,12 @@
             `).join('');
 
             document.getElementById('ndDetailedExplanation').innerHTML =
-                `Clasificación del espectro: <strong class="text-purple-300">${data.ndCategory}</strong>. Este gráfico mide qué tanto tu cerebro entra en estados de hiperfoco intenso (investigando temas a las 3 AM), tu sensibilidad para notar detalles que otros pasan por alto y cómo administras tu batería social.`;
+                `Tendencia recreativa observada: <strong class="text-purple-300">${data.ndCategory}</strong>. Este gráfico resume tu inclinación hacia la inmersión temática profunda, la detección de detalles sutiles y tu estilo de gestión de energía social.`;
 
-            // Card 3: Top 4 Celebrity Matches (Strictly sized avatars + clean fallback)
+            // Card 3: Top 4 Celebrity Matches
             const celebGrid = document.getElementById('celebrityMatchesGrid');
             celebGrid.innerHTML = data.top4Actors.map((actor, index) => {
-                const rankBadge = index === 0 ? "★ MATCH #1 PRINCIPAL" : `MATCH #${index + 1} COMPATIBILIDAD`;
+                const rankBadge = index === 0 ? "★ ARQUETIPO AFÍN #1" : `COMPATIBILIDAD #${index + 1}`;
                 const borderClass = index === 0 ? "border-cyan-500/60 bg-slate-900/95 shadow-lg shadow-cyan-500/10" : "border-slate-800 bg-slate-950/75";
                 const profileObj = ACTOR_PROFILES[actor.id] || ACTOR_PROFILES.cillian;
 
@@ -1975,7 +2360,7 @@
                                     <h4 class="text-lg font-extrabold text-white leading-tight truncate">${profileObj.name}</h4>
                                     <p class="text-xs text-amber-400 font-medium mt-0.5">${profileObj.iconicRoles}</p>
                                     <span class="inline-flex items-center gap-1 text-[10px] font-mono text-slate-400 mt-1">
-                                        <i class="ph-fill ph-camera text-cyan-400"></i> Arquetipo verificado
+                                        <i class="ph-fill ph-film-slate text-cyan-400"></i> Arquetipo cultural comparado
                                     </span>
                                 </div>
                             </div>
@@ -2024,11 +2409,11 @@
                     <line x1="20" y1="115" x2="340" y2="115" stroke="#334155" stroke-width="1.5"/>
                     <line x1="180" y1="33" x2="180" y2="115" stroke="#475569" stroke-width="1" stroke-dasharray="3 3"/>
 
-                    <!-- User IQ Marker -->
+                    <!-- User Score Marker -->
                     <line x1="${markerX}" y1="18" x2="${markerX}" y2="115" stroke="#fbbf24" stroke-width="2" stroke-dasharray="3 2"/>
                     <circle cx="${markerX}" cy="${markerY}" r="5.5" fill="#fbbf24" stroke="#0f172a" stroke-width="2"/>
-                    <rect x="${Math.min(295, Math.max(25, markerX - 28))}" y="4" width="56" height="18" rx="5" fill="#fbbf24"/>
-                    <text x="${Math.min(323, Math.max(53, markerX))}" y="16" text-anchor="middle" fill="#0f172a" font-size="10" font-weight="bold" font-family="monospace">IQ ${iqScore}</text>
+                    <rect x="${Math.min(290, Math.max(20, markerX - 32))}" y="4" width="64" height="18" rx="5" fill="#fbbf24"/>
+                    <text x="${Math.min(322, Math.max(52, markerX))}" y="16" text-anchor="middle" fill="#0f172a" font-size="10" font-weight="bold" font-family="monospace">ÍNDICE ${iqScore}</text>
 
                     <!-- Scale Labels -->
                     <text x="60" y="130" text-anchor="middle" fill="#64748b" font-size="9" font-family="monospace">85</text>
@@ -2079,7 +2464,7 @@
         }
 
         /* ==========================================================================
-           8. DEMO GENERATOR, WHATSAPP VIRAL SHARE & CLIPBOARD
+           8. DEMO GENERATOR, WHATSAPP SHARE TEXT & CLIPBOARD
            ========================================================================== */
         function runInstantDemo() {
             const validName = validateMandatoryName();
@@ -2092,25 +2477,19 @@
             }));
             lastComputedReport = computePsychometricReport();
             saveResultToLocalHistory(lastComputedReport);
-            runBiometricScannerSequence();
+            runResponseAnalyzerSequence();
         }
 
         function buildViralShareText() {
             if (!lastComputedReport) return "";
             const topAct = lastComputedReport.top4Actors[0];
-            return `🧠 *Mi Certificado en MindMetrics AI*\n` +
+            return `🧠 *Mi Reporte Recreativo en MindMetrics AI*\n` +
                    `👤 Nombre: *${lastComputedReport.userName}*\n` +
-                   `⚡ IQ Estimado: *${lastComputedReport.iq}* (${lastComputedReport.percentile})\n` +
-                   `🎯 Radar Hiperfoco: *${lastComputedReport.overallNdPct}%*\n` +
-                   `🛠️ Tribu Mental: *${lastComputedReport.tribe.name}*\n` +
-                   `🎬 Actor Compatible #1: *${topAct.name}* (${topAct.matchPct}%)\n\n` +
-                   `¿Cuánto sacas tú? Haz el test gratis aquí: ${window.location.href}`;
-        }
-
-        function shareOnWhatsApp() {
-            const text = buildViralShareText();
-            const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank', 'noopener,noreferrer');
+                   `⚡ Índice de Agilidad Lógica: *${lastComputedReport.iq}* (${lastComputedReport.percentile})\n` +
+                   `🎯 Radar de Enfoque (5 Ejes): *${lastComputedReport.overallNdPct}%*\n` +
+                   `🛠️ Tribu de Resolución: *${lastComputedReport.tribe.name}*\n` +
+                   `🎬 Arquetipo Afín #1: *${topAct.name}* (${topAct.matchPct}%)\n\n` +
+                   `Descubre tu perfil gratis en MindMetrics AI`;
         }
 
         function copySummaryToClipboard() {
@@ -2121,7 +2500,7 @@
             tempArea.select();
             try {
                 document.execCommand('copy');
-                showToast("¡Resumen copiado para WhatsApp o Discord!");
+                showToast("¡Resumen copiado al portapapeles!");
             } catch (e) {
                 showToast("No se pudo copiar automáticamente");
             }
@@ -2141,7 +2520,7 @@
             stopQuestionTimer();
             clearScannerTimeouts();
             document.getElementById('quizView').classList.add('hidden');
-            document.getElementById('biometricScannerView').classList.add('hidden');
+            document.getElementById('responseAnalyzerView').classList.add('hidden');
             document.getElementById('resultsView').classList.add('hidden');
             document.getElementById('landingView').classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2179,7 +2558,7 @@
                 const adminBar = document.getElementById('secretAdminBar');
                 adminBar.classList.remove('hidden');
                 if (!demoAdsVisible) toggleDemoAds();
-                showToast("Panel de Diagnóstico Activado");
+                showToast("Panel de Diagnóstico de Maquetación Activado");
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
@@ -2201,7 +2580,7 @@
                 }
             });
             checkActiveAds();
-            showToast(demoAdsVisible ? "Contenedores responsivos visibles" : "Contenedores vacíos ocultos");
+            showToast(demoAdsVisible ? "Contenedores adaptables visibles" : "Contenedores vacíos ocultos");
         }
 
         function saveResultToLocalHistory(report) {
@@ -2256,7 +2635,7 @@
             } catch (e) {}
 
             if (list.length === 0) {
-                container.innerHTML = `<div class="text-center py-8 text-xs text-slate-400">Aún no tienes certificados recientes en este navegador.</div>`;
+                container.innerHTML = `<div class="text-center py-8 text-xs text-slate-400">Aún no tienes reportes guardados en este navegador.</div>`;
                 return;
             }
 
@@ -2268,12 +2647,12 @@
                             <span class="text-[10px] font-mono text-slate-400">${item.timestamp}</span>
                         </div>
                         <p class="text-xs text-slate-300 mt-0.5">
-                            Tribu: <span class="text-emerald-400 font-medium">${item.tribeName}</span> • Match: <span class="text-amber-400 font-medium">${item.topActor}</span>
+                            Tribu: <span class="text-emerald-400 font-medium">${item.tribeName}</span> • Arquetipo: <span class="text-amber-400 font-medium">${item.topActor}</span>
                         </p>
                     </div>
                     <div class="text-right shrink-0">
-                        <span class="text-sm font-mono font-black text-cyan-400 block">IQ ${item.iq}</span>
-                        <span class="text-[10px] font-mono text-purple-300">ND ${item.overallNdPct}%</span>
+                        <span class="text-sm font-mono font-black text-cyan-400 block">Índice ${item.iq}</span>
+                        <span class="text-[10px] font-mono text-purple-300">Enfoque ${item.overallNdPct}%</span>
                     </div>
                 </div>
             `).join('');
@@ -2288,23 +2667,31 @@
         }
 
         /* ==========================================================================
-           10. COOKIE CONSENT & GOOGLE ADSENSE COMPLIANT LEGAL MODALS
+           10. COOKIE CONSENT (ACCEPT ALL / REJECT NON-ESSENTIAL) & LEGAL MODAL
            ========================================================================== */
-        const COOKIE_KEY = 'mindmetrics_cookie_accepted_v1';
+        const COOKIE_PREF_KEY = 'mindmetrics_cookie_choice_v2';
 
         function initCookieState() {
             try {
-                if (!localStorage.getItem(COOKIE_KEY)) {
+                if (!localStorage.getItem(COOKIE_PREF_KEY)) {
                     document.getElementById('cookieConsentBanner').classList.remove('hidden');
                 }
             } catch (e) {}
         }
 
-        function acceptCookies() {
+        function setCookiePreference(choice) {
             try {
-                localStorage.setItem(COOKIE_KEY, '1');
+                localStorage.setItem(COOKIE_PREF_KEY, choice);
             } catch (e) {}
             document.getElementById('cookieConsentBanner').classList.add('hidden');
+            showToast(choice === 'all' ? "Preferencia guardada: Todas las cookies aceptadas" : "Preferencia guardada: Solo cookies esenciales activas");
+        }
+
+        function resetCookieConsent() {
+            try {
+                localStorage.removeItem(COOKIE_PREF_KEY);
+            } catch (e) {}
+            document.getElementById('cookieConsentBanner').classList.remove('hidden');
         }
 
         function openLegalModal(type) {
@@ -2313,32 +2700,17 @@
             const body = document.getElementById('legalModalBody');
 
             if (type === 'privacy') {
-                title.textContent = "Política de Privacidad y Uso de Cookies (Cumplimiento Google AdSense)";
-                body.innerHTML = `
-                    <p><strong>1. Uso General de Cookies:</strong> MindMetrics AI utiliza cookies propias y de terceros para optimizar la experiencia interactiva del usuario, analizar métricas de rendimiento del sitio y ofrecer contenido publicitario relevante.</p>
-                    <p><strong>2. Cookies de Publicidad de Google AdSense (DoubleClick DART):</strong> Los proveedores terceros, incluido Google, utilizan cookies para mostrar anuncios relevantes en función de las visitas anteriores de un usuario a este sitio web o a otros sitios de Internet.</p>
-                    <p><strong>3. Opciones de Inhabilitación y Control del Usuario:</strong> Gracias al uso de cookies publicitarias, Google y sus socios pueden adaptar los anuncios mostrados. Los usuarios pueden inhabilitar el uso de la publicidad personalizada en cualquier momento visitando directamente la página oficial de <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">Configuración de Anuncios de Google (adssettings.google.com)</a> o gestionando los permisos desde la configuración de su navegador.</p>
-                    <p><strong>4. Procesamiento de Respuestas:</strong> Las respuestas seleccionadas durante el test se procesan en tiempo real dentro del navegador únicamente con el propósito de calcular tu certificado interactivo.</p>
-                `;
+                title.textContent = "Política de Privacidad y Uso de Cookies";
+                body.innerHTML = document.getElementById('doc-privacidad').innerHTML;
             } else if (type === 'terms') {
                 title.textContent = "Términos y Condiciones de Uso";
-                body.innerHTML = `
-                    <p><strong>1. Naturaleza del Servicio:</strong> MindMetrics AI es una plataforma web interactiva de acceso público y gratuito dedicada a la divulgación recreativa de conceptos de lógica, estilos de resolución de problemas y arquetipos culturales.</p>
-                    <p><strong>2. Uso Aceptable:</strong> El contenido, los gráficos vectoriales dinámicos y la guía metodológica están disponibles para uso personal y recreativo. Queda prohibida la reproducción automatizada con fines de spam.</p>
-                    <p><strong>3. Atribución Fotográfica:</strong> Los retratos de figuras públicas mostrados en la sección de arquetipos se consultan en tiempo real mediante la API pública de Wikipedia / Wikimedia Commons bajo sus respectivas licencias abiertas.</p>
-                `;
+                body.innerHTML = document.getElementById('doc-terminos').innerHTML;
             } else if (type === 'disclaimer') {
-                title.textContent = "Aviso Importante: Entretenimiento Psicométrico No-Médico";
-                body.innerHTML = `
-                    <p><strong>Exención de Responsabilidad Clínica:</strong> Las pruebas, puntajes de IQ estimado, gráficas de Campana de Gauss y el radar de 5 ejes de hiperfoco proporcionados en MindMetrics AI tienen un propósito estrictamente recreativo, educativo y de entretenimiento.</p>
-                    <p><strong>No sustituye atención profesional:</strong> Ningún resultado generado por esta plataforma constituye un diagnóstico psicológico, psiquiátrico, neuropsicológico ni médico oficial. Si buscas una evaluación clínica certificada, acude siempre con un profesional de la salud mental acreditado.</p>
-                `;
+                title.textContent = "Aviso Importante: Alcance Recreativo y No-Médico";
+                body.innerHTML = document.getElementById('doc-aviso-no-medico').innerHTML;
             } else if (type === 'editorial') {
                 title.textContent = "Contacto Editorial y Transparencia";
-                body.innerHTML = `
-                    <p><strong>Sobre MindMetrics AI:</strong> Somos un proyecto independiente enfocado en el desarrollo de experiencias interactivas de agilidad mental, visualización estadística y divulgación de psicometría recreativa en español.</p>
-                    <p><strong>Integración con Google AdSense:</strong> Este sitio mantiene ocultos todos los contenedores publicitarios mientras se encuentra en revisión o sin anuncios activos, garantizando una experiencia limpia, responsiva y libre de elementos intrusivos tanto en teléfonos móviles como en computadoras de escritorio.</p>
-                `;
+                body.innerHTML = document.getElementById('doc-contacto').innerHTML;
             }
 
             modal.classList.remove('hidden');
@@ -2354,13 +2726,6 @@
             initCookieState();
             initActorRealPhotos();
             checkActiveAds();
-            setInterval(() => {
-                const counterEl = document.getElementById('liveTestsCount');
-                if (counterEl) {
-                    const currentVal = parseInt(counterEl.textContent.replace(/,/g, ''), 10) || 148920;
-                    counterEl.textContent = (currentVal + Math.floor(Math.random() * 2) + 1).toLocaleString('en-US');
-                }
-            }, 6500);
         });
     </script>
 </body>
